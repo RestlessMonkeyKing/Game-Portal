@@ -3,533 +3,532 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamePortal | Ultimate Unblocked Gaming</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>GamePortal - Unblocked Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
+        :root {
+            --primary: #6C5CE7; /* Default primary color (Amethyst) */
+            --secondary: #8A7CFB; /* Lighter primary for gradients */
+
+            /* Default animation/transition speeds */
+            --transition-speed: 0.3s;
+            --animation-speed: 0.8s; /* Base for fadeIn, slideIn */
+            --overlay-speed: 0.8s; /* For theme change overlay */
+            --game-loading-speed: 0.8s; /* For game loading overlay */
+            --game-card-stagger: 0.1s; /* For staggered game card animation */
+
+
+            /* Dark Theme */
+            --dark-bg: #1A1A2E;
+            --dark-card: #202038;
+            --dark-card-hover: #2B2B47;
+            --dark-text: #E0E0E0;
+            --dark-subtext: #B0B0B0;
+            --dark-border: #3A3A5A;
+            --dark-shadow: rgba(0, 0, 0, 0.4);
+            --dark-glass-bg: rgba(32, 32, 56, 0.7);
+            --dark-glass-border: rgba(58, 58, 90, 0.6);
+            
+            /* Light Theme */
+            --light-bg: #F0F2F5;
+            --light-card: #FFFFFF;
+            --light-card-hover: #F0F0F0;
+            --light-text: #333333;
+            --light-subtext: #666666;
+            --light-border: #D0D0D0;
+            --light-shadow: rgba(0, 0, 0, 0.1);
+            --light-glass-bg: rgba(255, 255, 255, 0.7);
+            --light-glass-border: rgba(208, 208, 208, 0.6);
+
+            /* Cyberpunk Theme */
+            --cyberpunk-bg: #0A0A0A;
+            --cyberpunk-card: #1A1A1A;
+            --cyberpunk-text: #00FFFF; /* Neon Blue */
+            --cyberpunk-primary: #FF00FF; /* Neon Pink */
+            --cyberpunk-secondary: #00FF00; /* Neon Green */
+            --cyberpunk-border: #333333;
+            --cyberpunk-shadow: rgba(255, 0, 255, 0.3);
+            --cyberpunk-glass-bg: rgba(26, 26, 26, 0.8);
+            --cyberpunk-glass-border: rgba(51, 51, 51, 0.6);
+
+            /* Retro Theme */
+            --retro-bg: #222222;
+            --retro-card: #3A3A3A;
+            --retro-text: #FFD700; /* Gold */
+            --retro-primary: #FF4500; /* OrangeRed */
+            --retro-secondary: #ADFF2F; /* GreenYellow */
+            --retro-border: #666666;
+            --retro-shadow: rgba(255, 69, 0, 0.3);
+            --retro-glass-bg: rgba(58, 58, 58, 0.7);
+            --retro-glass-border: rgba(102, 102, 102, 0.6);
+
+            /* Sunset Theme */
+            --sunset-bg: #2C0E3A; /* Deep Purple */
+            --sunset-card: #4A1E5C;
+            --sunset-text: #FFDAB9; /* PeachPuff */
+            --sunset-primary: #FF7F50; /* Coral */
+            --sunset-secondary: #FFC0CB; /* Pink */
+            --sunset-border: #6A2D7C;
+            --sunset-shadow: rgba(255, 127, 80, 0.4);
+            --sunset-glass-bg: rgba(74, 30, 92, 0.7);
+            --sunset-glass-border: rgba(106, 45, 124, 0.6);
+
+            /* Neomorphism Theme */
+            --neo-bg: #E0E5EC;
+            --neo-card: #E0E5EC;
+            --neo-text: #333333;
+            --neo-primary: #6C5CE7;
+            --neo-secondary: #8A7CFB;
+            --neo-border: transparent; /* Handled by shadows */
+            --neo-shadow-light: #FFFFFF;
+            --neo-shadow-dark: #A7AACC;
+            
+            /* Glassmorphism Theme (Updated) */
+            --glass-base-bg: linear-gradient(135deg, #1A1A2E 0%, #3A3A5A 100%); /* Base background for blur */
+            --glass-card-bg: rgba(255, 255, 255, 0.1); /* Translucent white for cards */
+            --glass-text: #E0E0E0; /* Light text for readability */
+            --glass-subtext: #B0B0B0;
+            --glass-primary: #50E3C2; /* Teal accent */
+            --glass-secondary: #6AFFEE; /* Lighter Teal */
+            --glass-border: rgba(255, 255, 255, 0.2); /* Subtle white border */
+            --glass-shadow: rgba(0, 0, 0, 0.3); /* Darker shadow */
+
+            --text: var(--dark-text);
+            --bg: var(--dark-bg);
+            --card: var(--dark-card);
+            --card-hover: var(--dark-card-hover);
+            --card-border: var(--dark-border);
+            --shadow: var(--dark-shadow);
+            --glass-bg: var(--dark-glass-bg);
+            --glass-border: var(--dark-glass-border);
+        }
+
+        /* Performance Mode adjustments */
+        body.performance-mode {
+            --transition-speed: 0.15s; /* Halved */
+            --animation-speed: 0.4s; /* Halved */
+            --overlay-speed: 0.4s;
+            --game-loading-speed: 0.4s;
+            --game-card-stagger: 0.05s; /* Halved */
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --dark: #121212;
-            --darker: #0a0a0a;
-            --light: #f5f6fa;
-            --card: #1e1e2e;
-            --text: #ffffff;
-            --bg-gradient: linear-gradient(135deg, var(--darker), var(--dark));
-            --card-border: rgba(108, 92, 231, 0.2);
-            --shadow: 0 10px 30px rgba(0,0,0,0.3);
-            --glass-bg: rgba(30, 30, 46, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --blur: blur(10px);
-            --transition-speed: 0.8s; /* Increased transition speed */
-            --rainbow-active: 0;
-        }
-
-        body {
-            background: var(--bg-gradient);
+            background-color: var(--bg);
             color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-            transition: background var(--transition-speed) ease;
-            position: relative;
-        }
-
-        /* Light theme */
-        body.light-theme {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --dark: #f0f2f5;
-            --darker: #e1e5eb;
-            --light: #121212;
-            --card: #ffffff;
-            --text: #2d3436;
-            --bg-gradient: linear-gradient(135deg, var(--darker), var(--dark));
-            --card-border: rgba(108, 92, 231, 0.1);
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(0, 0, 0, 0.05);
-            --blur: blur(12px);
-        }
-
-        /* Neomorphism theme */
-        body.neomorphism-theme {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --dark: #e0e5ec;
-            --darker: #d1d9e6;
-            --light: #121212;
-            --card: #e0e5ec;
-            --text: #2d3436;
-            --bg-gradient: linear-gradient(145deg, #caced4, #f0f5fd);
-            --card-border: transparent;
-            --shadow: 9px 9px 16px rgba(163,177,198,0.6), 
-                      -9px -9px 16px rgba(255,255,255,0.5);
-            --glass-bg: rgba(224, 229, 236, 0.7);
-            --glass-border: transparent;
-            --blur: blur(10px);
-        }
-
-        /* Glass theme */
-        body.glass-theme {
-            --primary: rgba(108, 92, 231, 0.8);
-            --secondary: rgba(162, 155, 254, 0.8);
-            --dark: rgba(18, 18, 18, 0.2);
-            --darker: rgba(10, 10, 10, 0.3);
-            --light: rgba(245, 246, 250, 0.9);
-            --card: rgba(30, 30, 46, 0.25);
-            --text: rgba(245, 246, 250, 0.9);
-            --bg-gradient: linear-gradient(135deg, var(--darker), var(--dark));
-            --card-border: rgba(255, 255, 255, 0.1);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            --glass-bg: rgba(30, 30, 46, 0.3);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --blur: blur(12px);
-        }
-
-        /* NEW THEMES */
-        /* Cyberpunk theme */
-        body.cyberpunk-theme {
-            --primary: #ff00ff;
-            --secondary: #00ffff;
-            --dark: #0d0d1a;
-            --darker: #070710;
-            --light: #ffffff;
-            --card: #1a1a2e;
-            --text: #ffffff;
-            --bg-gradient: linear-gradient(135deg, var(--darker), var(--dark));
-            --card-border: rgba(255, 0, 255, 0.2);
-            --shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px rgba(255,0,255,0.2);
-            --glass-bg: rgba(26, 26, 46, 0.5);
-            --glass-border: rgba(255, 0, 255, 0.15);
-            --blur: blur(10px);
-        }
-
-        /* Retro theme */
-        body.retro-theme {
-            --primary: #ff6b6b;
-            --secondary: #ffd166;
-            --dark: #2b2d42;
-            --darker: #1d1f2e;
-            --light: #f5f6fa;
-            --card: #3a3d5d;
-            --text: #f5f6fa;
-            --bg-gradient: linear-gradient(135deg, var(--darker), var(--dark));
-            --card-border: rgba(255, 107, 107, 0.2);
-            --shadow: 0 10px 30px rgba(0,0,0,0.3);
-            --glass-bg: rgba(58, 61, 93, 0.5);
-            --glass-border: rgba(255, 209, 102, 0.1);
-            --blur: blur(10px);
-        }
-
-        /* Sunset theme */
-        body.sunset-theme {
-            --primary: #ff7e5f;
-            --secondary: #feb47b;
-            --dark: #1a1a2e;
-            --darker: #0f0f1c;
-            --light: #ffffff;
-            --card: #2d2d44;
-            --text: #ffffff;
-            --bg-gradient: linear-gradient(135deg, var(--darker), var(--dark));
-            --card-border: rgba(255, 126, 95, 0.2);
-            --shadow: 0 10px 30px rgba(0,0,0,0.3);
-            --glass-bg: rgba(45, 45, 68, 0.5);
-            --glass-border: rgba(255, 126, 95, 0.1);
-            --blur: blur(10px);
-        }
-
-        /* Theme transition overlay */
-        .theme-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .theme-overlay.active {
-            opacity: 1;
-        }
-
-        .theme-overlay.light-overlay {
-            background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
-        }
-
-        .theme-overlay.dark-overlay {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-        }
-
-        .theme-overlay.cyberpunk-overlay {
-            background: linear-gradient(to bottom, rgba(255,0,255,0.3) 0%, rgba(0,0,0,0) 100%);
-        }
-
-        .theme-overlay.retro-overlay {
-            background: linear-gradient(to bottom, rgba(255,107,107,0.3) 0%, rgba(0,0,0,0) 100%);
-        }
-
-        .theme-overlay.sunset-overlay {
-            background: linear-gradient(to bottom, rgba(255,126,95,0.3) 0%, rgba(0,0,0,0) 100%);
-        }
-
-        /* Page transition */
-        .page {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .page.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-smoothing: grayscale;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header Styles */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        /* --- Theme Classes --- */
+        /* Dark Theme */
+        body.dark-theme {
+            --text: var(--dark-text);
+            --bg: var(--dark-bg);
+            --card: var(--dark-card);
+            --card-hover: var(--dark-card-hover);
+            --card-border: var(--dark-border);
+            --shadow: var(--dark-shadow);
+            --glass-bg: var(--dark-glass-bg);
+            --glass-border: var(--dark-glass-border);
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            --text: var(--light-text);
+            --bg: var(--light-bg);
+            --card: var(--light-card);
+            --card-hover: var(--light-card-hover);
+            --card-border: var(--light-border);
+            --shadow: var(--light-shadow);
+            --glass-bg: var(--light-glass-bg);
+            --glass-border: var(--light-glass-border);
+        }
+
+        /* Cyberpunk Theme */
+        body.cyberpunk-theme {
+            --primary: var(--cyberpunk-primary);
+            --secondary: var(--cyberpunk-secondary);
+            --text: var(--cyberpunk-text);
+            --bg: var(--cyberpunk-bg);
+            --card: var(--cyberpunk-card);
+            --card-hover: #2A002A; /* Darker neon pink hover */
+            --card-border: var(--cyberpunk-border);
+            --shadow: var(--cyberpunk-shadow);
+            --glass-bg: var(--cyberpunk-glass-bg);
+            --glass-border: var(--cyberpunk-glass-border);
+        }
+
+        /* Retro Theme */
+        body.retro-theme {
+            --primary: var(--retro-primary);
+            --secondary: var(--retro-secondary);
+            --text: var(--retro-text);
+            --bg: var(--retro-bg);
+            --card: var(--retro-card);
+            --card-hover: #505050; /* Slightly lighter grey */
+            --retro-border: #666666;
+            --shadow: var(--retro-shadow);
+            --glass-bg: var(--retro-glass-bg);
+            --glass-border: var(--retro-glass-border);
+        }
+
+        /* Sunset Theme */
+        body.sunset-theme {
+            --primary: var(--sunset-primary);
+            --secondary: var(--sunset-secondary);
+            --text: var(--sunset-text);
+            --bg: var(--sunset-bg);
+            --card: var(--sunset-card);
+            --card-hover: #6A2D7C; /* Darker purple */
+            --sunset-border: #6A2D7C;
+            --shadow: var(--sunset-shadow);
+            --glass-bg: var(--sunset-glass-bg);
+            --glass-border: var(--sunset-glass-border);
+        }
+
+        /* Neomorphism Theme */
+        body.neomorphism-theme {
+            --text: var(--neo-text);
+            --bg: var(--neo-bg);
+            --card: var(--neo-card);
+            --card-hover: #F0F5F9;
+            --primary: var(--neo-primary);
+            --secondary: var(--neo-secondary);
+            --card-border: transparent; /* Handled by shadows */
+            --neo-shadow-light: #FFFFFF;
+            --neo-shadow-dark: #A7AACC;
+            
+            /* Special Neomorphism shadows */
+            .card, .btn, .search-bar input, .category-btn, .theme-option, .color-option, .theme-preview-card {
+                box-shadow: 6px 6px 12px var(--neo-shadow-dark), -6px -6px 12px var(--neo-shadow-light);
+            }
+
+            .card:hover, .btn:hover, .category-btn:hover, .category-btn.active, .theme-option:hover, .theme-option.active {
+                box-shadow: inset 2px 2px 5px var(--neo-shadow-dark), inset -2px -2px 5px var(--neo-shadow-light);
+            }
+            .theme-toggle .toggle-slider {
+                box-shadow: inset 2px 2px 5px var(--neo-shadow-dark), inset -2px -2px 5px var(--neo-shadow-light);
+            }
+        }
+
+        /* Glassmorphism Theme */
+        body.glass-theme {
+            background: var(--glass-base-bg); /* Use the updated base background */
+            --text: var(--glass-text);
+            --bg: var(--glass-base-bg); /* Setting body background to base for blur effect */
+            --primary: var(--glass-primary);
+            --secondary: var(--glass-secondary);
+            --card: var(--glass-card-bg); /* Use the translucent card background */
+            --card-hover: rgba(255, 255, 255, 0.2); /* Slightly less translucent on hover */
+            --card-border: var(--glass-border);
+            --shadow: var(--glass-shadow);
+            --glass-bg: var(--glass-card-bg); /* These are for modal/settings sections within glass theme */
+            --glass-border: var(--glass-border);
+
+            /* Apply blur and backdrop-filter to specific elements */
+            .container, .embed-container, .hero, .game-card, .login-form, .modal-content, 
+            .settings-container, .settings-sidebar, .settings-content, 
+            .search-bar input, .category-btn, .nav-btn, .btn, .theme-toggle, .settings-btn,
+            .theme-preview-card {
+                background: var(--card); /* Use --card for translucent background */
+                border: 1px solid var(--card-border); /* Use --card-border for translucent border */
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            .card:hover, .btn:hover, .category-btn:hover, .nav-btn:hover, .theme-option:hover {
+                background: var(--card-hover);
+                box-shadow: 0 8px 15px var(--shadow);
+            }
+
+            .theme-toggle .toggle-slider {
+                background: linear-gradient(45deg, var(--primary), var(--secondary)); /* Keep slider distinct */
+            }
+        }
+
+        /* Utility Classes */
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all var(--transition-speed) ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px var(--shadow);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .btn-primary {
+            background: var(--card);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
+            border-bottom: 1px solid var(--card-border);
             margin-bottom: 30px;
-            position: relative;
         }
 
         .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            position: relative;
             cursor: pointer;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        .logo:hover::after {
-            transform: scaleX(1);
+            animation: fadeIn var(--animation-speed) ease-out;
+            text-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
         }
 
         .logo i {
-            color: var(--primary);
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .logo:hover i {
-            transform: rotate(15deg);
-        }
-
-        .logo span {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            color: var(--secondary);
+            animation: rotation 10s linear infinite;
         }
 
         .header-controls {
             display: flex;
-            gap: 15px;
             align-items: center;
+            gap: 20px;
         }
 
         /* Theme Toggle */
         .theme-toggle {
-            position: relative;
             width: 60px;
             height: 30px;
             background: var(--card);
-            border-radius: 50px;
             border: 1px solid var(--card-border);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
             cursor: pointer;
+            padding: 0 5px;
             box-shadow: var(--shadow);
-            overflow: hidden;
+            transition: all var(--transition-speed) ease;
         }
 
-        .toggle-slider {
-            position: absolute;
-            top: 3px;
-            left: 3px;
+        .theme-toggle .toggle-slider {
             width: 24px;
             height: 24px;
-            background: var(--primary);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             border-radius: 50%;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform var(--transition-speed) ease;
             color: white;
-            font-size: 12px;
-            z-index: 2;
+            box-shadow: 0 2px 5px var(--shadow);
         }
 
-        .light-theme .toggle-slider,
-        .neomorphism-theme .toggle-slider,
-        .glass-theme .toggle-slider,
-        .cyberpunk-theme .toggle-slider,
-        .retro-theme .toggle-slider,
-        .sunset-theme .toggle-slider {
-            transform: translateX(30px);
-            background: #fdcb6e;
+        body.light-theme .theme-toggle .toggle-slider {
+            transform: translateX(28px);
         }
 
         .settings-btn {
+            width: 40px;
+            height: 40px;
             background: var(--card);
             border: 1px solid var(--card-border);
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             box-shadow: var(--shadow);
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: all var(--transition-speed) ease;
         }
 
         .settings-btn:hover {
-            transform: rotate(30deg) scale(1.1);
+            background: var(--card-hover);
+            transform: rotate(45deg);
         }
 
         /* Navigation */
         nav {
             display: flex;
-            gap: 20px;
-            margin-top: 15px;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+            animation: slideInUp var(--animation-speed) ease-out 0.2s both;
+            flex-wrap: wrap; /* Allow navigation items to wrap on smaller screens */
         }
 
         .nav-btn {
-            padding: 10px 20px;
-            border-radius: 50px;
             background: var(--card);
+            padding: 12px 25px;
+            border-radius: 30px;
             color: var(--text);
-            border: 1px solid var(--card-border);
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
+            gap: 8px;
+            border: 1px solid var(--card-border);
+            white-space: nowrap; /* Prevent text wrapping inside buttons */
         }
 
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .nav-btn:hover, .nav-btn.active {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-3px);
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px var(--shadow);
             border-color: transparent;
         }
 
-        .nav-btn:hover::before {
-            opacity: 1;
+        /* Page Layout */
+        .page {
+            display: none;
+            animation: fadeIn var(--animation-speed) ease-out;
         }
 
-        .nav-btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-btn i {
-            position: relative;
-            z-index: 1;
+        .page.active {
+            display: block;
         }
 
         /* Hero Section */
         .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
-            padding: 50px 20px;
+            padding: 80px 20px;
+            background: var(--card);
+            border-radius: 15px;
             margin-bottom: 40px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: var(--blur);
-            position: relative;
-            overflow: hidden;
             box-shadow: var(--shadow);
-            animation: fadeInScale 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, 
-                rgba(108, 92, 231, 0.1), 
-                rgba(162, 155, 254, 0.05), 
-                transparent 70%);
-            z-index: -1;
-            animation: gradientShift 15s ease infinite;
+            animation: fadeInScale var(--animation-speed) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            border: 1px solid var(--card-border);
         }
 
         .hero h1 {
             font-size: 3rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGlow 3s ease infinite alternate;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(108, 92, 231, 0.4);
         }
 
         .hero p {
             font-size: 1.1rem;
+            color: var(--subtext);
             max-width: 700px;
-            margin-bottom: 30px;
-            color: var(--text);
-            opacity: 0.9;
-            line-height: 1.6;
+            margin: 0 auto 30px auto;
+        }
+
+        .hero .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         /* Game Embed Section */
         .embed-container {
             background: var(--card);
             border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+            padding: 25px;
             margin-bottom: 40px;
+            box-shadow: var(--shadow);
             border: 1px solid var(--card-border);
-            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInUp var(--animation-speed) cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
         }
 
         .embed-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
-            background: var(--glass-bg);
-            border-bottom: 1px solid var(--glass-border);
-            backdrop-filter: var(--blur);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .embed-header h2 {
-            font-size: 1.4rem;
-            color: var(--text);
+            font-size: 1.8rem;
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 10px;
+            margin: 0;
         }
 
-        .controls {
+        .embed-header .controls {
             display: flex;
-            gap: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            box-shadow: var(--shadow);
-            background: var(--card);
-            color: var(--text);
-            border: 1px solid var(--card-border);
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .game-frame-container {
             position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            border-radius: 10px;
             overflow: hidden;
+            background-color: #000;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
 
-        .btn::before {
-            content: '';
+        .game-frame {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            color: white;
-        }
-
-        .btn:hover::before {
-            opacity: 1;
-        }
-
-        .btn span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn i {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
             border: none;
-        }
-
-        .game-frame-container {
-            position: relative;
-            height: 500px;
-            overflow: hidden;
-        }
-
-        .game-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #000;
             display: block;
         }
 
@@ -539,17 +538,22 @@
             left: 0;
             width: 100%;
             height: 100%;
+            background: var(--card);
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
             z-index: 10;
-            transition: opacity 0.8s ease;
+            transition: opacity var(--game-loading-speed) ease;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
         .loader {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             border: 5px solid var(--primary);
             border-bottom-color: transparent;
             border-radius: 50%;
@@ -559,136 +563,147 @@
         }
 
         /* Game Grid */
-        .game-grid {
-            margin-top: 50px;
-            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
-        }
-
         .game-grid h2 {
             font-size: 2rem;
-            margin-bottom: 25px;
             color: var(--text);
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .game-grid h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border-radius: 3px;
-            animation: widthPulse 3s ease infinite;
+            gap: 10px;
+            animation: slideInLeft var(--animation-speed) ease-out 0.6s both;
         }
 
         .games {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
         }
 
         .game-card {
             background: var(--card);
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--card-border);
-            cursor: pointer;
-            position: relative;
             box-shadow: var(--shadow);
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation: fadeIn 0.8s ease both;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid var(--card-border);
+            animation: fadeInUp var(--animation-speed) ease-out both; /* Base animation, delay added by JS */
+            position: relative; /* For delete button positioning */
         }
 
         .game-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            z-index: 1;
-        }
-
-        .game-card:hover::before {
-            opacity: 0.3;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px var(--shadow);
         }
 
         .game-thumb {
-            height: 160px;
+            width: 100%;
+            height: 180px;
             background-size: cover;
             background-position: center;
-            position: relative;
-            transition: transform 0.8s ease;
-        }
-
-        .game-card:hover .game-thumb {
-            transform: scale(1.05);
+            border-bottom: 1px solid var(--card-border);
         }
 
         .game-info {
             padding: 15px;
-            position: relative;
-            z-index: 2;
         }
 
         .game-info h3 {
             font-size: 1.3rem;
-            margin-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 8px;
             color: var(--text);
         }
 
         .game-info p {
-            color: var(--text);
-            opacity: 0.8;
-            margin-bottom: 12px;
             font-size: 0.9rem;
+            color: var(--subtext);
+            margin-bottom: 12px;
+            min-height: 40px; /* Ensure consistent height */
         }
 
         .game-tags {
             display: flex;
-            gap: 8px;
             flex-wrap: wrap;
+            gap: 8px;
         }
 
         .tag {
-            background: rgba(108, 92, 231, 0.2);
+            background: var(--card-hover);
             color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 50px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.5s ease;
+            font-weight: 600;
         }
 
-        .game-card:hover .tag {
-            background: rgba(255, 255, 255, 0.2);
+        /* Admin-specific styles */
+        .game-card .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
             color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+            z-index: 5;
+        }
+
+        .game-card .delete-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        body.admin-editing-mode .game-card .delete-btn {
+            display: flex; /* Show when in admin editing mode */
+        }
+
+        /* Floating Add Game Button */
+        .add-game-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 100;
+        }
+
+        .add-game-btn:hover {
+            transform: translateY(-5px) rotate(15deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        body.admin-editing-mode .add-game-btn {
+            display: flex; /* Show when in admin editing mode */
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 0 15px;
+            padding: 30px 0;
             margin-top: 50px;
-            border-top: 1px solid var(--glass-border);
-            color: var(--text);
-            opacity: 0.7;
-            font-size: 0.85rem;
-            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
+            border-top: 1px solid var(--card-border);
+            color: var(--subtext);
+            font-size: 0.9rem;
         }
 
         /* Settings Page */
@@ -698,321 +713,272 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: var(--blur);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-speed) ease;
         }
 
         .settings-page.active {
             opacity: 1;
-            visibility: visible;
+            pointer-events: all;
         }
 
         .settings-container {
             background: var(--card);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 800px;
-            height: 80vh;
-            overflow: hidden;
+            border-radius: 15px;
             box-shadow: var(--shadow);
-            border: 1px solid var(--card-border);
-            transform: translateY(30px) scale(0.95);
-            opacity: 0;
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
+            width: 90%;
+            max-width: 900px;
+            height: 80vh;
             display: flex;
+            overflow: hidden;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+            border: 1px solid var(--card-border);
         }
 
         .settings-page.active .settings-container {
-            transform: translateY(0) scale(1);
+            transform: scale(1);
             opacity: 1;
         }
 
         .settings-sidebar {
             width: 250px;
-            background: rgba(30, 30, 46, 0.5);
-            border-right: 1px solid var(--glass-border);
-            padding: 30px 0;
+            background: var(--card-hover);
+            border-right: 1px solid var(--card-border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .settings-main {
-            flex: 1;
+        .settings-sidebar .close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .settings-sidebar .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .settings-option {
+            padding: 15px 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            color: var(--subtext);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-option:hover, .settings-option.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .settings-option.admin-only {
+            display: none; /* Hidden by default, shown on login */
+        }
+
+        .settings-content {
+            flex-grow: 1;
             padding: 30px;
             overflow-y: auto;
         }
 
-        .settings-option {
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: background 0.8s ease;
-            color: var(--text);
-            font-weight: 500;
-            position: relative;
-        }
-
-        .settings-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--primary);
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: transform 0.8s ease;
-        }
-
-        .settings-option:hover {
-            background: rgba(108, 92, 231, 0.1);
-        }
-
-        .settings-option.active {
-            background: linear-gradient(90deg, rgba(108, 92, 231, 0.2), transparent);
-        }
-
-        .settings-option.active::before {
-            transform: scaleY(1);
-        }
-
-        .settings-option i {
-            width: 24px;
-            text-align: center;
+        .settings-content h2.section-title {
+            font-size: 2rem;
             color: var(--primary);
-            transition: transform 0.8s ease;
-        }
-
-        .settings-option.active i {
-            transform: rotate(15deg);
-        }
-
-        .settings-section {
-            display: none;
-            animation: fadeIn 0.8s ease both;
-        }
-
-        .settings-section.active {
-            display: block;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--glass-border);
-            animation: textGlow 3s ease infinite alternate;
-        }
-
-        .close-settings {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 10;
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .close-settings:hover {
-            transform: rotate(90deg);
-        }
-
-        /* Theme Settings */
-        .theme-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
             margin-bottom: 30px;
-        }
-
-        .theme-option {
-            background: var(--card);
-            border-radius: 15px;
-            padding: 20px 15px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--card-border);
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.8s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .theme-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.8s ease;
-        }
-
-        .theme-option:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
-        }
-
-        .theme-option:hover::before {
-            transform: scaleX(1);
-        }
-
-        .theme-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            transition: transform 0.8s ease;
-        }
-
-        .theme-option:hover .theme-icon {
-            transform: scale(1.2);
-        }
-
-        .theme-name {
-            font-weight: 600;
-            font-size: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .dark-theme .theme-icon { color: #6c5ce7; }
-        .light-theme .theme-icon { color: #fdcb6e; }
-        .neomorphism-theme .theme-icon { color: #6c5ce7; }
-        .glass-theme .theme-icon { color: #ffffff; }
-        .cyberpunk-theme .theme-icon { color: #ff00ff; }
-        .retro-theme .theme-icon { color: #ff6b6b; }
-        .sunset-theme .theme-icon { color: #ff7e5f; }
-
-        .color-controls {
-            background: var(--glass-bg);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            border: 1px solid var(--glass-border);
-            animation: fadeInUp 0.8s ease both;
-        }
-
-        .color-title {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--card-border);
         }
 
-        .color-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .color-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.8s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .color-option:hover {
-            transform: scale(1.2);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
-        .color-option.active {
-            border-color: var(--text);
-            transform: scale(1.25);
-            box-shadow: 0 0 0 4px var(--card);
-        }
-
-        .rainbow-toggle {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(108, 92, 231, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.8s ease;
-        }
-
-        .rainbow-toggle:hover {
-            background: rgba(108, 92, 231, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .rainbow-toggle i {
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbowSpin 5s linear infinite;
-        }
-
-        /* Content sections */
         .content-section {
-            background: var(--glass-bg);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid var(--glass-border);
-            animation: fadeInUp 0.8s ease both;
+            background: var(--card-hover);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid var(--card-border);
         }
 
         .content-section h3 {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-top: 0;
             margin-bottom: 15px;
-            color: var(--primary);
             display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-section p {
+            color: var(--subtext);
+            margin-bottom: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px dashed var(--card-border);
+        }
+
+        .setting-item:first-child {
+            border-top: none;
+        }
+
+        .setting-item h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .setting-item select {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            background: var(--card);
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            appearance: none; /* Remove default arrow */
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236C5CE7'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 15px;
+        }
+
+        .setting-item select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+        }
+
+        .theme-options, .color-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .theme-option, .color-option {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            box-shadow: var(--shadow);
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
         }
 
-        /* Animations */
+        .theme-option:hover, .color-option:hover, .theme-option.active, .color-option.active {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .theme-option.active, .color-option.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .color-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--card-border);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        /* Specific theme colors for display */
+        .theme-option[data-theme="dark-theme"] .color-box { background-color: var(--dark-bg); }
+        .theme-option[data-theme="light-theme"] .color-box { background-color: var(--light-bg); }
+        .theme-option[data-theme="cyberpunk-theme"] .color-box { background-color: var(--cyberpunk-bg); }
+        .theme-option[data-theme="retro-theme"] .color-box { background-color: var(--retro-bg); }
+        .theme-option[data-theme="sunset-theme"] .color-box { background-color: var(--sunset-bg); }
+        .theme-option[data-theme="neomorphism-theme"] .color-box { background-color: var(--neo-bg); border-color: var(--neo-shadow-dark);}
+        .theme-option[data-theme="glass-theme"] .color-box { background-color: #2E4057; border-color: rgba(255,255,255,0.5);} /* Example background for glass preview */
+
+        /* Theme transition overlay */
+        .theme-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity var(--overlay-speed) ease;
+        }
+
+        .theme-overlay.active {
+            opacity: 1;
+        }
+
+        .dark-overlay { background-color: var(--dark-bg); }
+        .light-overlay { background-color: var(--light-bg); }
+        .cyberpunk-overlay { background-color: var(--cyberpunk-bg); }
+        .retro-overlay { background-color: var(--retro-bg); }
+        .sunset-overlay { background-color: var(--sunset-bg); }
+
+        /* Keyframe Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
                 transform: translateY(20px);
             }
-            to { 
-                opacity: 1; 
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
         }
 
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
         @keyframes fadeInScale {
             from { 
                 opacity: 0; 
@@ -1070,12 +1036,16 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            animation: fadeInUp var(--animation-speed) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .search-bar {
             display: flex;
             gap: 10px;
+            flex-grow: 1;
+            max-width: 400px;
         }
 
         .search-bar input {
@@ -1084,9 +1054,9 @@
             border: 1px solid var(--card-border);
             background: var(--card);
             color: var(--text);
-            width: 300px;
+            width: 100%;
             box-shadow: var(--shadow);
-            transition: all 0.8s ease;
+            transition: all var(--transition-speed) ease;
         }
 
         .search-bar input:focus {
@@ -1099,7 +1069,7 @@
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
-            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+            animation: fadeInUp var(--animation-speed) cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
         }
 
         .category-btn {
@@ -1109,8 +1079,9 @@
             color: var(--text);
             border: 1px solid var(--card-border);
             cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all var(--transition-speed) cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: var(--shadow);
+            white-space: nowrap;
         }
 
         .category-btn:hover, .category-btn.active {
@@ -1119,6 +1090,309 @@
             border-color: transparent;
             transform: translateY(-3px);
         }
+
+        /* Login Page Styles */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 180px); /* Adjust based on header/footer */
+            padding: 20px;
+        }
+
+        .login-form {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeInScale var(--animation-speed) ease-out both;
+        }
+
+        .login-form h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: calc(100% - 24px); /* Account for padding */
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: var(--card-hover);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color var(--transition-speed) ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="url"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .login-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .login-message.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #FF0000;
+        }
+
+        .login-message.success {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: #00FF00;
+        }
+
+        /* Modal Styles (for Add Game and Custom Alert) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(-20px) scale(0.95);
+            opacity: 0;
+            transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+            position: relative;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .modal-content .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .modal-content .close-modal:hover {
+            color: #e74c3c;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .modal-message {
+            font-size: 1.1rem;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Toggle Switch Styling */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 25px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--card-border); /* Inactive color */
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 25px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 17px;
+            width: 17px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--text); /* Slider knob color */
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary); /* Active color */
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary);
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(20px);
+            -ms-transform: translateX(20px);
+            transform: translateX(20px);
+        }
+
+        /* Theme Preview Card */
+        .theme-preview-card {
+            width: 100px;
+            height: 60px;
+            border-radius: 8px;
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Default subtle shadow */
+            transition: all var(--transition-speed) ease;
+        }
+
+        .theme-option[data-theme="dark-theme"] .theme-preview-card {
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+            border: 1px solid var(--dark-border);
+        }
+        .theme-option[data-theme="light-theme"] .theme-preview-card {
+            background-color: var(--light-card);
+            color: var(--light-text);
+            border: 1px solid var(--light-border);
+        }
+        .theme-option[data-theme="cyberpunk-theme"] .theme-preview-card {
+            background-color: var(--cyberpunk-card);
+            color: var(--cyberpunk-text);
+            border: 1px solid var(--cyberpunk-border);
+            box-shadow: 0 0 8px var(--cyberpunk-shadow);
+        }
+        .theme-option[data-theme="retro-theme"] .theme-preview-card {
+            background-color: var(--retro-card);
+            color: var(--retro-text);
+            border: 1px solid var(--retro-border);
+            box-shadow: 0 0 8px var(--retro-shadow);
+        }
+        .theme-option[data-theme="sunset-theme"] .theme-preview-card {
+            background-color: var(--sunset-card);
+            color: var(--sunset-text);
+            border: 1px solid var(--sunset-border);
+            box-shadow: 0 0 8px var(--sunset-shadow);
+        }
+        .theme-option[data-theme="neomorphism-theme"] .theme-preview-card {
+            background-color: var(--neo-card);
+            color: var(--neo-text);
+            border: none;
+            box-shadow: 3px 3px 6px var(--neo-shadow-dark), -3px -3px 6px var(--neo-shadow-light);
+        }
+        .theme-option[data-theme="glass-theme"] .theme-preview-card {
+            background-color: rgba(255, 255, 255, 0.1); /* Translucent */
+            color: var(--glass-text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1; /* Ensure backdrop-filter works */
+        }
+        /* Small elements within preview card */
+        .theme-preview-card .preview-text {
+            font-size: 0.7em;
+            text-align: center;
+            padding: 2px 5px;
+            line-height: 1.2;
+        }
+        .theme-preview-card .preview-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 5px;
+            font-size: 0.6em;
+            padding: 3px 8px;
+            margin-top: 5px;
+            opacity: 0.8;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -1132,27 +1406,34 @@
                 justify-content: center;
             }
             
+            nav {
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 50px 15px;
+            }
+
             .hero h1 {
                 font-size: 2.2rem;
             }
             
             .game-frame-container {
-                height: 350px;
+                padding-bottom: 75%; /* Adjust aspect ratio for better mobile viewing if needed */
             }
             
             .embed-header {
                 flex-direction: column;
-                gap: 15px;
                 align-items: flex-start;
             }
 
-            .controls {
+            .embed-header .controls {
                 width: 100%;
                 justify-content: center;
             }
             
-            .theme-options {
-                grid-template-columns: repeat(2, 1fr);
+            .theme-options, .color-options {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             }
             
             .settings-container {
@@ -1163,7 +1444,7 @@
             .settings-sidebar {
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid var(--glass-border);
+                border-bottom: 1px solid var(--card-border);
                 padding: 15px 0;
             }
             
@@ -1171,11 +1452,108 @@
                 padding: 12px 20px;
             }
             
-            .search-bar input {
+            .browse-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .search-bar {
                 width: 100%;
+                max-width: none;
+            }
+
+            .search-bar input {
+                width: calc(100% - 24px);
+            }
+
+            .login-form, .modal-content {
+                padding: 25px;
+            }
+
+            .add-game-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Firebase instances (accessible by other script blocks)
+        window.firebaseApp = null;
+        window.db = null;
+        window.auth = null;
+        window.currentUserId = null;
+        window.isFirebaseReady = false;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Mandatory global variables provided by the Canvas environment
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.error("Firebase config is missing. Please ensure __firebase_config is set.");
+                    // Fallback to local storage if Firebase isn't configured for demonstration
+                    window.useLocalStorageFallback = true;
+                    console.log("Proceeding with local storage for game data due to missing Firebase config.");
+                    return; // Exit if no Firebase config, proceed with local storage logic
+                }
+
+                // Initialize Firebase
+                window.firebaseApp = initializeApp(firebaseConfig);
+                window.db = getFirestore(window.firebaseApp);
+                window.auth = getAuth(window.firebaseApp);
+
+                // Authenticate
+                onAuthStateChanged(window.auth, async (user) => {
+                    if (user) {
+                        window.currentUserId = user.uid;
+                        console.log("Firebase authenticated. User ID:", window.currentUserId);
+                        document.getElementById('currentUserIdDisplay').textContent = `User ID: ${window.currentUserId}`;
+                        window.isFirebaseReady = true;
+                        // Trigger initial game load after authentication
+                        window.loadGamesFromFirestore();
+                    } else {
+                        console.log("No user authenticated. Attempting anonymous sign-in or custom token.");
+                        try {
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(window.auth, initialAuthToken);
+                                console.log("Signed in with custom token.");
+                            } else {
+                                await signInAnonymously(window.auth);
+                                console.log("Signed in anonymously.");
+                            }
+                        } catch (error) {
+                            console.error("Firebase authentication failed:", error);
+                            window.useLocalStorageFallback = true;
+                            console.log("Proceeding with local storage for game data due to Firebase auth failure.");
+                            // Fallback to local storage if authentication fails
+                            window.loadGamesFromLocalStorage();
+                        }
+                    }
+                });
+
+                // Expose appId globally for Firestore paths
+                window.appId = appId;
+
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                window.useLocalStorageFallback = true;
+                console.log("Proceeding with local storage for game data due to Firebase initialization error.");
+                // Fallback to local storage if Firebase initialization fails
+                window.loadGamesFromLocalStorage();
+            }
+        });
+    </script>
 </head>
 <body class="dark-theme">
     <!-- Theme transition overlay -->
@@ -1217,6 +1595,14 @@
                 <i class="fas fa-star"></i>
                 <span>Favorites</span>
             </div>
+            <div class="nav-btn" id="loginNavBtn">
+                <i class="fas fa-user-circle"></i>
+                <span>Login</span>
+            </div>
+            <div class="nav-btn admin-only-nav-btn" id="manageGamesBtn" style="display: none;">
+                <i class="fas fa-hammer"></i>
+                <span>Manage Games</span>
+            </div>
         </nav>
 
         <!-- Home Page -->
@@ -1238,7 +1624,7 @@
             <!-- Game Embed Section -->
             <section class="embed-container">
                 <div class="embed-header">
-                    <h2><i class="fas fa-play-circle"></i> Now Playing: Drive Mad</h2>
+                    <h2 id="nowPlayingTitle"><i class="fas fa-play-circle"></i> Now Playing: Drive Mad</h2>
                     <div class="controls">
                         <button class="btn" id="fullscreenBtn">
                             <i class="fas fa-expand"></i> <span>Fullscreen</span>
@@ -1259,51 +1645,8 @@
             <!-- Game Grid -->
             <section class="game-grid">
                 <h2><i class="fas fa-dice"></i> Popular Unblocked Games</h2>
-                <div class="games">
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c77/drive-mad" data-name="Drive Mad">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/drive-mad/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Drive Mad</h3>
-                            <p>Perform crazy stunts and drive through challenging obstacle courses</p>
-                            <div class="game-tags">
-                                <span class="tag">Racing</span>
-                                <span class="tag">Stunts</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c/drift-boss" data-name="Drift Boss">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/drift-boss/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Drift Boss</h3>
-                            <p>Master the art of drifting in this addictive driving challenge</p>
-                            <div class="game-tags">
-                                <span class="tag">Drifting</span>
-                                <span class="tag">Arcade</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c8/monkey-mart" data-name="Monkey Mart">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/monkey-mart/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Monkey Mart</h3>
-                            <p>Manage your own supermarket with a team of monkeys</p>
-                            <div class="game-tags">
-                                <span class="tag">Management</span>
-                                <span class="tag">Simulation</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c7/highway-traffic" data-name="Highway Traffic">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/highway-traffic/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Highway Traffic</h3>
-                            <p>Navigate through busy highways and avoid accidents</p>
-                            <div class="game-tags">
-                                <span class="tag">Traffic</span>
-                                <span class="tag">Driving</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="games" id="homeGamesGrid">
+                    <!-- Games will be dynamically loaded here by JavaScript -->
                 </div>
             </section>
         </div>
@@ -1313,306 +1656,263 @@
             <div class="browse-header">
                 <h2><i class="fas fa-gamepad"></i> Browse All Games</h2>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search games...">
-                    <button class="btn">
+                    <input type="text" placeholder="Search games..." id="browseSearchInput">
+                    <button class="btn" id="browseSearchBtn">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </div>
             
-            <div class="category-filter">
-                <div class="category-btn active">All Games</div>
-                <div class="category-btn">Racing</div>
-                <div class="category-btn">Action</div>
-                <div class="category-btn">Puzzle</div>
-                <div class="category-btn">Sports</div>
-                <div class="category-btn">Adventure</div>
+            <div class="category-filter" id="categoryFilter">
+                <div class="category-btn active" data-category="all">All Games</div>
+                <div class="category-btn" data-category="racing">Racing</div>
+                <div class="category-btn" data-category="action">Action</div>
+                <div class="category-btn" data-category="puzzle">Puzzle</div>
+                <div class="category-btn" data-category="sports">Sports</div>
+                <div class="category-btn" data-category="adventure">Adventure</div>
+                <div class="category-btn" data-category="management">Management</div>
+                <div class="category-btn" data-category="simulation">Simulation</div>
+                <div class="category-btn" data-category="drifting">Drifting</div>
+                <div class="category-btn" data-category="io">IO Game</div>
+                <div class="category-btn" data-category="multiplayer">Multiplayer</div>
+                <div class="category-btn" data-category="driving">Driving</div>
+                <div class="category-btn" data-category="stunts">Stunts</div>
+                <div class="category-btn" data-category="motorcycle">Motorcycle</div>
+                <div class="category-btn" data-category="arcade">Arcade</div>
             </div>
             
             <section class="game-grid">
-                <div class="games">
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c77/drive-mad" data-name="Drive Mad">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/drive-mad/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Drive Mad</h3>
-                            <p>Perform crazy stunts and drive through challenging obstacle courses</p>
-                            <div class="game-tags">
-                                <span class="tag">Racing</span>
-                                <span class="tag">Stunts</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c/drift-boss" data-name="Drift Boss">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/drift-boss/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Drift Boss</h3>
-                            <p>Master the art of drifting in this addictive driving challenge</p>
-                            <div class="game-tags">
-                                <span class="tag">Drifting</span>
-                                <span class="tag">Arcade</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c8/monkey-mart" data-name="Monkey Mart">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/monkey-mart/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Monkey Mart</h3>
-                            <p>Manage your own supermarket with a team of monkeys</p>
-                            <div class="game-tags">
-                                <span class="tag">Management</span>
-                                <span class="tag">Simulation</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/c7/highway-traffic" data-name="Highway Traffic">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/highway-traffic/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Highway Traffic</h3>
-                            <p>Navigate through busy highways and avoid accidents</p>
-                            <div class="game-tags">
-                                <span class="tag">Traffic</span>
-                                <span class="tag">Driving</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/play/1v1-lol.html" data-name="1v1.LOL">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/1v1-lol/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>1v1.LOL</h3>
-                            <p>Fast-paced building and shooting game in competitive 1v1 battles</p>
-                            <div class="game-tags">
-                                <span class="tag">Shooter</span>
-                                <span class="tag">Battle</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/play/rooftop-snipers.html" data-name="Rooftop Snipers">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/rooftop-snipers/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Rooftop Snipers</h3>
-                            <p>Hilarious physics-based sniper duel on rooftops</p>
-                            <div class="game-tags">
-                                <span class="tag">Action</span>
-                                <span class="tag">Multiplayer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/play/basketball-stars.html" data-name="Basketball Stars">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/basketball-stars/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Basketball Stars</h3>
-                            <p>Fast-paced basketball game with realistic physics</p>
-                            <div class="game-tags">
-                                <span class="tag">Sports</span>
-                                <span class="tag">2 Player</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card" data-url="https://crazygames-unblocked.github.io/play/gun-mayhem-2.html" data-name="Gun Mayhem 2">
-                        <div class="game-thumb" style="background-image: url('https://img.crazygames.com/games/gun-mayhem-2/cover-1591955771390.png?auto=format,compress&q=75');"></div>
-                        <div class="game-info">
-                            <h3>Gun Mayhem 2</h3>
-                            <p>Chaotic 2D shooter with multiple weapons and arenas</p>
-                            <div class="game-tags">
-                                <span class="tag">Action</span>
-                                <span class="tag">Multiplayer</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="games" id="browseGamesGrid">
+                    <!-- Games will be dynamically loaded here by JavaScript -->
                 </div>
+                <p id="noGamesFound" style="display: none; text-align: center; color: var(--subtext); margin-top: 50px;">No games found matching your criteria.</p>
             </section>
+        </div>
+
+        <!-- Login Page -->
+        <div class="page" id="loginPage">
+            <div class="login-form">
+                <h2>Admin Login</h2>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                </div>
+                <button class="btn" id="loginSubmitBtn">
+                    <i class="fas fa-sign-in-alt"></i> <span>Login</span>
+                </button>
+                <p id="loginMessage" class="login-message"></p>
+            </div>
         </div>
 
         <!-- Settings Page -->
         <div class="settings-page" id="settingsPage">
-            <div class="close-settings" id="closeSettings">
-                <i class="fas fa-times"></i>
-            </div>
             <div class="settings-container">
                 <div class="settings-sidebar">
+                    <button class="close-btn" id="closeSettings"><i class="fas fa-times"></i></button>
                     <div class="settings-option active" data-section="general">
-                        <i class="fas fa-sliders-h"></i>
-                        <span>General Settings</span>
+                        <i class="fas fa-cogs"></i> <span>General</span>
                     </div>
-                    <div class="settings-option" data-section="themes">
-                        <i class="fas fa-palette"></i>
-                        <span>Themes & Colors</span>
-                    </div>
-                    <div class="settings-option" data-section="account">
-                        <i class="fas fa-user"></i>
-                        <span>Account</span>
+                    <div class="settings-option" data-section="appearance">
+                        <i class="fas fa-palette"></i> <span>Appearance</span>
                     </div>
                     <div class="settings-option" data-section="privacy">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Privacy</span>
+                        <i class="fas fa-user-shield"></i> <span>Privacy</span>
+                    </div>
+                    <div class="settings-option admin-only" data-section="admin">
+                        <i class="fas fa-user-tie"></i> <span>Admin Dashboard</span>
                     </div>
                     <div class="settings-option" data-section="about">
-                        <i class="fas fa-info-circle"></i>
-                        <span>About</span>
+                        <i class="fas fa-info-circle"></i> <span>About</span>
                     </div>
                 </div>
-                <div class="settings-main">
-                    <!-- General Settings -->
+                <div class="settings-content">
+                    <!-- General Section -->
                     <div class="settings-section active" id="generalSection">
-                        <h2 class="section-title"><i class="fas fa-sliders-h"></i> General Settings</h2>
-                        <div class="setting-item">
-                            <h3>Performance Mode</h3>
-                            <p>Optimize for smoother gameplay on older devices</p>
-                            <div class="toggle-switch">
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <h3>Notifications</h3>
-                            <p>Receive notifications for new games and updates</p>
-                            <div class="toggle-switch">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <h3>Default Game</h3>
-                            <p>Choose which game loads when you open the portal</p>
-                            <select>
-                                <option>Drive Mad</option>
-                                <option>Drift Boss</option>
-                                <option>Monkey Mart</option>
-                                <option>Highway Traffic</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Theme Settings -->
-                    <div class="settings-section" id="themesSection">
-                        <h2 class="section-title"><i class="fas fa-palette"></i> Theme Settings</h2>
-                        
-                        <h3>Theme Presets</h3>
-                        <div class="theme-options">
-                            <div class="theme-option dark-theme" data-theme="dark-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-moon"></i>
-                                </div>
-                                <div class="theme-name">Dark Mode</div>
-                            </div>
-                            <div class="theme-option light-theme" data-theme="light-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-sun"></i>
-                                </div>
-                                <div class="theme-name">Light Mode</div>
-                            </div>
-                            <div class="theme-option neomorphism-theme" data-theme="neomorphism-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-cube"></i>
-                                </div>
-                                <div class="theme-name">Neomorphism</div>
-                            </div>
-                            <div class="theme-option glass-theme" data-theme="glass-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-glass-whiskey"></i>
-                                </div>
-                                <div class="theme-name">Glass Theme</div>
-                            </div>
-                            <!-- NEW THEMES -->
-                            <div class="theme-option cyberpunk-theme" data-theme="cyberpunk-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <div class="theme-name">Cyberpunk</div>
-                            </div>
-                            <div class="theme-option retro-theme" data-theme="retro-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-gamepad"></i>
-                                </div>
-                                <div class="theme-name">Retro</div>
-                            </div>
-                            <div class="theme-option sunset-theme" data-theme="sunset-theme">
-                                <div class="theme-icon">
-                                    <i class="fas fa-sunset"></i>
-                                </div>
-                                <div class="theme-name">Sunset</div>
-                            </div>
-                        </div>
-                        
-                        <div class="color-controls">
-                            <h3 class="color-title"><i class="fas fa-fill-drip"></i> Primary Color</h3>
-                            <div class="color-options">
-                                <div class="color-option active" style="background: #6c5ce7;" data-color="#6c5ce7"></div>
-                                <div class="color-option" style="background: #ff5e5e;" data-color="#ff5e5e"></div>
-                                <div class="color-option" style="background: #00b894;" data-color="#00b894"></div>
-                                <div class="color-option" style="background: #fdcb6e;" data-color="#fdcb6e"></div>
-                                <div class="color-option" style="background: #0984e3;" data-color="#0984e3"></div>
-                                <div class="color-option" style="background: #ff00ff;" data-color="#ff00ff"></div>
-                            </div>
-                            
-                            <div class="rainbow-toggle" id="rainbowToggle">
-                                <i class="fas fa-rainbow"></i>
-                                <div>
-                                    <h3>Rainbow Mode</h3>
-                                    <p>Cycle through colors with smooth transitions</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Account Settings -->
-                    <div class="settings-section" id="accountSection">
-                        <h2 class="section-title"><i class="fas fa-user"></i> Account Settings</h2>
+                        <h2 class="section-title"><i class="fas fa-cogs"></i> General Settings</h2>
                         <div class="content-section">
-                            <h3><i class="fas fa-user-circle"></i> Profile Information</h3>
-                            <p>Update your profile details and preferences</p>
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" value="GameMaster123">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" value="gamer@example.com">
-                            </div>
-                            <button class="btn btn-primary">Save Changes</button>
-                        </div>
-                        
-                        <div class="content-section">
-                            <h3><i class="fas fa-lock"></i> Password</h3>
-                            <p>Change your account password</p>
-                            <div class="form-group">
-                                <label>Current Password</label>
-                                <input type="password">
-                            </div>
-                            <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password">
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm New Password</label>
-                                <input type="password">
-                            </div>
-                            <button class="btn btn-primary">Update Password</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Privacy Settings -->
-                    <div class="settings-section" id="privacySection">
-                        <h2 class="section-title"><i class="fas fa-shield-alt"></i> Privacy Settings</h2>
-                        <div class="content-section">
-                            <h3><i class="fas fa-eye"></i> Visibility</h3>
-                            <p>Control who can see your gaming activity</p>
+                            <h3><i class="fas fa-tachometer-alt"></i> Performance</h3>
+                            <p>Adjust animations and transitions for a quicker experience.</p>
                             <div class="setting-item">
-                                <h4>Profile Visibility</h4>
+                                <h4>Performance Mode</h4>
+                                <label class="switch">
+                                    <input type="checkbox" id="performanceModeToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h3><i class="fas fa-globe"></i> Language</h3>
+                            <p>Choose your preferred language for the GamePortal interface.</p>
+                            <div class="setting-item">
+                                <h4>Interface Language</h4>
                                 <select>
-                                    <option>Public</option>
-                                    <option>Friends Only</option>
-                                    <option>Private</option>
+                                    <option>English</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
                                 </select>
                             </div>
+                        </div>
+                        
+                        <div class="content-section">
+                            <h3><i class="fas fa-volume-up"></i> Sound Preferences</h3>
+                            <p>Adjust game and interface sound settings.</p>
                             <div class="setting-item">
-                                <h4>Game Activity</h4>
+                                <h4>Master Volume</h4>
+                                <input type="range" min="0" max="100" value="75">
+                            </div>
+                            <div class="setting-item">
+                                <h4>Mute All Sounds</h4>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Section -->
+                    <div class="settings-section" id="appearanceSection">
+                        <h2 class="section-title"><i class="fas fa-palette"></i> Appearance Settings</h2>
+                        <div class="content-section">
+                            <h3><i class="fas fa-paint-brush"></i> Theme Selection</h3>
+                            <p>Change the overall look and feel of the portal.</p>
+                            <div class="theme-options">
+                                <div class="theme-option active" data-theme="dark-theme">
+                                    <div class="color-box"></div>
+                                    <span>Dark</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #6C5CE7, #8A7CFB);">Btn</button>
+                                    </div>
+                                </div>
+                                <div class="theme-option" data-theme="light-theme">
+                                    <div class="color-box"></div>
+                                    <span>Light</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #6C5CE7, #8A7CFB);">Btn</button>
+                                    </div>
+                                </div>
+                                <div class="theme-option" data-theme="cyberpunk-theme">
+                                    <div class="color-box"></div>
+                                    <span>Cyberpunk</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #FF00FF, #00FF00);">Btn</button>
+                                    </div>
+                                </div>
+                                <div class="theme-option" data-theme="retro-theme">
+                                    <div class="color-box"></div>
+                                    <span>Retro</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #FF4500, #ADFF2F);">Btn</button>
+                                    </div>
+                                </div>
+                                <div class="theme-option" data-theme="sunset-theme">
+                                    <div class="color-box"></div>
+                                    <span>Sunset</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #FF7F50, #FFC0CB);">Btn</button>
+                                    </div>
+                                </div>
+                                <div class="theme-option" data-theme="neomorphism-theme">
+                                    <div class="color-box"></div>
+                                    <span>Neomorphism</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #6C5CE7, #8A7CFB);">Btn</button>
+                                    </div>
+                                </div>
+                                <div class="theme-option" data-theme="glass-theme">
+                                    <div class="color-box"></div>
+                                    <span>Glass</span>
+                                    <div class="theme-preview-card">
+                                        <div class="preview-text">Card Text</div>
+                                        <button class="preview-button" style="background: linear-gradient(45deg, #50E3C2, #6AFFEE);">Btn</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-section">
+                            <h3><i class="fas fa-fill-drip"></i> Accent Color</h3>
+                            <p>Choose a primary accent color for buttons and highlights.</p>
+                            <div class="color-options">
+                                <div class="color-option active" data-color="#6C5CE7">
+                                    <div class="color-box" style="background-color: #6C5CE7;"></div>
+                                    <span>Amethyst</span>
+                                </div>
+                                <div class="color-option" data-color="#FF5733">
+                                    <div class="color-box" style="background-color: #FF5733;"></div>
+                                    <span>Orange</span>
+                                </div>
+                                <div class="color-option" data-color="#33FF57">
+                                    <div class="color-box" style="background-color: #33FF57;"></div>
+                                    <span>Green</span>
+                                </div>
+                                <div class="color-option" data-color="#3357FF">
+                                    <div class="color-box" style="background-color: #3357FF;"></div>
+                                    <span>Blue</span>
+                                </div>
+                                <div class="color-option" data-color="#FF33FF">
+                                    <div class="color-box" style="background-color: #FF33FF;"></div>
+                                    <span>Magenta</span>
+                                </div>
+                                <div class="color-option" data-color="#FFEA33">
+                                    <div class="color-box" style="background-color: #FFEA33;"></div>
+                                    <span>Yellow</span>
+                                </div>
+                            </div>
+                            <div class="setting-item" style="margin-top: 20px;">
+                                <h4>Enable Rainbow Mode</h4>
+                                <label class="switch">
+                                    <input type="checkbox" id="rainbowToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Section -->
+                    <div class="settings-section" id="privacySection">
+                        <h2 class="section-title"><i class="fas fa-user-shield"></i> Privacy Settings</h2>
+                        <div class="content-section">
+                            <h3><i class="fas fa-cookie-bite"></i> Cookie Preferences</h3>
+                            <p>Manage your cookie and data usage settings.</p>
+                            <div class="setting-item">
+                                <h4>Allow Analytics Cookies</h4>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <h4>Personalized Content</h4>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="content-section">
+                            <h3><i class="fas fa-history"></i> Activity History</h3>
+                            <p>Control what activity is saved on your account.</p>
+                            <div class="setting-item">
+                                <h4>Save Play History</h4>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <h4>Recently Played</h4>
                                 <select>
                                     <option>Show Recently Played</option>
                                     <option>Hide Recently Played</option>
@@ -1640,6 +1940,22 @@
                         </div>
                     </div>
                     
+                    <!-- Admin Dashboard Section (Initially hidden) -->
+                    <div class="settings-section" id="adminSection">
+                        <h2 class="section-title"><i class="fas fa-user-tie"></i> Admin Dashboard</h2>
+                        <div class="content-section">
+                            <h3><i class="fas fa-tools"></i> Admin Tools</h3>
+                            <p>Welcome, Admin! Here you can manage game content, user settings, and monitor portal activity.</p>
+                            <ul>
+                                <li>View user statistics</li>
+                                <li>Add/Edit/Delete games</li>
+                                <li>Manage reported content</li>
+                                <li>Update global settings</li>
+                            </ul>
+                            <p style="color: red; font-weight: bold;">NOTE: This is a client-side simulation. For real administration, a secure backend and database are required.</p>
+                        </div>
+                    </div>
+
                     <!-- About Section -->
                     <div class="settings-section" id="aboutSection">
                         <h2 class="section-title"><i class="fas fa-info-circle"></i> About GamePortal</h2>
@@ -1662,22 +1978,84 @@
             </div>
         </div>
 
+        <!-- Add Game Floating Button -->
+        <button class="add-game-btn" id="addGameFloatingBtn" title="Add New Game">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <!-- Add Game Modal -->
+        <div id="addGameModal" class="modal">
+            <div class="modal-content">
+                <button class="close-modal" id="closeAddGameModal"><i class="fas fa-times"></i></button>
+                <h3>Add New Game</h3>
+                <div class="form-group">
+                    <label for="newGameName">Game Name:</label>
+                    <input type="text" id="newGameName" placeholder="Enter game name" required>
+                </div>
+                <div class="form-group">
+                    <label for="newGameUrl">Game URL (iframe src):</label>
+                    <input type="url" id="newGameUrl" placeholder="https://example.com/game" required>
+                </div>
+                <div class="form-group">
+                    <label for="newGameThumb">Thumbnail Image URL:</label>
+                    <input type="url" id="newGameThumb" placeholder="https://example.com/thumbnail.png">
+                </div>
+                <div class="form-group">
+                    <label for="newGameDesc">Description:</label>
+                    <textarea id="newGameDesc" placeholder="Brief description of the game"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="newGameTags">Tags (comma-separated):</label>
+                    <input type="text" id="newGameTags" placeholder="e.g., Racing, Action, Puzzle">
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn" id="submitNewGameBtn"><i class="fas fa-plus-circle"></i> Add Game</button>
+                </div>
+                <p id="addGameMessage" class="login-message"></p>
+            </div>
+        </div>
+
+        <!-- Custom Confirmation/Alert Modal -->
+        <div id="customAlertModal" class="modal">
+            <div class="modal-content">
+                <button class="close-modal" id="closeCustomAlertModal"><i class="fas fa-times"></i></button>
+                <h3 id="customAlertTitle"></h3>
+                <p id="customAlertMessage" class="modal-message"></p>
+                <div class="modal-buttons">
+                    <button class="btn" id="customAlertConfirmBtn" style="display: none;">Confirm</button>
+                    <button class="btn btn-primary" id="customAlertOKBtn">OK</button>
+                    <button class="btn" id="customAlertCancelBtn" style="display: none;">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Footer -->
         <footer>
             <p>&copy; 2023 GamePortal | Unblocked Gaming Platform</p>
+            <p id="currentUserIdDisplay">User ID: N/A (Initializing Firebase...)</p>
             <p>For educational purposes only. All game content belongs to their respective owners.</p>
         </footer>
     </div>
 
     <script>
+        // Global variables for Firebase instances
+        // These are initialized in the module script block above.
+        let db;
+        let auth;
+        let currentUserId;
+        let appId;
+        let isFirebaseReady = false;
+        let useLocalStorageFallback = false; // Flag to check if we fallback to local storage
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Elements
+            // --- DOM Elements ---
             const themeToggle = document.getElementById('themeToggle');
             const settingsBtn = document.getElementById('settingsBtn');
             const settingsPage = document.getElementById('settingsPage');
             const closeSettings = document.getElementById('closeSettings');
             const gameFrame = document.getElementById('gameFrame');
-            const gameCards = document.querySelectorAll('.game-card');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
             const overlays = document.querySelectorAll('.theme-overlay');
             const body = document.body;
             const settingsOptions = document.querySelectorAll('.settings-option');
@@ -1697,43 +2075,398 @@
             const homePage = document.getElementById('homePage');
             const browsePage = document.getElementById('browsePage');
             const gameLoading = document.getElementById('gameLoading');
-            
+            const homeGamesGrid = document.getElementById('homeGamesGrid');
+            const browseGamesGrid = document.getElementById('browseGamesGrid');
+            const browseSearchInput = document.getElementById('browseSearchInput');
+            const browseSearchBtn = document.getElementById('browseSearchBtn');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const noGamesFound = document.getElementById('noGamesFound');
+
+            // Login specific elements
+            const loginNavBtn = document.getElementById('loginNavBtn');
+            const loginPage = document.getElementById('loginPage');
+            const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const loginMessage = document.getElementById('loginMessage');
+            const adminSettingOption = document.querySelector('.settings-option.admin-only');
+            const manageGamesNavBtn = document.getElementById('manageGamesBtn');
+            const addGameFloatingBtn = document.getElementById('addGameFloatingBtn');
+
+            // Add Game Modal elements
+            const addGameModal = document.getElementById('addGameModal');
+            const closeAddGameModal = document.getElementById('closeAddGameModal');
+            const newGameNameInput = document.getElementById('newGameName');
+            const newGameUrlInput = document.getElementById('newGameUrl');
+            const newGameThumbInput = document.getElementById('newGameThumb');
+            const newGameDescInput = document.getElementById('newGameDesc');
+            const newGameTagsInput = document.getElementById('newGameTags');
+            const submitNewGameBtn = document.getElementById('submitNewGameBtn');
+            const addGameMessage = document.getElementById('addGameMessage');
+
+            // Custom Alert Modal elements
+            const customAlertModal = document.getElementById('customAlertModal');
+            const customAlertTitle = document.getElementById('customAlertTitle');
+            const customAlertMessage = document.getElementById('customAlertMessage');
+            const customAlertConfirmBtn = document.getElementById('customAlertConfirmBtn');
+            const customAlertOKBtn = document.getElementById('customAlertOKBtn');
+            const customAlertCancelBtn = document.getElementById('customAlertCancelBtn');
+
+            // Performance Mode
+            const performanceModeToggle = document.getElementById('performanceModeToggle');
+
+
+            // --- State Variables ---
+            // Admin credentials (FOR DEMONSTRATION ONLY - NOT SECURE)
+            const ADMIN_USERNAME = 'admin';
+            const ADMIN_PASSWORD = 'password123';
+            let isLoggedIn = false; // Tracks if any user is logged in
+            let isAdminLoggedIn = false; // Tracks if the admin is logged in
+            let isEditingMode = false; // Tracks if admin game editing mode is active
+
+            // Default game data if Firebase is not used
+            const defaultGamesData = [
+                { id: 'gm001', name: 'Drive Mad', url: 'https://crazygames-unblocked.github.io/c77/drive-mad', thumb: 'https://img.crazygames.com/games/drive-mad/cover-1591955771390.png?auto=format,compress&q=75', description: 'Perform crazy stunts and drive through challenging obstacle courses', tags: ['Racing', 'Stunts'] },
+                { id: 'gm002', name: 'Drift Boss', url: 'https://crazygames-unblocked.github.io/c/drift-boss', thumb: 'https://img.crazygames.com/games/drift-boss/cover-1591955771390.png?auto=format,compress&q=75', description: 'Master the art of drifting in this addictive driving challenge', tags: ['Drifting', 'Arcade'] },
+                { id: 'gm003', name: 'Monkey Mart', url: 'https://crazygames-unblocked.github.io/c8/monkey-mart', thumb: 'https://img.crazygames.com/games/monkey-mart/cover-1591955771390.png?auto=format,compress&q=75', description: 'Manage your own supermarket with a team of monkeys', tags: ['Management', 'Simulation'] },
+                { id: 'gm004', name: 'Highway Traffic', url: 'https://crazygames-unblocked.github.io/c7/highway-traffic', thumb: 'https://img.crazygames.com/games/highway-traffic/cover-1591955771390.png?auto=format,compress&q=75', description: 'Navigate through busy highways and avoid accidents', tags: ['Traffic', 'Driving'] },
+                { id: 'gm005', name: 'Moto X3M Winter', url: 'https://crazygames-unblocked.github.io/c4/moto-x3m-winter', thumb: 'https://img.crazygames.com/games/moto-x3m-winter/cover-1591955771390.png?auto=format,compress&q=75', description: 'Conquer icy tracks and perform daring motorcycle stunts', tags: ['Motorcycle', 'Stunts'] },
+                { id: 'gm006', name: 'Paper.io 2', url: 'https://crazygames-unblocked.github.io/c3/paper-io-2', thumb: 'https://img.crazygames.com/games/paper-io-2/cover-1591955771390.png?auto=format,compress&q=75', description: 'Expand your territory and dominate the map in this multiplayer arena game', tags: ['IO Game', 'Multiplayer'] },
+                { id: 'gm007', name: 'City Car Driving Simulator', url: 'https://crazygames-unblocked.github.io/c11/city-car-driving-simulator', thumb: 'https://img.crazygames.com/games/city-car-driving-simulator/cover-1591955771390.png?auto=format,compress&q=75', description: 'Practice your driving skills in a realistic city environment', tags: ['Driving', 'Simulator'] },
+                { id: 'gm008', name: 'Stack', url: 'https://crazygames-unblocked.github.io/c9/stack', thumb: 'https://img.crazygames.com/games/stack/cover-1591955771390.png?auto=format,compress&q=75', description: 'Build the highest tower by precisely stacking blocks', tags: ['Puzzle', 'Arcade'] }
+            ];
+            let gamesData = []; // This will hold the current game data
+
+
+            // --- Utility Functions ---
+
+            // Helper function to show custom alerts/confirmations instead of native alert/confirm
+            function customAlert(title, message, isConfirm = false) {
+                return new Promise((resolve) => {
+                    customAlertTitle.textContent = title;
+                    customAlertMessage.textContent = message;
+                    customAlertOKBtn.style.display = isConfirm ? 'none' : 'inline-flex';
+                    customAlertConfirmBtn.style.display = isConfirm ? 'inline-flex' : 'none';
+                    customAlertCancelBtn.style.display = isConfirm ? 'inline-flex' : 'none';
+
+                    customAlertModal.classList.add('active');
+
+                    const okHandler = () => {
+                        customAlertModal.classList.remove('active');
+                        customAlertOKBtn.removeEventListener('click', okHandler);
+                        customAlertConfirmBtn.removeEventListener('click', confirmHandler);
+                        customAlertCancelBtn.removeEventListener('click', cancelHandler);
+                        resolve(true); // For OK, always resolve true
+                    };
+                    const confirmHandler = () => {
+                        customAlertModal.classList.remove('active');
+                        customAlertOKBtn.removeEventListener('click', okHandler);
+                        customAlertConfirmBtn.removeEventListener('click', confirmHandler);
+                        customAlertCancelBtn.removeEventListener('click', cancelHandler);
+                        resolve(true);
+                    };
+                    const cancelHandler = () => {
+                        customAlertModal.classList.remove('active');
+                        customAlertOKBtn.removeEventListener('click', okHandler);
+                        customAlertConfirmBtn.removeEventListener('click', confirmHandler);
+                        customAlertCancelBtn.removeEventListener('click', cancelHandler);
+                        resolve(false);
+                    };
+
+                    customAlertOKBtn.addEventListener('click', okHandler);
+                    customAlertConfirmBtn.addEventListener('click', confirmHandler);
+                    customAlertCancelBtn.addEventListener('click', cancelHandler);
+
+                    closeCustomAlertModal.addEventListener('click', cancelHandler, { once: true }); // Close button acts as cancel
+                    customAlertModal.addEventListener('click', (e) => { // Click outside modal to cancel
+                        if (e.target === customAlertModal) {
+                            cancelHandler();
+                        }
+                    }, { once: true });
+                });
+            }
+
+            // Helper function to lighten colors (HEX to HEX)
+            function lightenColor(color, percent) {
+                let f = parseInt(color.slice(1), 16),
+                    t = percent < 0 ? 0 : 255,
+                    p = percent < 0 ? percent * -1 : percent,
+                    R = f >> 16,
+                    G = (f >> 8) & 0x00ff,
+                    B = f & 0x0000ff;
+                return (
+                    "#" +
+                    (
+                        0x1000000 +
+                        (Math.round((t - R) * p) + R) * 0x10000 +
+                        (Math.round((t - G) * p) + G) * 0x100 +
+                        (Math.round((t - B) * p) + B)
+                    )
+                    .toString(16)
+                    .slice(1)
+                );
+            }
+
+            // Function to generate unique ID
+            function generateUniqueId() {
+                return '_' + Math.random().toString(36).substr(2, 9);
+            }
+
+            // --- Firebase Firestore Game Management ---
+            window.loadGamesFromFirestore = function() {
+                if (!window.isFirebaseReady || window.useLocalStorageFallback) {
+                    console.log("Firebase not ready or fallback active, not loading from Firestore.");
+                    return;
+                }
+                
+                try {
+                    const gamesCollectionRef = collection(window.db, `artifacts/${window.appId}/public/data/games`);
+                    onSnapshot(gamesCollectionRef, (snapshot) => {
+                        const loadedGames = [];
+                        snapshot.forEach(doc => {
+                            loadedGames.push({ id: doc.id, ...doc.data() });
+                        });
+                        gamesData = loadedGames;
+                        console.log("Games loaded from Firestore:", gamesData);
+                        renderGames(homeGamesGrid, gamesData.slice(0, 4)); // Re-render popular games
+                        filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category')); // Re-render browse games
+                        applyGameCardAnimationDelays(); // Re-apply delays after data load
+                    }, (error) => {
+                        console.error("Error listening to Firestore games:", error);
+                        customAlert('Data Error', 'Failed to load games from server. Displaying default games.', true);
+                        window.useLocalStorageFallback = true;
+                        window.loadGamesFromLocalStorage(); // Fallback on error
+                    });
+                } catch (error) {
+                    console.error("Firestore operation failed:", error);
+                    customAlert('Initialization Error', 'Could not connect to Firebase. Displaying default games.', true);
+                    window.useLocalStorageFallback = true;
+                    window.loadGamesFromLocalStorage(); // Fallback on error
+                }
+            };
+
+            window.addGameToFirestore = async function(game) {
+                if (window.useLocalStorageFallback) {
+                    window.addGameToLocalStorage(game);
+                    return;
+                }
+                try {
+                    const gamesCollectionRef = collection(window.db, `artifacts/${window.appId}/public/data/games`);
+                    await setDoc(doc(gamesCollectionRef, game.id), game); // Use setDoc with a specific ID
+                    console.log("Game added to Firestore:", game.id);
+                    customAlert('Success', `${game.name} added successfully! Changes might take a moment to reflect for other users.`);
+                } catch (error) {
+                    console.error("Error adding game to Firestore:", error);
+                    customAlert('Error', `Failed to add game: ${error.message}`);
+                }
+            };
+
+            window.deleteGameFromFirestore = async function(gameId) {
+                if (window.useLocalStorageFallback) {
+                    window.deleteGameFromLocalStorage(gameId);
+                    return;
+                }
+                try {
+                    const confirmDelete = await customAlert(
+                        'Confirm Deletion',
+                        'Are you sure you want to delete this game? This action cannot be undone.',
+                        true
+                    );
+
+                    if (confirmDelete) {
+                        const gameDocRef = doc(window.db, `artifacts/${window.appId}/public/data/games`, gameId);
+                        await deleteDoc(gameDocRef);
+                        console.log("Game deleted from Firestore:", gameId);
+                        customAlert('Success', 'Game deleted successfully! Changes might take a moment to reflect for other users.');
+                    }
+                } catch (error) {
+                    console.error("Error deleting game from Firestore:", error);
+                    customAlert('Error', `Failed to delete game: ${error.message}`);
+                }
+            };
+
+            // --- Local Storage Game Management (Fallback) ---
+            window.loadGamesFromLocalStorage = function() {
+                const storedGames = localStorage.getItem('gamePortalGames');
+                if (storedGames) {
+                    try {
+                        gamesData = JSON.parse(storedGames);
+                    } catch (e) {
+                        console.error("Error parsing games from localStorage, loading default games.", e);
+                        gamesData = defaultGamesData;
+                    }
+                } else {
+                    gamesData = defaultGamesData;
+                }
+                console.log("Games loaded from Local Storage (fallback):", gamesData);
+                renderGames(homeGamesGrid, gamesData.slice(0, 4));
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
+                applyGameCardAnimationDelays();
+            };
+
+            window.saveGamesToLocalStorage = function() {
+                localStorage.setItem('gamePortalGames', JSON.stringify(gamesData));
+            };
+
+            window.addGameToLocalStorage = function(game) {
+                gamesData.push(game);
+                window.saveGamesToLocalStorage();
+                renderGames(homeGamesGrid, gamesData.slice(0, 4));
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
+                customAlert('Game Added!', `${game.name} has been added to the game list (local).`);
+            };
+
+            window.deleteGameToLocalStorage = async function(gameId) {
+                const confirmDelete = await customAlert(
+                    'Confirm Deletion',
+                    'Are you sure you want to delete this game? This action cannot be undone.',
+                    true
+                );
+
+                if (confirmDelete) {
+                    gamesData = gamesData.filter(game => game.id !== gameId);
+                    window.saveGamesToLocalStorage();
+                    renderGames(homeGamesGrid, gamesData.slice(0, 4));
+                    filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
+                    customAlert('Success', 'Game deleted successfully (local)!');
+                }
+            };
+
+
+            // --- Game Rendering ---
+            function renderGames(containerElement, gamesToRender) {
+                containerElement.innerHTML = ''; // Clear existing games
+                if (gamesToRender.length === 0) {
+                    noGamesFound.style.display = 'block';
+                    return;
+                } else {
+                    noGamesFound.style.display = 'none';
+                }
+
+                gamesToRender.forEach((game, index) => {
+                    const gameCard = document.createElement('div');
+                    gameCard.classList.add('game-card');
+                    gameCard.setAttribute('data-id', game.id);
+                    gameCard.setAttribute('data-url', game.url);
+                    gameCard.setAttribute('data-name', game.name);
+                    gameCard.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`; // Use CSS var
+
+                    const tagsHtml = game.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+                    gameCard.innerHTML = `
+                        <div class="game-thumb" style="background-image: url('${game.thumb}');"></div>
+                        <div class="game-info">
+                            <h3>${game.name}</h3>
+                            <p>${game.description}</p>
+                            <div class="game-tags">${tagsHtml}</div>
+                        </div>
+                        ${isAdminLoggedIn && isEditingMode ? `<button class="delete-btn" data-id="${game.id}"><i class="fas fa-times"></i></button>` : ''}
+                    `;
+                    containerElement.appendChild(gameCard);
+
+                    // Add event listener for launching game
+                    gameCard.addEventListener('click', function(e) {
+                        // Prevent loading game if delete button was clicked
+                        if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains('delete-btn')) {
+                            return;
+                        }
+                        const gameUrl = this.getAttribute('data-url');
+                        const gameName = this.getAttribute('data-name');
+                        if (gameUrl) {
+                            gameLoading.style.display = 'flex';
+                            gameFrame.src = gameUrl;
+                            nowPlayingTitle.innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
+                            gameFrame.scrollIntoView({ behavior: 'smooth' });
+                            showPage('homePage');
+                        }
+                    });
+
+                    // Add event listener for delete button if in admin mode
+                    if (isAdminLoggedIn && isEditingMode) {
+                        const deleteBtn = gameCard.querySelector('.delete-btn');
+                        if (deleteBtn) {
+                            deleteBtn.addEventListener('click', (e) => {
+                                e.stopPropagation(); // Prevent card click from firing
+                                const gameIdToDelete = deleteBtn.getAttribute('data-id');
+                                if (window.useLocalStorageFallback) {
+                                    window.deleteGameToLocalStorage(gameIdToDelete);
+                                } else {
+                                    window.deleteGameFromFirestore(gameIdToDelete);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Function to filter and render games for browse page
+            function filterAndRenderBrowseGames(searchTerm = '', category = 'all') {
+                const filteredGames = gamesData.filter(game => {
+                    const matchesSearch = game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                          game.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                          game.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+                    const matchesCategory = category === 'all' || game.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
+                    return matchesSearch && matchesCategory;
+                });
+                renderGames(browseGamesGrid, filteredGames);
+            }
+
+
+            // --- Event Listeners ---
+
             // Theme toggle functionality
             themeToggle.addEventListener('click', function() {
-                const isDark = body.classList.contains('dark-theme');
-                
-                if (isDark) {
-                    // Switch to light theme
-                    body.classList.remove('dark-theme');
-                    body.classList.add('light-theme');
-                    
-                    // Show light overlay animation
-                    document.querySelector('.light-overlay').classList.add('active');
-                    setTimeout(() => {
-                        document.querySelector('.light-overlay').classList.remove('active');
-                    }, 800);
-                    
-                    // Update toggle slider position
-                    document.querySelector('.toggle-slider').innerHTML = '<i class="fas fa-sun"></i>';
+                const currentThemeClass = Array.from(body.classList).find(cls => cls.endsWith('-theme'));
+                let newThemeClass = 'dark-theme'; // Default fallback
+
+                if (currentThemeClass === 'dark-theme') {
+                    newThemeClass = 'light-theme';
                 } else {
-                    // Switch to dark theme
-                    body.classList.remove('light-theme');
-                    body.classList.add('dark-theme');
-                    
-                    // Show dark overlay animation
-                    document.querySelector('.dark-overlay').classList.add('active');
+                    // If any other theme is active, switch to dark
+                    newThemeClass = 'dark-theme';
+                }
+
+                // Preserve performance mode class
+                const hasPerformanceMode = body.classList.contains('performance-mode');
+                body.className = ''; // Clear all theme-related classes
+                body.classList.add(newThemeClass);
+                if (hasPerformanceMode) {
+                    body.classList.add('performance-mode');
+                }
+                
+                // Update toggle slider icon
+                document.querySelector('.toggle-slider').innerHTML = newThemeClass === 'light-theme' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                
+                // Show appropriate overlay animation
+                overlays.forEach(overlay => overlay.classList.remove('active')); // Clear all overlays first
+                const overlayClass = newThemeClass.replace('theme', 'overlay'); // e.g., 'light-theme' -> 'light-overlay'
+                const activeOverlay = document.querySelector(`.${overlayClass}`);
+                if (activeOverlay) {
+                    activeOverlay.classList.add('active');
                     setTimeout(() => {
-                        document.querySelector('.dark-overlay').classList.remove('active');
-                    }, 800);
-                    
-                    // Update toggle slider position
-                    document.querySelector('.toggle-slider').innerHTML = '<i class="fas fa-moon"></i>';
+                        activeOverlay.classList.remove('active');
+                    }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--overlay-speed')) * 1000);
                 }
             });
             
             // Settings page functionality
             settingsBtn.addEventListener('click', function() {
                 settingsPage.classList.add('active');
+                // Ensure correct setting section is active when opening settings
+                settingsOptions.forEach(opt => opt.classList.remove('active'));
+                settingsSections.forEach(sec => sec.classList.remove('active'));
+                
+                if (isAdminLoggedIn) {
+                    // If admin is logged in, default to admin section
+                    document.querySelector('.settings-option[data-section="admin"]').classList.add('active');
+                    document.getElementById('adminSection').classList.add('active');
+                } else {
+                    // Otherwise, default to general settings
+                    document.querySelector('.settings-option[data-section="general"]').classList.add('active');
+                    document.getElementById('generalSection').classList.add('active');
+                }
+                // Update toggle state for performance mode
+                performanceModeToggle.checked = localStorage.getItem('performanceMode') === 'enabled';
             });
             
             closeSettings.addEventListener('click', function() {
@@ -1746,22 +2479,26 @@
                 }
             });
             
-            // Settings sidebar navigation
+            // Settings sidebar navigation - scrolls to section
             settingsOptions.forEach(option => {
                 option.addEventListener('click', function() {
-                    const section = this.getAttribute('data-section');
+                    const sectionId = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(sectionId + 'Section');
                     
                     // Update active option
                     settingsOptions.forEach(opt => opt.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // Show corresponding section
-                    settingsSections.forEach(sec => {
-                        sec.classList.remove('active');
-                        if(sec.id === section + 'Section') {
-                            sec.classList.add('active');
-                        }
-                    });
+                    // Show corresponding section and scroll into view
+                    settingsSections.forEach(sec => sec.classList.remove('active'));
+                    if(targetSection) {
+                        targetSection.classList.add('active');
+                        // Scroll the settings content area to the section
+                        document.querySelector('.settings-content').scrollTo({
+                            top: targetSection.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
             
@@ -1770,11 +2507,20 @@
                 option.addEventListener('click', function() {
                     const theme = this.getAttribute('data-theme');
                     
-                    // Update body class
-                    body.className = theme;
+                    // Preserve performance mode class
+                    const hasPerformanceMode = body.classList.contains('performance-mode');
+                    body.className = ''; // Clear all theme-related classes
+                    body.classList.add(theme);
+                    if (hasPerformanceMode) {
+                        body.classList.add('performance-mode');
+                    }
                     
-                    // Update toggle icon
-                    if (theme !== 'dark-theme') {
+                    // Update theme option active state
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Update toggle icon for main theme toggle
+                    if (theme.includes('light-theme') || theme.includes('neomorphism-theme') || theme.includes('glass-theme')) {
                         document.querySelector('.toggle-slider').innerHTML = '<i class="fas fa-sun"></i>';
                     } else {
                         document.querySelector('.toggle-slider').innerHTML = '<i class="fas fa-moon"></i>';
@@ -1783,25 +2529,37 @@
                     // Show appropriate overlay
                     const overlayMap = {
                         'light-theme': 'light-overlay',
-                        'neomorphism-theme': 'light-overlay',
-                        'glass-theme': 'light-overlay',
+                        'neomorphism-theme': 'light-overlay', 
+                        'glass-theme': 'light-overlay', 
                         'cyberpunk-theme': 'cyberpunk-overlay',
                         'retro-theme': 'retro-overlay',
                         'sunset-theme': 'sunset-overlay',
                         'dark-theme': 'dark-overlay'
                     };
                     
-                    const overlayClass = overlayMap[theme] || 'dark-overlay';
-                    document.querySelector(`.${overlayClass}`).classList.add('active');
-                    setTimeout(() => {
-                        document.querySelector(`.${overlayClass}`).classList.remove('active');
-                    }, 800);
+                    overlays.forEach(overlay => overlay.classList.remove('active')); // Clear all overlays first
+
+                    const overlayClass = overlayMap[theme];
+                    if (overlayClass) {
+                        const activeOverlay = document.querySelector(`.${overlayClass}`);
+                        if (activeOverlay) {
+                            activeOverlay.classList.add('active');
+                            setTimeout(() => {
+                                activeOverlay.classList.remove('active');
+                            }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--overlay-speed')) * 1000);
+                        }
+                    }
                 });
             });
             
             // Color selection
             colorOptions.forEach(option => {
                 option.addEventListener('click', function() {
+                    if (rainbowToggle.checked) {
+                        customAlert('Rainbow Mode Active', 'Please disable Rainbow Mode to select a static accent color.');
+                        return;
+                    }
+
                     const color = this.getAttribute('data-color');
                     
                     // Update active color
@@ -1810,22 +2568,17 @@
                     
                     // Update CSS variable
                     document.documentElement.style.setProperty('--primary', color);
-                    
-                    // Update secondary color (lighter version)
-                    const secondaryColor = lightenColor(color, 30);
+                    const secondaryColor = lightenColor(color, 30); 
                     document.documentElement.style.setProperty('--secondary', secondaryColor);
                 });
             });
             
             // Rainbow mode toggle
             let rainbowInterval;
-            rainbowToggle.addEventListener('click', function() {
-                if (rainbowInterval) {
-                    clearInterval(rainbowInterval);
-                    rainbowInterval = null;
-                    this.classList.remove('active');
-                } else {
+            rainbowToggle.addEventListener('change', function() {
+                if (this.checked) {
                     let hue = 0;
+                    colorOptions.forEach(opt => opt.classList.add('disabled-for-rainbow')); // Add class to visually disable
                     rainbowInterval = setInterval(() => {
                         hue = (hue + 1) % 360;
                         const color = `hsl(${hue}, 70%, 60%)`;
@@ -1833,57 +2586,60 @@
                         document.documentElement.style.setProperty('--primary', color);
                         document.documentElement.style.setProperty('--secondary', secondaryColor);
                     }, 50);
-                    this.classList.add('active');
+                } else {
+                    clearInterval(rainbowInterval);
+                    rainbowInterval = null;
+                    colorOptions.forEach(opt => opt.classList.remove('disabled-for-rainbow')); // Re-enable
+                    // Reset to the active selected color, or default if none active
+                    const activeColorOption = document.querySelector('.color-option.active');
+                    if (activeColorOption) {
+                        const defaultColor = activeColorOption.getAttribute('data-color');
+                        document.documentElement.style.setProperty('--primary', defaultColor);
+                        document.documentElement.style.setProperty('--secondary', lightenColor(defaultColor, 30));
+                    } else { 
+                        document.documentElement.style.setProperty('--primary', '#6C5CE7');
+                        document.documentElement.style.setProperty('--secondary', '#8A7CFB');
+                    }
                 }
             });
             
-            // Game card functionality
-            gameCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const gameUrl = this.getAttribute('data-url');
-                    const gameName = this.getAttribute('data-name');
-                    
-                    if (gameUrl) {
-                        gameLoading.style.display = 'flex';
-                        gameFrame.src = gameUrl;
-                        document.querySelector('.embed-header h2').innerHTML = 
-                            `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
-                        
-                        // Scroll to game frame
-                        gameFrame.scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Switch to home page
-                        showPage('homePage');
-                    }
-                });
-            });
-            
-            // Hide loading when game is loaded
+            // Game frame loading indicator
             gameFrame.addEventListener('load', function() {
                 setTimeout(() => {
                     gameLoading.style.opacity = '0';
                     setTimeout(() => {
                         gameLoading.style.display = 'none';
                         gameLoading.style.opacity = '1';
-                    }, 800);
-                }, 800);
+                    }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-loading-speed')) * 1000);
+                }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-loading-speed')) * 1000);
             });
             
             // Navigation functionality
             homeBtn.addEventListener('click', () => showPage('homePage'));
-            browseBtn.addEventListener('click', () => showPage('browsePage'));
+            browseBtn.addEventListener('click', () => {
+                showPage('browsePage');
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
+            });
             popularBtn.addEventListener('click', () => {
                 showPage('homePage');
+                // Ensure games are rendered before scrolling
+                renderGames(homeGamesGrid, gamesData.slice(0, 4));
                 setTimeout(() => {
-                    document.querySelector('.game-grid').scrollIntoView({ behavior: 'smooth' });
+                    const popularGamesSection = document.querySelector('.game-grid');
+                    if (popularGamesSection) {
+                        popularGamesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }, 300);
             });
             favoritesBtn.addEventListener('click', () => {
-                alert('Favorites feature coming soon!');
+                customAlert('Feature Coming Soon', 'The Favorites feature is currently under development!');
             });
-            browseGamesBtn.addEventListener('click', () => showPage('browsePage'));
+            browseGamesBtn.addEventListener('click', () => {
+                showPage('browsePage');
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
+            });
             
-            // Play Now button
+            // Play Now button scrolls to game frame
             playNowBtn.addEventListener('click', () => {
                 gameFrame.scrollIntoView({ behavior: 'smooth' });
             });
@@ -1901,45 +2657,233 @@
                 }
             });
             
-            // Launch Game button
+            // Launch Game button opens in new tab
             launchGameBtn.addEventListener('click', () => {
                 if (gameFrame.src) {
                     window.open(gameFrame.src, '_blank');
                 }
             });
             
-            // Show specific page
+            // Function to show a specific page with transition
             function showPage(pageId) {
                 pages.forEach(page => {
                     page.classList.remove('active');
-                    if (page.id === pageId) {
-                        setTimeout(() => {
-                            page.classList.add('active');
-                        }, 50);
-                    }
+                });
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    setTimeout(() => {
+                        targetPage.classList.add('active');
+                    }, 50); // Small delay to allow CSS transitions to play
+                }
+                // Update active state of nav buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                const activeNavBtn = document.querySelector(`#${pageId.replace('Page', 'NavBtn')}`);
+                if (activeNavBtn) {
+                    activeNavBtn.classList.add('active');
+                }
+                // Special handling for "Popular Games" and "Browse Games" from Home page buttons
+                if (pageId === 'homePage') {
+                     homeBtn.classList.add('active');
+                } else if (pageId === 'browsePage') {
+                    browseBtn.classList.add('active');
+                }
+            }
+            
+            // Apply animation delays to game cards (initial load)
+            function applyGameCardAnimationDelays() {
+                document.querySelectorAll('.game-card').forEach((card, index) => {
+                    card.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`;
                 });
             }
-            
-            // Helper function to lighten colors
-            function lightenColor(color, percent) {
-                // Convert hex to RGB
-                let r = parseInt(color.substring(1, 3), 16);
-                let g = parseInt(color.substring(3, 5), 16);
-                let b = parseInt(color.substring(5, 7), 16);
-                
-                // Lighten each component
-                r = Math.min(255, r + (255 - r) * percent / 100);
-                g = Math.min(255, g + (255 - g) * percent / 100);
-                b = Math.min(255, b + (255 - b) * percent / 100);
-                
-                // Convert back to hex
-                return `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
-            }
-            
-            // Apply animation delays to game cards
-            document.querySelectorAll('.game-card').forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
+
+            // --- Admin Login Logic ---
+            loginNavBtn.addEventListener('click', () => showPage('loginPage'));
+
+            loginSubmitBtn.addEventListener('click', function() {
+                const username = usernameInput.value;
+                const password = passwordInput.value;
+
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    isLoggedIn = true;
+                    isAdminLoggedIn = true;
+                    loginMessage.textContent = 'Login successful! Redirecting to home page...';
+                    loginMessage.className = 'login-message success';
+                    
+                    // Show admin section in settings and manage games nav button
+                    updateAdminUI();
+                    
+                    setTimeout(() => {
+                        showPage('homePage'); // Go back to home page after login
+                        loginMessage.textContent = ''; // Clear message
+                        usernameInput.value = ''; // Clear input fields
+                        passwordInput.value = '';
+                    }, 1500); // Redirect after 1.5 seconds
+                } else {
+                    loginMessage.textContent = 'Invalid username or password.';
+                    loginMessage.className = 'login-message error';
+                }
             });
+
+            // Function to update admin specific UI elements based on login status
+            function updateAdminUI() {
+                if (isAdminLoggedIn) {
+                    adminSettingOption.style.display = 'flex'; // Show admin setting option
+                    manageGamesNavBtn.style.display = 'flex'; // Show manage games nav button
+                } else {
+                    adminSettingOption.style.display = 'none'; // Hide admin setting option
+                    manageGamesNavBtn.style.display = 'none'; // Hide manage games nav button
+                }
+                // Also update the body class for editing mode specific styles
+                if (isEditingMode) {
+                    body.classList.add('admin-editing-mode');
+                } else {
+                    body.classList.remove('admin-editing-mode');
+                }
+                // Re-render games to show/hide delete buttons based on editing mode
+                renderGames(homeGamesGrid, gamesData.slice(0, 4));
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
+            }
+
+            // --- Game Management Toggle ---
+            manageGamesNavBtn.addEventListener('click', function() {
+                if (!isAdminLoggedIn) {
+                    customAlert('Access Denied', 'You must be logged in as an administrator to manage games.');
+                    return;
+                }
+                isEditingMode = !isEditingMode; // Toggle editing mode
+                updateAdminUI(); // Update UI to show/hide delete buttons and add button
+
+                if (isEditingMode) {
+                    manageGamesNavBtn.classList.add('active');
+                    customAlert('Admin Mode', 'Game editing mode is now active. You can delete games or add new ones using the floating (+) button.');
+                } else {
+                    manageGamesNavBtn.classList.remove('active');
+                    customAlert('Admin Mode', 'Game editing mode is now inactive.');
+                }
+            });
+
+            // --- Add Game Modal Logic ---
+            addGameFloatingBtn.addEventListener('click', function() {
+                if (isAdminLoggedIn && isEditingMode) {
+                    addGameModal.classList.add('active');
+                    addGameMessage.textContent = ''; // Clear previous messages
+                    // Clear form fields
+                    newGameNameInput.value = '';
+                    newGameUrlInput.value = '';
+                    newGameThumbInput.value = '';
+                    newGameDescInput.value = '';
+                    newGameTagsInput.value = '';
+                } else {
+                    customAlert('Access Denied', 'Please log in as an admin and enable "Manage Games" mode to add games.');
+                }
+            });
+
+            closeAddGameModal.addEventListener('click', () => addGameModal.classList.remove('active'));
+            addGameModal.addEventListener('click', function(e) {
+                if (e.target === addGameModal) {
+                    addGameModal.classList.remove('active');
+                }
+            });
+
+            submitNewGameBtn.addEventListener('click', function() {
+                const name = newGameNameInput.value.trim();
+                const url = newGameUrlInput.value.trim();
+                const thumb = newGameThumbInput.value.trim();
+                const description = newGameDescInput.value.trim();
+                const tags = newGameTagsInput.value.trim().split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+
+                if (!name || !url) {
+                    addGameMessage.textContent = 'Game Name and Game URL are required.';
+                    addGameMessage.className = 'login-message error';
+                    return;
+                }
+
+                // Basic URL validation
+                try {
+                    new URL(url);
+                    if (thumb) new URL(thumb); // Validate thumbnail URL if provided
+                } catch (_) {
+                    addGameMessage.textContent = 'Please enter valid URLs for Game URL and Thumbnail URL.';
+                    addGameMessage.className = 'login-message error';
+                    return;
+                }
+
+                const newGame = {
+                    id: generateUniqueId(),
+                    name,
+                    url,
+                    thumb: thumb || 'https://placehold.co/180x180/cccccc/333333?text=No+Thumb', // Placeholder if no thumb
+                    description: description || 'No description provided.',
+                    tags: tags.length > 0 ? tags : ['General']
+                };
+
+                if (window.useLocalStorageFallback) {
+                    window.addGameToLocalStorage(newGame);
+                } else {
+                    window.addGameToFirestore(newGame);
+                }
+                addGameModal.classList.remove('active');
+            });
+
+            // --- Browse Page Search and Filter ---
+            browseSearchBtn.addEventListener('click', () => {
+                const searchTerm = browseSearchInput.value;
+                const activeCategory = document.querySelector('#categoryFilter .active').getAttribute('data-category');
+                filterAndRenderBrowseGames(searchTerm, activeCategory);
+            });
+
+            browseSearchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    browseSearchBtn.click();
+                } else {
+                    // Live search as user types
+                    const searchTerm = browseSearchInput.value;
+                    const activeCategory = document.querySelector('#categoryFilter .active').getAttribute('data-category');
+                    filterAndRenderBrowseGames(searchTerm, activeCategory);
+                }
+            });
+
+
+            categoryFilter.addEventListener('click', (e) => {
+                const target = e.target;
+                if (target.classList.contains('category-btn')) {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    target.classList.add('active');
+                    const selectedCategory = target.getAttribute('data-category');
+                    filterAndRenderBrowseGames(browseSearchInput.value, selectedCategory);
+                }
+            });
+
+            // --- Performance Mode Logic ---
+            function applyPerformanceMode(enabled) {
+                if (enabled) {
+                    body.classList.add('performance-mode');
+                } else {
+                    body.classList.remove('performance-mode');
+                }
+                localStorage.setItem('performanceMode', enabled ? 'enabled' : 'disabled');
+                // Re-apply animation delays with new speeds
+                applyGameCardAnimationDelays();
+            }
+
+            performanceModeToggle.addEventListener('change', function() {
+                applyPerformanceMode(this.checked);
+            });
+
+
+            // --- Initial Load Logic ---
+            // The Firebase initialization script block handles calling loadGamesFromFirestore
+            // or loadGamesFromLocalStorage on authentication completion.
+
+            // Apply performance mode from localStorage on initial load
+            const savedPerformanceMode = localStorage.getItem('performanceMode');
+            if (savedPerformanceMode === 'enabled') {
+                performanceModeToggle.checked = true;
+                applyPerformanceMode(true);
+            } else {
+                performanceModeToggle.checked = false;
+                applyPerformanceMode(false); // Ensure default speeds are applied
+            }
         });
     </script>
 </body>
