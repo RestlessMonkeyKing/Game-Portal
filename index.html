@@ -1483,76 +1483,197 @@
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            addDoc,
+            deleteDoc,
+            doc
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global Firebase instances (accessible by other script blocks)
-        window.firebaseApp = null;
-        window.db = null;
-        window.auth = null;
-        window.currentUserId = null;
-        window.isFirebaseReady = false;
+        // 1. Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAOrYAgq8s_mxgVTHA4__hoRTg5u8f85MM",
+            authDomain: "game-portal-c0b44.firebaseapp.com",
+            projectId: "game-portal-c0b44",
+            storageBucket: "game-portal-c0b44.firebasestorage.app",
+            messagingSenderId: "94063829166",
+            appId: "1:94063829166:web:45cba1458d39609c4c4d3f"
+        };
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Mandatory global variables provided by the Canvas environment
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        // 2. Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-                if (Object.keys(firebaseConfig).length === 0) {
-                    console.error("Firebase config is missing. Please ensure __firebase_config is set.");
-                    // Fallback to local storage if Firebase isn't configured for demonstration
-                    window.useLocalStorageFallback = true;
-                    console.log("Proceeding with local storage for game data due to missing Firebase config.");
-                    return; // Exit if no Firebase config, proceed with local storage logic
+        // Expose Firebase instances globally for the main script
+        window.firebaseApp = app;
+        window.db = db;
+        window.auth = auth;
+        window.currentUserId = null; // Will be set on auth state change
+
+        // 3. Login (anonymous)
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log("Logged in as:", user.uid);
+                window.currentUserId = user.uid;
+                // Update the User ID display in the footer
+                const userIdDisplay = document.getElementById('currentUserIdDisplay');
+                if (userIdDisplay) {
+                    userIdDisplay.textContent = `User ID: ${user.uid}`;
                 }
+                await loadGamesFromFirestore();
+            } else {
+                await signInAnonymously(auth);
+            }
+        });
 
-                // Initialize Firebase
-                window.firebaseApp = initializeApp(firebaseConfig);
-                window.db = getFirestore(window.firebaseApp);
-                window.auth = getAuth(window.firebaseApp);
+        // 4. Load games from Firebase
+        async function loadGamesFromFirestore() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "games"));
+                const games = [];
+                querySnapshot.forEach((doc) => {
+                    const game = doc.data();
+                    game.id = doc.id; // Ensure the Firestore document ID is stored as 'id'
+                    games.push(game);
+                });
+                window.gamesData = games; // Update global gamesData
+                renderGames(games); // Call local renderGames function
+            } catch (error) {
+                console.error("Error loading games from Firestore:", error);
+                // Fallback to default games or display an error if real data cannot be loaded
+                window.gamesData = []; // Clear existing data or load default if needed
+                renderGames([]); // Render empty or handle error gracefully
+                window.customAlert('Data Load Error', 'Could not load games from the server. Please check your connection or Firebase setup.', false);
+            }
+        }
 
-                // Authenticate
-                onAuthStateChanged(window.auth, async (user) => {
-                    if (user) {
-                        window.currentUserId = user.uid;
-                        console.log("Firebase authenticated. User ID:", window.currentUserId);
-                        document.getElementById('currentUserIdDisplay').textContent = `User ID: ${window.currentUserId}`;
-                        window.isFirebaseReady = true;
-                        // Trigger initial game load after authentication
-                        window.loadGamesFromFirestore();
-                    } else {
-                        console.log("No user authenticated. Attempting anonymous sign-in or custom token.");
-                        try {
-                            if (initialAuthToken) {
-                                await signInWithCustomToken(window.auth, initialAuthToken);
-                                console.log("Signed in with custom token.");
-                            } else {
-                                await signInAnonymously(window.auth);
-                                console.log("Signed in anonymously.");
-                            }
-                        } catch (error) {
-                            console.error("Firebase authentication failed:", error);
-                            window.useLocalStorageFallback = true;
-                            console.log("Proceeding with local storage for game data due to Firebase auth failure.");
-                            // Fallback to local storage if authentication fails
-                            window.loadGamesFromLocalStorage();
+        // 5. Add game to Firebase
+        async function addGameToFirestore(game) {
+            try {
+                await addDoc(collection(db, "games"), game);
+                window.customAlert('Success', `${game.title} added successfully! Changes might take a moment to reflect.`);
+                await loadGamesFromFirestore(); // Reload games to update UI
+            } catch (error) {
+                console.error("Error adding game to Firestore:", error);
+                window.customAlert('Error', `Failed to add game: ${error.message}`);
+            }
+        }
+
+        // 6. Delete game from Firebase
+        async function deleteGameFromFirestore(id) {
+            const confirmDelete = await window.customAlert(
+                'Confirm Deletion',
+                'Are you sure you want to delete this game? This action cannot be undone.',
+                true
+            );
+
+            if (confirmDelete) {
+                try {
+                    await deleteDoc(doc(db, "games", id));
+                    window.customAlert('Success', 'Game deleted successfully! Changes might take a moment to reflect.');
+                    await loadGamesFromFirestore(); // Reload games to update UI
+                } catch (error) {
+                    console.error("Error deleting game from Firestore:", error);
+                    window.customAlert('Error', `Failed to delete game: ${error.message}`);
+                }
+            }
+        }
+
+        // 7. Show games on page (adapted for new data structure)
+        function renderGames(games) {
+            const homeGrid = document.getElementById("homeGamesGrid");
+            const browseGrid = document.getElementById("browseGamesGrid");
+            homeGrid.innerHTML = "";
+            browseGrid.innerHTML = "";
+            
+            // Check for no games found and display message
+            const noGamesFound = document.getElementById('noGamesFound');
+            if (games.length === 0) {
+                if (noGamesFound) noGamesFound.style.display = 'block';
+            } else {
+                if (noGamesFound) noGamesFound.style.display = 'none';
+            }
+
+            games.forEach((game, index) => {
+                const card = document.createElement("div");
+                card.className = "game-card";
+                // Use the new property names from the provided script's data structure
+                const tagsArray = Array.isArray(game.category) ? game.category : (game.category ? String(game.category).split(',').map(tag => tag.trim()) : []);
+                const tagsHtml = tagsArray.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+                card.innerHTML = `
+                    <div class="game-thumb" style="background-image: url('${game.thumbnail || 'https://placehold.co/180x180/cccccc/333333?text=No+Thumb'}')"></div>
+                    <div class="game-info">
+                        <h3>${game.title || 'Untitled Game'}</h3>
+                        <p>${game.description || 'No description provided.'}</p>
+                        <div class="game-tags">${tagsHtml}</div>
+                    </div>
+                    ${window.isAdminLoggedIn && window.isEditingMode ? `<button class="delete-btn" data-id="${game.id}"><i class="fas fa-times"></i></button>` : ''}
+                `;
+
+                // Add event listener for launching game (from existing main script logic)
+                card.addEventListener('click', function(e) {
+                    // Prevent loading game if delete button was clicked
+                    if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains('delete-btn')) {
+                        return;
+                    }
+                    const gameUrl = game.url; // Assuming 'url' property exists in the new game object
+                    const gameName = game.title;
+                    if (gameUrl) {
+                        const gameLoading = document.getElementById('gameLoading');
+                        const gameFrame = document.getElementById('gameFrame');
+                        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+
+                        if (gameLoading) gameLoading.style.display = 'flex';
+                        if (gameFrame) gameFrame.src = gameUrl;
+                        if (nowPlayingTitle) nowPlayingTitle.innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
+                        if (gameFrame) gameFrame.scrollIntoView({ behavior: 'smooth' });
+                        // Assuming showPage function is available globally from main script
+                        if (typeof window.showPage === 'function') {
+                            window.showPage('homePage');
                         }
                     }
                 });
 
-                // Expose appId globally for Firestore paths
-                window.appId = appId;
+                const deleteBtn = card.querySelector(".delete-btn");
+                if (deleteBtn) {
+                    deleteBtn.addEventListener("click", (e) => {
+                        e.stopPropagation(); // Prevent card click from triggering game launch
+                        deleteGameFromFirestore(game.id);
+                    });
+                }
+                
+                // Set animation delay
+                card.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`;
 
-            } catch (error) {
-                console.error("Error initializing Firebase:", error);
-                window.useLocalStorageFallback = true;
-                console.log("Proceeding with local storage for game data due to Firebase initialization error.");
-                // Fallback to local storage if Firebase initialization fails
-                window.loadGamesFromLocalStorage();
-            }
-        });
+                homeGrid.appendChild(card);
+                
+                // Clone for browse grid, and re-attach event listener for its delete button
+                const clonedCard = card.cloneNode(true);
+                const clonedDeleteBtn = clonedCard.querySelector(".delete-btn");
+                if (clonedDeleteBtn) {
+                    clonedDeleteBtn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        deleteGameFromFirestore(game.id);
+                    });
+                }
+                browseGrid.appendChild(clonedCard);
+            });
+        }
+
+        // Expose functions globally for the main script
+        window.addGameToFirestore = addGameToFirestore;
+        window.loadGamesFromFirestore = loadGamesFromFirestore;
+        window.deleteGameFromFirestore = deleteGameFromFirestore;
+        // Expose renderGames as well, though it's called internally by loadGamesFromFirestore
+        window.renderGames = renderGames;
+
+        // Initialize global gamesData array
+        window.gamesData = [];
     </script>
 </head>
 <body class="dark-theme">
@@ -1952,7 +2073,10 @@
                                 <li>Manage reported content</li>
                                 <li>Update global settings</li>
                             </ul>
-                            <p style="color: red; font-weight: bold;">NOTE: This is a client-side simulation. For real administration, a secure backend and database are required.</p>
+                            <button class="btn" id="migrateGamesBtn" style="margin-top: 20px; display: none;">
+                                <i class="fas fa-cloud-upload-alt"></i> Migrate Local Games to Firebase
+                            </button>
+                            <p style="color: red; font-weight: bold; margin-top: 15px;">NOTE: This migration is a one-time process. Do not run repeatedly. For real administration, a secure backend and database are required.</p>
                         </div>
                     </div>
 
@@ -2005,8 +2129,8 @@
                     <textarea id="newGameDesc" placeholder="Brief description of the game"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="newGameTags">Tags (comma-separated):</label>
-                    <input type="text" id="newGameTags" placeholder="e.g., Racing, Action, Puzzle">
+                    <label for="newGameTags">Category (e.g., Racing, Action, Puzzle):</label>
+                    <input type="text" id="newGameTags" placeholder="e.g., Racing">
                 </div>
                 <div class="modal-buttons">
                     <button class="btn" id="submitNewGameBtn"><i class="fas fa-plus-circle"></i> Add Game</button>
@@ -2039,14 +2163,219 @@
     </div>
 
     <script>
-        // Global variables for Firebase instances
-        // These are initialized in the module script block above.
-        let db;
-        let auth;
-        let currentUserId;
-        let appId;
-        let isFirebaseReady = false;
-        let useLocalStorageFallback = false; // Flag to check if we fallback to local storage
+        // Global variables for Firebase instances and game data
+        // These are now initialized and updated by the module script block above.
+        let gamesData = []; // This will hold the current game data, updated by loadGamesFromFirestore
+
+        // --- Utility Functions ---
+
+        // Helper function to show custom alerts/confirmations instead of native alert/confirm
+        function customAlert(title, message, isConfirm = false) {
+            return new Promise((resolve) => {
+                const customAlertTitle = document.getElementById('customAlertTitle');
+                const customAlertMessage = document.getElementById('customAlertMessage');
+                const customAlertOKBtn = document.getElementById('customAlertOKBtn');
+                const customAlertConfirmBtn = document.getElementById('customAlertConfirmBtn');
+                const customAlertCancelBtn = document.getElementById('customAlertCancelBtn');
+                const customAlertModal = document.getElementById('customAlertModal');
+                const closeCustomAlertModal = document.getElementById('closeCustomAlertModal');
+
+                customAlertTitle.textContent = title;
+                customAlertMessage.textContent = message;
+                customAlertOKBtn.style.display = isConfirm ? 'none' : 'inline-flex';
+                customAlertConfirmBtn.style.display = isConfirm ? 'inline-flex' : 'none';
+                customAlertCancelBtn.style.display = isConfirm ? 'inline-flex' : 'none';
+
+                customAlertModal.classList.add('active');
+
+                const okHandler = () => {
+                    customAlertModal.classList.remove('active');
+                    customAlertOKBtn.removeEventListener('click', okHandler);
+                    customAlertConfirmBtn.removeEventListener('click', confirmHandler);
+                    customAlertCancelBtn.removeEventListener('click', cancelHandler);
+                    resolve(true); // For OK, always resolve true
+                };
+                const confirmHandler = () => {
+                    customAlertModal.classList.remove('active');
+                    customAlertOKBtn.removeEventListener('click', okHandler);
+                    customAlertConfirmBtn.removeEventListener('click', confirmHandler);
+                    customAlertCancelBtn.removeEventListener('click', cancelHandler);
+                    resolve(true);
+                };
+                const cancelHandler = () => {
+                    customAlertModal.classList.remove('active');
+                    customAlertOKBtn.removeEventListener('click', okHandler);
+                    customAlertConfirmBtn.removeEventListener('click', confirmHandler);
+                    customAlertCancelBtn.removeEventListener('click', cancelHandler);
+                    resolve(false);
+                };
+
+                customAlertOKBtn.addEventListener('click', okHandler);
+                customAlertConfirmBtn.addEventListener('click', confirmHandler);
+                customAlertCancelBtn.addEventListener('click', cancelHandler);
+
+                closeCustomAlertModal.addEventListener('click', cancelHandler, { once: true }); // Close button acts as cancel
+                customAlertModal.addEventListener('click', (e) => { // Click outside modal to cancel
+                    if (e.target === customAlertModal) {
+                        cancelHandler();
+                    }
+                }, { once: true });
+            });
+        }
+        window.customAlert = customAlert; // Expose globally
+
+        // Helper function to lighten colors (HEX to HEX)
+        function lightenColor(color, percent) {
+            let f = parseInt(color.slice(1), 16),
+                t = percent < 0 ? 0 : 255,
+                p = percent < 0 ? percent * -1 : percent,
+                R = f >> 16,
+                G = (f >> 8) & 0x00ff,
+                B = f & 0x0000ff;
+            return (
+                "#" +
+                (
+                    0x1000000 +
+                    (Math.round((t - R) * p) + R) * 0x10000 +
+                    (Math.round((t - G) * p) + G) * 0x100 +
+                    (Math.round((t - B) * p) + B)
+                )
+                .toString(16)
+                .slice(1)
+            );
+        }
+
+        // Function to generate unique ID (still used for local ID creation before adding to Firestore if needed)
+        function generateUniqueId() {
+            return '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // --- Game Rendering (now called from Firebase module script and locally) ---
+        // This function's role is primarily to update the DOM based on gamesData.
+        // It's called by the module script after Firestore data is loaded/updated.
+        // It's also called by filterAndRenderBrowseGames.
+        function renderGames(gamesToRender) {
+            const homeGamesGrid = document.getElementById('homeGamesGrid');
+            const browseGamesGrid = document.getElementById('browseGamesGrid');
+            const noGamesFound = document.getElementById('noGamesFound');
+
+            homeGamesGrid.innerHTML = ''; // Clear existing games
+            browseGamesGrid.innerHTML = '';
+
+            if (gamesToRender.length === 0) {
+                noGamesFound.style.display = 'block';
+                return;
+            } else {
+                noGamesFound.style.display = 'none';
+            }
+
+            // Loop through gamesToRender and create cards for home and browse grids
+            gamesToRender.forEach((game, index) => {
+                const gameCard = document.createElement('div');
+                gameCard.classList.add('game-card');
+                // Use new property names: title, thumbnail, url, category
+                gameCard.setAttribute('data-id', game.id);
+                gameCard.setAttribute('data-url', game.url || '#'); // Ensure url exists
+                gameCard.setAttribute('data-name', game.title || 'Untitled Game'); // Use title for name
+
+                // Tags conversion: category from new script might be string or array
+                const tagsArray = Array.isArray(game.category) ? game.category : (game.category ? String(game.category).split(',').map(tag => tag.trim()).filter(t => t) : ['uncategorized']);
+                const tagsHtml = tagsArray.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+                gameCard.innerHTML = `
+                    <div class="game-thumb" style="background-image: url('${game.thumbnail || 'https://placehold.co/180x180/cccccc/333333?text=No+Thumb'}');"></div>
+                    <div class="game-info">
+                        <h3>${game.title || 'Untitled Game'}</h3>
+                        <p>${game.description || 'No description provided.'}</p>
+                        <div class="game-tags">${tagsHtml}</div>
+                    </div>
+                    ${window.isAdminLoggedIn && window.isEditingMode ? `<button class="delete-btn" data-id="${game.id}"><i class="fas fa-times"></i></button>` : ''}
+                `;
+                
+                // Add event listener for launching game (click on card)
+                gameCard.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains('delete-btn')) {
+                        return; // Do nothing if delete button was clicked
+                    }
+                    const gameUrl = this.getAttribute('data-url');
+                    const gameName = this.getAttribute('data-name');
+                    if (gameUrl && gameUrl !== '#') {
+                        document.getElementById('gameLoading').style.display = 'flex';
+                        document.getElementById('gameFrame').src = gameUrl;
+                        document.getElementById('nowPlayingTitle').innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
+                        document.getElementById('gameFrame').scrollIntoView({ behavior: 'smooth' });
+                        window.showPage('homePage'); // Assume showPage is globally available
+                    } else {
+                        window.customAlert('Game Not Available', 'This game does not have a valid URL to play.');
+                    }
+                });
+
+                // Add event listener for delete button
+                const deleteBtn = gameCard.querySelector('.delete-btn');
+                if (deleteBtn) { // Only attach if button exists (i.e., in admin mode)
+                    deleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent card click from firing
+                        const gameIdToDelete = deleteBtn.getAttribute('data-id');
+                        window.deleteGameFromFirestore(gameIdToDelete); // Call Firebase delete
+                    });
+                }
+
+                // Apply animation delay
+                gameCard.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`;
+
+                homeGamesGrid.appendChild(gameCard);
+
+                // Clone for browse grid and re-attach event listeners
+                const clonedCard = gameCard.cloneNode(true);
+                const clonedDeleteBtn = clonedCard.querySelector('.delete-btn');
+                if (clonedDeleteBtn) {
+                    clonedDeleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const gameIdToDelete = clonedDeleteBtn.getAttribute('data-id');
+                        window.deleteGameFromFirestore(gameIdToDelete);
+                    });
+                }
+                 // Add event listener for launching game (click on cloned card)
+                clonedCard.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains('delete-btn')) {
+                        return; // Do nothing if delete button was clicked
+                    }
+                    const gameUrl = this.getAttribute('data-url');
+                    const gameName = this.getAttribute('data-name');
+                    if (gameUrl && gameUrl !== '#') {
+                        document.getElementById('gameLoading').style.display = 'flex';
+                        document.getElementById('gameFrame').src = gameUrl;
+                        document.getElementById('nowPlayingTitle').innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
+                        document.getElementById('gameFrame').scrollIntoView({ behavior: 'smooth' });
+                        window.showPage('homePage'); // Assume showPage is globally available
+                    } else {
+                        window.customAlert('Game Not Available', 'This game does not have a valid URL to play.');
+                    }
+                });
+
+                browseGamesGrid.appendChild(clonedCard);
+            });
+        }
+        window.renderGames = renderGames; // Expose globally for the Firebase module script
+
+        // Function to filter and render games for browse page
+        function filterAndRenderBrowseGames(searchTerm = '', category = 'all') {
+            // Use the global gamesData from Firebase
+            const filteredGames = window.gamesData.filter(game => {
+                const gameTitle = (game.title || '').toLowerCase();
+                const gameDescription = (game.description || '').toLowerCase();
+                // Ensure category is treated as an array of tags for consistent filtering
+                const gameCategories = Array.isArray(game.category) ? game.category.map(c => c.toLowerCase()) : (game.category ? [String(game.category).toLowerCase()] : []);
+
+                const matchesSearch = gameTitle.includes(searchTerm.toLowerCase()) ||
+                                      gameDescription.includes(searchTerm.toLowerCase()) ||
+                                      gameCategories.some(cat => cat.includes(searchTerm.toLowerCase()));
+                const matchesCategory = category === 'all' || gameCategories.includes(category.toLowerCase());
+                return matchesSearch && matchesCategory;
+            });
+            renderGames(filteredGames); // Call the updated renderGames
+        }
+
 
         document.addEventListener('DOMContentLoaded', function() {
             // --- DOM Elements ---
@@ -2091,7 +2420,7 @@
             const loginMessage = document.getElementById('loginMessage');
             const adminSettingOption = document.querySelector('.settings-option.admin-only');
             const manageGamesNavBtn = document.getElementById('manageGamesBtn');
-            const addGameFloatingBtn = document.getElementById('addGameFloatingBtn');
+            // const migrateGamesBtn = document.getElementById('migrateGamesBtn'); // Migration button now removed/disabled in UI
 
             // Add Game Modal elements
             const addGameModal = document.getElementById('addGameModal');
@@ -2100,17 +2429,9 @@
             const newGameUrlInput = document.getElementById('newGameUrl');
             const newGameThumbInput = document.getElementById('newGameThumb');
             const newGameDescInput = document.getElementById('newGameDesc');
-            const newGameTagsInput = document.getElementById('newGameTags');
+            const newGameTagsInput = document.getElementById('newGameTags'); // This is now for 'category'
             const submitNewGameBtn = document.getElementById('submitNewGameBtn');
             const addGameMessage = document.getElementById('addGameMessage');
-
-            // Custom Alert Modal elements
-            const customAlertModal = document.getElementById('customAlertModal');
-            const customAlertTitle = document.getElementById('customAlertTitle');
-            const customAlertMessage = document.getElementById('customAlertMessage');
-            const customAlertConfirmBtn = document.getElementById('customAlertConfirmBtn');
-            const customAlertOKBtn = document.getElementById('customAlertOKBtn');
-            const customAlertCancelBtn = document.getElementById('customAlertCancelBtn');
 
             // Performance Mode
             const performanceModeToggle = document.getElementById('performanceModeToggle');
@@ -2120,297 +2441,12 @@
             // Admin credentials (FOR DEMONSTRATION ONLY - NOT SECURE)
             const ADMIN_USERNAME = 'admin';
             const ADMIN_PASSWORD = 'password123';
-            let isLoggedIn = false; // Tracks if any user is logged in
-            let isAdminLoggedIn = false; // Tracks if the admin is logged in
-            let isEditingMode = false; // Tracks if admin game editing mode is active
+            window.isLoggedIn = false; // Tracks if any user is logged in
+            window.isAdminLoggedIn = false; // Tracks if the admin is logged in
+            window.isEditingMode = false; // Tracks if admin game editing mode is active
 
-            // Default game data if Firebase is not used
-            const defaultGamesData = [
-                { id: 'gm001', name: 'Drive Mad', url: 'https://crazygames-unblocked.github.io/c77/drive-mad', thumb: 'https://img.crazygames.com/games/drive-mad/cover-1591955771390.png?auto=format,compress&q=75', description: 'Perform crazy stunts and drive through challenging obstacle courses', tags: ['Racing', 'Stunts'] },
-                { id: 'gm002', name: 'Drift Boss', url: 'https://crazygames-unblocked.github.io/c/drift-boss', thumb: 'https://img.crazygames.com/games/drift-boss/cover-1591955771390.png?auto=format,compress&q=75', description: 'Master the art of drifting in this addictive driving challenge', tags: ['Drifting', 'Arcade'] },
-                { id: 'gm003', name: 'Monkey Mart', url: 'https://crazygames-unblocked.github.io/c8/monkey-mart', thumb: 'https://img.crazygames.com/games/monkey-mart/cover-1591955771390.png?auto=format,compress&q=75', description: 'Manage your own supermarket with a team of monkeys', tags: ['Management', 'Simulation'] },
-                { id: 'gm004', name: 'Highway Traffic', url: 'https://crazygames-unblocked.github.io/c7/highway-traffic', thumb: 'https://img.crazygames.com/games/highway-traffic/cover-1591955771390.png?auto=format,compress&q=75', description: 'Navigate through busy highways and avoid accidents', tags: ['Traffic', 'Driving'] },
-                { id: 'gm005', name: 'Moto X3M Winter', url: 'https://crazygames-unblocked.github.io/c4/moto-x3m-winter', thumb: 'https://img.crazygames.com/games/moto-x3m-winter/cover-1591955771390.png?auto=format,compress&q=75', description: 'Conquer icy tracks and perform daring motorcycle stunts', tags: ['Motorcycle', 'Stunts'] },
-                { id: 'gm006', name: 'Paper.io 2', url: 'https://crazygames-unblocked.github.io/c3/paper-io-2', thumb: 'https://img.crazygames.com/games/paper-io-2/cover-1591955771390.png?auto=format,compress&q=75', description: 'Expand your territory and dominate the map in this multiplayer arena game', tags: ['IO Game', 'Multiplayer'] },
-                { id: 'gm007', name: 'City Car Driving Simulator', url: 'https://crazygames-unblocked.github.io/c11/city-car-driving-simulator', thumb: 'https://img.crazygames.com/games/city-car-driving-simulator/cover-1591955771390.png?auto=format,compress&q=75', description: 'Practice your driving skills in a realistic city environment', tags: ['Driving', 'Simulator'] },
-                { id: 'gm008', name: 'Stack', url: 'https://crazygames-unblocked.github.io/c9/stack', thumb: 'https://img.crazygames.com/games/stack/cover-1591955771390.png?auto=format,compress&q=75', description: 'Build the highest tower by precisely stacking blocks', tags: ['Puzzle', 'Arcade'] }
-            ];
-            let gamesData = []; // This will hold the current game data
-
-
-            // --- Utility Functions ---
-
-            // Helper function to show custom alerts/confirmations instead of native alert/confirm
-            function customAlert(title, message, isConfirm = false) {
-                return new Promise((resolve) => {
-                    customAlertTitle.textContent = title;
-                    customAlertMessage.textContent = message;
-                    customAlertOKBtn.style.display = isConfirm ? 'none' : 'inline-flex';
-                    customAlertConfirmBtn.style.display = isConfirm ? 'inline-flex' : 'none';
-                    customAlertCancelBtn.style.display = isConfirm ? 'inline-flex' : 'none';
-
-                    customAlertModal.classList.add('active');
-
-                    const okHandler = () => {
-                        customAlertModal.classList.remove('active');
-                        customAlertOKBtn.removeEventListener('click', okHandler);
-                        customAlertConfirmBtn.removeEventListener('click', confirmHandler);
-                        customAlertCancelBtn.removeEventListener('click', cancelHandler);
-                        resolve(true); // For OK, always resolve true
-                    };
-                    const confirmHandler = () => {
-                        customAlertModal.classList.remove('active');
-                        customAlertOKBtn.removeEventListener('click', okHandler);
-                        customAlertConfirmBtn.removeEventListener('click', confirmHandler);
-                        customAlertCancelBtn.removeEventListener('click', cancelHandler);
-                        resolve(true);
-                    };
-                    const cancelHandler = () => {
-                        customAlertModal.classList.remove('active');
-                        customAlertOKBtn.removeEventListener('click', okHandler);
-                        customAlertConfirmBtn.removeEventListener('click', confirmHandler);
-                        customAlertCancelBtn.removeEventListener('click', cancelHandler);
-                        resolve(false);
-                    };
-
-                    customAlertOKBtn.addEventListener('click', okHandler);
-                    customAlertConfirmBtn.addEventListener('click', confirmHandler);
-                    customAlertCancelBtn.addEventListener('click', cancelHandler);
-
-                    closeCustomAlertModal.addEventListener('click', cancelHandler, { once: true }); // Close button acts as cancel
-                    customAlertModal.addEventListener('click', (e) => { // Click outside modal to cancel
-                        if (e.target === customAlertModal) {
-                            cancelHandler();
-                        }
-                    }, { once: true });
-                });
-            }
-
-            // Helper function to lighten colors (HEX to HEX)
-            function lightenColor(color, percent) {
-                let f = parseInt(color.slice(1), 16),
-                    t = percent < 0 ? 0 : 255,
-                    p = percent < 0 ? percent * -1 : percent,
-                    R = f >> 16,
-                    G = (f >> 8) & 0x00ff,
-                    B = f & 0x0000ff;
-                return (
-                    "#" +
-                    (
-                        0x1000000 +
-                        (Math.round((t - R) * p) + R) * 0x10000 +
-                        (Math.round((t - G) * p) + G) * 0x100 +
-                        (Math.round((t - B) * p) + B)
-                    )
-                    .toString(16)
-                    .slice(1)
-                );
-            }
-
-            // Function to generate unique ID
-            function generateUniqueId() {
-                return '_' + Math.random().toString(36).substr(2, 9);
-            }
-
-            // --- Firebase Firestore Game Management ---
-            window.loadGamesFromFirestore = function() {
-                if (!window.isFirebaseReady || window.useLocalStorageFallback) {
-                    console.log("Firebase not ready or fallback active, not loading from Firestore.");
-                    return;
-                }
-                
-                try {
-                    const gamesCollectionRef = collection(window.db, `artifacts/${window.appId}/public/data/games`);
-                    onSnapshot(gamesCollectionRef, (snapshot) => {
-                        const loadedGames = [];
-                        snapshot.forEach(doc => {
-                            loadedGames.push({ id: doc.id, ...doc.data() });
-                        });
-                        gamesData = loadedGames;
-                        console.log("Games loaded from Firestore:", gamesData);
-                        renderGames(homeGamesGrid, gamesData.slice(0, 4)); // Re-render popular games
-                        filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category')); // Re-render browse games
-                        applyGameCardAnimationDelays(); // Re-apply delays after data load
-                    }, (error) => {
-                        console.error("Error listening to Firestore games:", error);
-                        customAlert('Data Error', 'Failed to load games from server. Displaying default games.', true);
-                        window.useLocalStorageFallback = true;
-                        window.loadGamesFromLocalStorage(); // Fallback on error
-                    });
-                } catch (error) {
-                    console.error("Firestore operation failed:", error);
-                    customAlert('Initialization Error', 'Could not connect to Firebase. Displaying default games.', true);
-                    window.useLocalStorageFallback = true;
-                    window.loadGamesFromLocalStorage(); // Fallback on error
-                }
-            };
-
-            window.addGameToFirestore = async function(game) {
-                if (window.useLocalStorageFallback) {
-                    window.addGameToLocalStorage(game);
-                    return;
-                }
-                try {
-                    const gamesCollectionRef = collection(window.db, `artifacts/${window.appId}/public/data/games`);
-                    await setDoc(doc(gamesCollectionRef, game.id), game); // Use setDoc with a specific ID
-                    console.log("Game added to Firestore:", game.id);
-                    customAlert('Success', `${game.name} added successfully! Changes might take a moment to reflect for other users.`);
-                } catch (error) {
-                    console.error("Error adding game to Firestore:", error);
-                    customAlert('Error', `Failed to add game: ${error.message}`);
-                }
-            };
-
-            window.deleteGameFromFirestore = async function(gameId) {
-                if (window.useLocalStorageFallback) {
-                    window.deleteGameFromLocalStorage(gameId);
-                    return;
-                }
-                try {
-                    const confirmDelete = await customAlert(
-                        'Confirm Deletion',
-                        'Are you sure you want to delete this game? This action cannot be undone.',
-                        true
-                    );
-
-                    if (confirmDelete) {
-                        const gameDocRef = doc(window.db, `artifacts/${window.appId}/public/data/games`, gameId);
-                        await deleteDoc(gameDocRef);
-                        console.log("Game deleted from Firestore:", gameId);
-                        customAlert('Success', 'Game deleted successfully! Changes might take a moment to reflect for other users.');
-                    }
-                } catch (error) {
-                    console.error("Error deleting game from Firestore:", error);
-                    customAlert('Error', `Failed to delete game: ${error.message}`);
-                }
-            };
-
-            // --- Local Storage Game Management (Fallback) ---
-            window.loadGamesFromLocalStorage = function() {
-                const storedGames = localStorage.getItem('gamePortalGames');
-                if (storedGames) {
-                    try {
-                        gamesData = JSON.parse(storedGames);
-                    } catch (e) {
-                        console.error("Error parsing games from localStorage, loading default games.", e);
-                        gamesData = defaultGamesData;
-                    }
-                } else {
-                    gamesData = defaultGamesData;
-                }
-                console.log("Games loaded from Local Storage (fallback):", gamesData);
-                renderGames(homeGamesGrid, gamesData.slice(0, 4));
-                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
-                applyGameCardAnimationDelays();
-            };
-
-            window.saveGamesToLocalStorage = function() {
-                localStorage.setItem('gamePortalGames', JSON.stringify(gamesData));
-            };
-
-            window.addGameToLocalStorage = function(game) {
-                gamesData.push(game);
-                window.saveGamesToLocalStorage();
-                renderGames(homeGamesGrid, gamesData.slice(0, 4));
-                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
-                customAlert('Game Added!', `${game.name} has been added to the game list (local).`);
-            };
-
-            window.deleteGameToLocalStorage = async function(gameId) {
-                const confirmDelete = await customAlert(
-                    'Confirm Deletion',
-                    'Are you sure you want to delete this game? This action cannot be undone.',
-                    true
-                );
-
-                if (confirmDelete) {
-                    gamesData = gamesData.filter(game => game.id !== gameId);
-                    window.saveGamesToLocalStorage();
-                    renderGames(homeGamesGrid, gamesData.slice(0, 4));
-                    filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
-                    customAlert('Success', 'Game deleted successfully (local)!');
-                }
-            };
-
-
-            // --- Game Rendering ---
-            function renderGames(containerElement, gamesToRender) {
-                containerElement.innerHTML = ''; // Clear existing games
-                if (gamesToRender.length === 0) {
-                    noGamesFound.style.display = 'block';
-                    return;
-                } else {
-                    noGamesFound.style.display = 'none';
-                }
-
-                gamesToRender.forEach((game, index) => {
-                    const gameCard = document.createElement('div');
-                    gameCard.classList.add('game-card');
-                    gameCard.setAttribute('data-id', game.id);
-                    gameCard.setAttribute('data-url', game.url);
-                    gameCard.setAttribute('data-name', game.name);
-                    gameCard.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`; // Use CSS var
-
-                    const tagsHtml = game.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-
-                    gameCard.innerHTML = `
-                        <div class="game-thumb" style="background-image: url('${game.thumb}');"></div>
-                        <div class="game-info">
-                            <h3>${game.name}</h3>
-                            <p>${game.description}</p>
-                            <div class="game-tags">${tagsHtml}</div>
-                        </div>
-                        ${isAdminLoggedIn && isEditingMode ? `<button class="delete-btn" data-id="${game.id}"><i class="fas fa-times"></i></button>` : ''}
-                    `;
-                    containerElement.appendChild(gameCard);
-
-                    // Add event listener for launching game
-                    gameCard.addEventListener('click', function(e) {
-                        // Prevent loading game if delete button was clicked
-                        if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains('delete-btn')) {
-                            return;
-                        }
-                        const gameUrl = this.getAttribute('data-url');
-                        const gameName = this.getAttribute('data-name');
-                        if (gameUrl) {
-                            gameLoading.style.display = 'flex';
-                            gameFrame.src = gameUrl;
-                            nowPlayingTitle.innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
-                            gameFrame.scrollIntoView({ behavior: 'smooth' });
-                            showPage('homePage');
-                        }
-                    });
-
-                    // Add event listener for delete button if in admin mode
-                    if (isAdminLoggedIn && isEditingMode) {
-                        const deleteBtn = gameCard.querySelector('.delete-btn');
-                        if (deleteBtn) {
-                            deleteBtn.addEventListener('click', (e) => {
-                                e.stopPropagation(); // Prevent card click from firing
-                                const gameIdToDelete = deleteBtn.getAttribute('data-id');
-                                if (window.useLocalStorageFallback) {
-                                    window.deleteGameToLocalStorage(gameIdToDelete);
-                                } else {
-                                    window.deleteGameFromFirestore(gameIdToDelete);
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-
-            // Function to filter and render games for browse page
-            function filterAndRenderBrowseGames(searchTerm = '', category = 'all') {
-                const filteredGames = gamesData.filter(game => {
-                    const matchesSearch = game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                          game.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                          game.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-                    const matchesCategory = category === 'all' || game.tags.some(tag => tag.toLowerCase() === category.toLowerCase());
-                    return matchesSearch && matchesCategory;
-                });
-                renderGames(browseGamesGrid, filteredGames);
-            }
-
+            // Default game data is no longer loaded directly here, Firebase handles it.
+            // If Firebase fails, renderGames will show empty/error state.
 
             // --- Event Listeners ---
 
@@ -2456,7 +2492,7 @@
                 settingsOptions.forEach(opt => opt.classList.remove('active'));
                 settingsSections.forEach(sec => sec.classList.remove('active'));
                 
-                if (isAdminLoggedIn) {
+                if (window.isAdminLoggedIn) {
                     // If admin is logged in, default to admin section
                     document.querySelector('.settings-option[data-section="admin"]').classList.add('active');
                     document.getElementById('adminSection').classList.add('active');
@@ -2615,15 +2651,15 @@
             });
             
             // Navigation functionality
-            homeBtn.addEventListener('click', () => showPage('homePage'));
+            homeBtn.addEventListener('click', () => window.showPage('homePage'));
             browseBtn.addEventListener('click', () => {
-                showPage('browsePage');
+                window.showPage('browsePage');
                 filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
             });
             popularBtn.addEventListener('click', () => {
-                showPage('homePage');
+                window.showPage('homePage');
                 // Ensure games are rendered before scrolling
-                renderGames(homeGamesGrid, gamesData.slice(0, 4));
+                window.renderGames(window.gamesData.slice(0, 4)); // Use global gamesData
                 setTimeout(() => {
                     const popularGamesSection = document.querySelector('.game-grid');
                     if (popularGamesSection) {
@@ -2635,7 +2671,7 @@
                 customAlert('Feature Coming Soon', 'The Favorites feature is currently under development!');
             });
             browseGamesBtn.addEventListener('click', () => {
-                showPage('browsePage');
+                window.showPage('browsePage');
                 filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
             });
             
@@ -2688,6 +2724,7 @@
                     browseBtn.classList.add('active');
                 }
             }
+            window.showPage = showPage; // Expose globally
             
             // Apply animation delays to game cards (initial load)
             function applyGameCardAnimationDelays() {
@@ -2697,15 +2734,15 @@
             }
 
             // --- Admin Login Logic ---
-            loginNavBtn.addEventListener('click', () => showPage('loginPage'));
+            loginNavBtn.addEventListener('click', () => window.showPage('loginPage'));
 
             loginSubmitBtn.addEventListener('click', function() {
                 const username = usernameInput.value;
                 const password = passwordInput.value;
 
                 if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                    isLoggedIn = true;
-                    isAdminLoggedIn = true;
+                    window.isLoggedIn = true;
+                    window.isAdminLoggedIn = true;
                     loginMessage.textContent = 'Login successful! Redirecting to home page...';
                     loginMessage.className = 'login-message success';
                     
@@ -2713,7 +2750,7 @@
                     updateAdminUI();
                     
                     setTimeout(() => {
-                        showPage('homePage'); // Go back to home page after login
+                        window.showPage('homePage'); // Go back to home page after login
                         loginMessage.textContent = ''; // Clear message
                         usernameInput.value = ''; // Clear input fields
                         passwordInput.value = '';
@@ -2726,7 +2763,7 @@
 
             // Function to update admin specific UI elements based on login status
             function updateAdminUI() {
-                if (isAdminLoggedIn) {
+                if (window.isAdminLoggedIn) {
                     adminSettingOption.style.display = 'flex'; // Show admin setting option
                     manageGamesNavBtn.style.display = 'flex'; // Show manage games nav button
                 } else {
@@ -2734,26 +2771,26 @@
                     manageGamesNavBtn.style.display = 'none'; // Hide manage games nav button
                 }
                 // Also update the body class for editing mode specific styles
-                if (isEditingMode) {
+                if (window.isEditingMode) {
                     body.classList.add('admin-editing-mode');
                 } else {
                     body.classList.remove('admin-editing-mode');
                 }
                 // Re-render games to show/hide delete buttons based on editing mode
-                renderGames(homeGamesGrid, gamesData.slice(0, 4));
+                window.renderGames(window.gamesData.slice(0, 4)); // Use global gamesData
                 filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('#categoryFilter .active').getAttribute('data-category'));
             }
 
             // --- Game Management Toggle ---
             manageGamesNavBtn.addEventListener('click', function() {
-                if (!isAdminLoggedIn) {
+                if (!window.isAdminLoggedIn) {
                     customAlert('Access Denied', 'You must be logged in as an administrator to manage games.');
                     return;
                 }
-                isEditingMode = !isEditingMode; // Toggle editing mode
+                window.isEditingMode = !window.isEditingMode; // Toggle editing mode
                 updateAdminUI(); // Update UI to show/hide delete buttons and add button
 
-                if (isEditingMode) {
+                if (window.isEditingMode) {
                     manageGamesNavBtn.classList.add('active');
                     customAlert('Admin Mode', 'Game editing mode is now active. You can delete games or add new ones using the floating (+) button.');
                 } else {
@@ -2764,7 +2801,7 @@
 
             // --- Add Game Modal Logic ---
             addGameFloatingBtn.addEventListener('click', function() {
-                if (isAdminLoggedIn && isEditingMode) {
+                if (window.isAdminLoggedIn && window.isEditingMode) {
                     addGameModal.classList.add('active');
                     addGameMessage.textContent = ''; // Clear previous messages
                     // Clear form fields
@@ -2786,13 +2823,13 @@
             });
 
             submitNewGameBtn.addEventListener('click', function() {
-                const name = newGameNameInput.value.trim();
+                const title = newGameNameInput.value.trim();
                 const url = newGameUrlInput.value.trim();
-                const thumb = newGameThumbInput.value.trim();
+                const thumbnail = newGameThumbInput.value.trim();
                 const description = newGameDescInput.value.trim();
-                const tags = newGameTagsInput.value.trim().split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+                const category = newGameTagsInput.value.trim(); // Now directly map to 'category'
 
-                if (!name || !url) {
+                if (!title || !url) {
                     addGameMessage.textContent = 'Game Name and Game URL are required.';
                     addGameMessage.className = 'login-message error';
                     return;
@@ -2801,7 +2838,7 @@
                 // Basic URL validation
                 try {
                     new URL(url);
-                    if (thumb) new URL(thumb); // Validate thumbnail URL if provided
+                    if (thumbnail) new URL(thumbnail); // Validate thumbnail URL if provided
                 } catch (_) {
                     addGameMessage.textContent = 'Please enter valid URLs for Game URL and Thumbnail URL.';
                     addGameMessage.className = 'login-message error';
@@ -2809,20 +2846,20 @@
                 }
 
                 const newGame = {
-                    id: generateUniqueId(),
-                    name,
-                    url,
-                    thumb: thumb || 'https://placehold.co/180x180/cccccc/333333?text=No+Thumb', // Placeholder if no thumb
+                    title: title,
+                    url: url,
+                    thumbnail: thumbnail || 'https://placehold.co/180x180/cccccc/333333?text=No+Thumb', // Placeholder if no thumb
                     description: description || 'No description provided.',
-                    tags: tags.length > 0 ? tags : ['General']
+                    category: category // Use 'category' as a string for simplicity, matches new script
                 };
-
-                if (window.useLocalStorageFallback) {
-                    window.addGameToLocalStorage(newGame);
-                } else {
+                
+                // Call the globally exposed Firebase add function
+                if (typeof window.addGameToFirestore === 'function') {
                     window.addGameToFirestore(newGame);
+                    addGameModal.classList.remove('active');
+                } else {
+                    customAlert('Error', 'Firebase add function not available. Check script loading.');
                 }
-                addGameModal.classList.remove('active');
             });
 
             // --- Browse Page Search and Filter ---
@@ -2870,11 +2907,16 @@
                 applyPerformanceMode(this.checked);
             });
 
+            // Remove event listener for the migrate button as it's no longer part of the current Firebase script.
+            const migrateGamesBtn = document.getElementById('migrateGamesBtn');
+            if (migrateGamesBtn) {
+                migrateGamesBtn.style.display = 'none'; // Hide the button
+            }
 
             // --- Initial Load Logic ---
-            // The Firebase initialization script block handles calling loadGamesFromFirestore
-            // or loadGamesFromLocalStorage on authentication completion.
-
+            // The Firebase module script handles calling loadGamesFromFirestore
+            // once authentication is complete. We just need to apply performance mode here.
+            
             // Apply performance mode from localStorage on initial load
             const savedPerformanceMode = localStorage.getItem('performanceMode');
             if (savedPerformanceMode === 'enabled') {
@@ -2884,6 +2926,9 @@
                 performanceModeToggle.checked = false;
                 applyPerformanceMode(false); // Ensure default speeds are applied
             }
+            
+            // Initial call to update admin UI, assuming Firebase will load games afterwards
+            updateAdminUI(); 
         });
     </script>
 </body>
