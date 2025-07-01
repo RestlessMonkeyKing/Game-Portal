@@ -102,6 +102,8 @@
             --shadow: var(--dark-shadow);
             --glass-bg: var(--dark-glass-bg);
             --glass-border: var(--dark-glass-border);
+
+            
         }
 
         /* Performance Mode adjustments */
@@ -124,7 +126,7 @@
             line-height: 1.6;
             overflow-x: hidden; /* Prevent horizontal scroll due to animations */
             -webkit-font-smoothing: antialiased;
-            -moz-osx-smoothing: grayscale;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
@@ -2496,10 +2498,45 @@
             });
 
             // Add Game Modal Logic
-            addGameFloatingBtn.addEventListener('click', () => addGameModal.classList.add('active'));
-            closeAddGameModal.addEventListener('click', () => addGameModal.classList.remove('active'));
-            addGameModal.addEventListener('click', (e) => {
-                if (e.target === addGameModal) addGameModal.classList.remove('active');
+            addGameFloatingBtn.addEventListener('click', function() {
+                // Clear the form when opening the modal
+                newGameNameInput.value = '';
+                newGameUrlInput.value = '';
+                newGameThumbInput.value = '';
+                newGameDescInput.value = '';
+                newGameTagsInput.value = '';
+                addGameMessage.textContent = '';
+                addGameMessage.className = 'login-message';
+                
+                addGameModal.classList.add('active');
+            });
+            
+            closeAddGameModal.addEventListener('click', function() {
+                // Clear the form when closing the modal
+                newGameNameInput.value = '';
+                newGameUrlInput.value = '';
+                newGameThumbInput.value = '';
+                newGameDescInput.value = '';
+                newGameTagsInput.value = '';
+                addGameMessage.textContent = '';
+                addGameMessage.className = 'login-message';
+                
+                addGameModal.classList.remove('active');
+            });
+            
+            addGameModal.addEventListener('click', function(e) {
+                if (e.target === addGameModal) {
+                    // Clear the form when closing by clicking outside
+                    newGameNameInput.value = '';
+                    newGameUrlInput.value = '';
+                    newGameThumbInput.value = '';
+                    newGameDescInput.value = '';
+                    newGameTagsInput.value = '';
+                    addGameMessage.textContent = '';
+                    addGameMessage.className = 'login-message';
+                    
+                    addGameModal.classList.remove('active');
+                }
             });
 
             submitNewGameBtn.addEventListener('click', function() {
@@ -2540,5 +2577,3 @@
     </script>
 </body>
 </html>
-
-
