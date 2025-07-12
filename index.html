@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -1412,6 +1411,21 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
+        /* Activity History */
+        .activity-history ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .activity-history li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--card-border);
+        }
+
+        .activity-history li:last-child {
+            border-bottom: none;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -1802,16 +1816,22 @@
                                     <span class="slider round"></span>
                                 </label>
                             </div>
+                            <div class="setting-item">
+                                <h4>Default Game on Open</h4>
+                                <select id="defaultGameSelector">
+                                    <option value="">-- Select a game --</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="content-section">
                             <h3><i class="fas fa-globe"></i> Language</h3>
                             <p>Choose your preferred language for the GamePortal interface.</p>
                             <div class="setting-item">
                                 <h4>Interface Language</h4>
-                                <select>
-                                    <option>English</option>
-                                    <option>Spanish</option>
-                                    <option>French</option>
+                                <select id="languageSelector">
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
                                 </select>
                             </div>
                         </div>
@@ -1821,12 +1841,12 @@
                             <p>Adjust game and interface sound settings.</p>
                             <div class="setting-item">
                                 <h4>Master Volume</h4>
-                                <input type="range" min="0" max="100" value="75">
+                                <input type="range" min="0" max="100" value="75" id="masterVolume">
                             </div>
                             <div class="setting-item">
                                 <h4>Mute All Sounds</h4>
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="muteToggle">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -1966,16 +1986,13 @@
                             <div class="setting-item">
                                 <h4>Save Play History</h4>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" checked id="saveHistoryToggle">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-                            <div class="setting-item">
-                                <h4>Recently Played</h4>
-                                <select>
-                                    <option>Show Recently Played</option>
-                                    <option>Hide Recently Played</option>
-                                </select>
+                            <div class="activity-history" id="activityHistoryContainer">
+                                <h4><i class="fas fa-clock"></i> Recent Activity</h4>
+                                <p>No recent activity</p>
                             </div>
                         </div>
                         
@@ -2056,7 +2073,14 @@
                 </div>
                 <div class="form-group">
                     <label for="newGameUrl">Game URL (iframe src):</label>
-                    <input type="url" id="newGameUrl" placeholder="https://example.com/game" required>
+                    <input type="url" id="newGameUrl" placeholder="https://example.com/game">
+                </div>
+                <div class="form-group">
+                    <label for="newGameCode">Or Embed Code:</label>
+                    <textarea id="newGameCode" placeholder="Paste embed code here"></textarea>
+                    <p style="font-size: 0.8rem; margin-top: 5px; color: var(--subtext);">
+                        Note: Only use if you don't have a direct URL
+                    </p>
                 </div>
                 <div class="form-group">
                     <label for="newGameThumb">Thumbnail Image URL:</label>
@@ -2189,6 +2213,9 @@
                     document.getElementById('nowPlayingTitle').innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
                     document.getElementById('gameFrame').scrollIntoView({ behavior: 'smooth' });
                     window.showPage('homePage');
+                    
+                    // Save to activity history
+                    saveToActivityHistory(gameName);
                 } else {
                     window.customAlert('Game Not Available', 'This game does not have a valid URL to play.');
                 }
@@ -2233,6 +2260,9 @@
                 gameCard.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`;
                 grid.appendChild(gameCard);
             });
+            
+            // Update default game selector
+            updateDefaultGameSelector();
         }
 
         /**
@@ -2244,6 +2274,9 @@
             renderGames(popularGames, 'homeGamesGrid');
             // For the browse page, show all games initially
             renderGames(window.gamesData, 'browseGamesGrid');
+            
+            // Load default game if set
+            loadDefaultGame();
         }
         window.initialRender = initialRender; // Expose to the module script
 
@@ -2269,7 +2302,192 @@
             });
             renderGames(filteredGames, 'browseGamesGrid'); // Only re-render the browse grid
         }
+        
+        // --- NEW FEATURES ---
+        
+        // Theme persistence
+        function saveTheme(themeName) {
+            localStorage.setItem('selectedTheme', themeName);
+        }
 
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                // Update theme toggle icon
+                const isLightTheme = savedTheme.includes('light') || savedTheme === 'neomorphism-theme';
+                document.querySelector('.toggle-slider').innerHTML = isLightTheme ? 
+                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                
+                // Update active theme in settings
+                document.querySelectorAll('.theme-option').forEach(option => {
+                    option.classList.remove('active');
+                    if (option.getAttribute('data-theme') === savedTheme) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // Rainbow mode text effect
+        function applyRainbowTextEffect() {
+            const rainbowToggle = document.getElementById('rainbowToggle');
+            if (!rainbowToggle.checked) return;
+            
+            const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, li, .btn, .nav-btn');
+            let hue = 0;
+            
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                textElements.forEach(el => {
+                    el.style.color = `hsl(${hue}, 80%, 60%)`;
+                    el.style.transition = 'color 0.5s ease';
+                });
+            }, 100);
+        }
+        
+        // Language system
+        const languagePacks = {
+            en: {
+                browseGames: "Browse Games",
+                popularGames: "Popular Games",
+                favorites: "Favorites",
+                login: "Login",
+                manageGames: "Manage Games",
+                // Add more translations as needed
+            },
+            es: {
+                browseGames: "Explorar Juegos",
+                popularGames: "Juegos Populares",
+                favorites: "Favoritos",
+                login: "Iniciar Sesión",
+                manageGames: "Administrar Juegos"
+            },
+            fr: {
+                browseGames: "Parcourir les jeux",
+                popularGames: "Jeux populaires",
+                favorites: "Favoris",
+                login: "Connexion",
+                manageGames: "Gérer les jeux"
+            }
+        };
+
+        function applyLanguage(langCode) {
+            const langPack = languagePacks[langCode] || languagePacks.en;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (langPack[key]) {
+                    el.textContent = langPack[key];
+                }
+            });
+            localStorage.setItem('selectedLanguage', langCode);
+        }
+        
+        // Volume controls
+        function setupVolumeControls() {
+            const volumeSlider = document.getElementById('masterVolume');
+            const muteToggle = document.getElementById('muteToggle');
+            
+            // Load saved settings
+            const savedVolume = localStorage.getItem('masterVolume');
+            const savedMute = localStorage.getItem('muteState');
+            
+            if (savedVolume) {
+                volumeSlider.value = savedVolume;
+            }
+            
+            if (savedMute === 'true') {
+                muteToggle.checked = true;
+            }
+            
+            // Add event listeners
+            volumeSlider.addEventListener('input', function() {
+                localStorage.setItem('masterVolume', this.value);
+            });
+            
+            muteToggle.addEventListener('change', function() {
+                localStorage.setItem('muteState', this.checked);
+            });
+        }
+        
+        // Activity history
+        function saveToActivityHistory(gameTitle) {
+            if (!document.getElementById('saveHistoryToggle').checked) return;
+            
+            const history = JSON.parse(localStorage.getItem('activityHistory') || '[]');
+            const timestamp = new Date().toISOString();
+            
+            // Add new entry
+            history.unshift({ game: gameTitle, timestamp });
+            
+            // Keep only the last 10 entries
+            if (history.length > 10) history.pop();
+            
+            localStorage.setItem('activityHistory', JSON.stringify(history));
+            displayActivityHistory();
+        }
+
+        function displayActivityHistory() {
+            const history = JSON.parse(localStorage.getItem('activityHistory') || '[]');
+            const historyContainer = document.getElementById('activityHistoryContainer');
+            
+            if (!historyContainer) return;
+            
+            historyContainer.innerHTML = '<h4><i class="fas fa-clock"></i> Recent Activity</h4>';
+            
+            if (history.length === 0) {
+                historyContainer.innerHTML += '<p>No recent activity</p>';
+            } else {
+                const list = document.createElement('ul');
+                
+                history.forEach(entry => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${entry.game}</strong> - ${new Date(entry.timestamp).toLocaleString()}`;
+                    list.appendChild(li);
+                });
+                
+                historyContainer.appendChild(list);
+            }
+        }
+        
+        // Default game selection
+        function updateDefaultGameSelector() {
+            const selector = document.getElementById('defaultGameSelector');
+            if (!selector) return;
+            
+            // Clear existing options except the first one
+            while (selector.options.length > 1) {
+                selector.remove(1);
+            }
+            
+            // Add games to selector
+            window.gamesData.forEach(game => {
+                const option = document.createElement('option');
+                option.value = game.url;
+                option.textContent = game.title;
+                selector.appendChild(option);
+            });
+            
+            // Set saved selection
+            const savedDefaultGame = localStorage.getItem('defaultGame');
+            if (savedDefaultGame) {
+                selector.value = savedDefaultGame;
+            }
+        }
+        
+        function loadDefaultGame() {
+            const defaultGameUrl = localStorage.getItem('defaultGame');
+            if (defaultGameUrl) {
+                const game = window.gamesData.find(g => g.url === defaultGameUrl);
+                if (game) {
+                    document.getElementById('gameLoading').style.display = 'flex';
+                    document.getElementById('gameFrame').src = game.url;
+                    document.getElementById('nowPlayingTitle').innerHTML = 
+                        `<i class="fas fa-play-circle"></i> Now Playing: ${game.title}`;
+                }
+            }
+        }
+        
         // --- Main Application Logic ---
         document.addEventListener('DOMContentLoaded', function() {
             // --- DOM Elements ---
@@ -2324,6 +2542,7 @@
             const newGameDescInput = document.getElementById('newGameDesc');
             const newGameTagsInput = document.getElementById('newGameTags');
             const addGameMessage = document.getElementById('addGameMessage');
+            const newGameCodeInput = document.getElementById('newGameCode');
 
             // --- State Variables ---
             const ADMIN_USERNAME = 'admin';
@@ -2331,6 +2550,36 @@
             window.isAdminLoggedIn = false;
             window.isEditingMode = false;
 
+            // --- NEW FEATURE INITIALIZATION ---
+            
+            // Load saved theme
+            loadSavedTheme();
+            
+            // Set up rainbow mode
+            rainbowToggle.addEventListener('change', function() {
+                if (this.checked) applyRainbowTextEffect();
+            });
+            
+            // Set up language system
+            const langSelector = document.getElementById('languageSelector');
+            const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+            langSelector.value = savedLang;
+            applyLanguage(savedLang);
+            langSelector.addEventListener('change', function() {
+                applyLanguage(this.value);
+            });
+            
+            // Set up volume controls
+            setupVolumeControls();
+            
+            // Set up activity history
+            displayActivityHistory();
+            
+            // Set up default game selector
+            document.getElementById('defaultGameSelector').addEventListener('change', function() {
+                localStorage.setItem('defaultGame', this.value);
+            });
+            
             // --- Event Listeners ---
 
             // Theme toggle functionality
@@ -2342,14 +2591,35 @@
                 body.className = ''; // Clear all classes
                 body.classList.add(newTheme);
                 if (hasPerformanceMode) body.classList.add('performance-mode');
+                
+                // Save theme
+                saveTheme(newTheme);
 
-                document.querySelector('.toggle-slider').innerHTML = newTheme === 'light-theme' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                document.querySelector('.toggle-slider').innerHTML = newTheme === 'light-theme' ? 
+                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
                 
                 const activeOverlay = document.querySelector(`.${newTheme.replace('theme', 'overlay')}`);
                 if (activeOverlay) {
                     activeOverlay.classList.add('active');
                     setTimeout(() => activeOverlay.classList.remove('active'), 800);
                 }
+            });
+            
+            // Theme selection in settings
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const theme = this.getAttribute('data-theme');
+                    const hasPerformanceMode = body.classList.contains('performance-mode');
+                    body.className = ''; // Clear all classes
+                    body.classList.add(theme);
+                    if (hasPerformanceMode) body.classList.add('performance-mode');
+                    
+                    // Save theme
+                    saveTheme(theme);
+                    
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
             });
             
             // Settings page functionality
@@ -2370,19 +2640,6 @@
                 });
             });
             
-            // Theme selection in settings
-            themeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    const theme = this.getAttribute('data-theme');
-                    const hasPerformanceMode = body.classList.contains('performance-mode');
-                    body.className = ''; // Clear all classes
-                    body.classList.add(theme);
-                    if (hasPerformanceMode) body.classList.add('performance-mode');
-                    themeOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-            
             // Color selection
             colorOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -2396,26 +2653,6 @@
                     document.documentElement.style.setProperty('--primary', color);
                     document.documentElement.style.setProperty('--secondary', lightenColor(color, 30));
                 });
-            });
-            
-            // Rainbow mode toggle
-            let rainbowInterval;
-            rainbowToggle.addEventListener('change', function() {
-                if (this.checked) {
-                    let hue = 0;
-                    rainbowInterval = setInterval(() => {
-                        hue = (hue + 1) % 360;
-                        const color = `hsl(${hue}, 70%, 60%)`;
-                        const secondaryColor = `hsl(${(hue + 30) % 360}, 80%, 70%)`;
-                        document.documentElement.style.setProperty('--primary', color);
-                        document.documentElement.style.setProperty('--secondary', secondaryColor);
-                    }, 50);
-                } else {
-                    clearInterval(rainbowInterval);
-                    const activeColor = document.querySelector('.color-option.active')?.getAttribute('data-color') || '#6C5CE7';
-                    document.documentElement.style.setProperty('--primary', activeColor);
-                    document.documentElement.style.setProperty('--secondary', lightenColor(activeColor, 30));
-                }
             });
             
             // Game frame loading indicator
@@ -2518,6 +2755,7 @@
                 newGameThumbInput.value = '';
                 newGameDescInput.value = '';
                 newGameTagsInput.value = '';
+                newGameCodeInput.value = '';
                 addGameMessage.textContent = '';
                 addGameMessage.className = 'login-message';
                 
@@ -2531,6 +2769,7 @@
                 newGameThumbInput.value = '';
                 newGameDescInput.value = '';
                 newGameTagsInput.value = '';
+                newGameCodeInput.value = '';
                 addGameMessage.textContent = '';
                 addGameMessage.className = 'login-message';
                 
@@ -2545,6 +2784,7 @@
                     newGameThumbInput.value = '';
                     newGameDescInput.value = '';
                     newGameTagsInput.value = '';
+                    newGameCodeInput.value = '';
                     addGameMessage.textContent = '';
                     addGameMessage.className = 'login-message';
                     
@@ -2560,9 +2800,23 @@
                     description: newGameDescInput.value.trim(),
                     category: newGameTagsInput.value.trim()
                 };
+                
+                // Handle embed code if provided
+                const embedCode = newGameCodeInput.value.trim();
+                if (embedCode) {
+                    // Extract URL from embed code
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(embedCode, 'text/html');
+                    const iframe = doc.querySelector('iframe');
+                    if (iframe && iframe.src) {
+                        newGame.url = iframe.src;
+                    } else {
+                        newGame.url = "data:text/html;charset=utf-8," + encodeURIComponent(embedCode);
+                    }
+                }
 
                 if (!newGame.title || !newGame.url) {
-                    addGameMessage.textContent = 'Game Name and URL are required.';
+                    addGameMessage.textContent = 'Game Name and URL or Embed Code are required.';
                     addGameMessage.className = 'login-message error';
                     return;
                 }
