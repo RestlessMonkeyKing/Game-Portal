@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6LVK9JJBG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -1513,7 +1512,6 @@
             }
         }
     </style>
-    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -1629,7 +1627,6 @@
     </script>
 </head>
 <body class="dark-theme">
-    <!-- Theme transition overlay -->
     <div class="theme-overlay dark-overlay"></div>
     <div class="theme-overlay light-overlay"></div>
     <div class="theme-overlay cyberpunk-overlay"></div>
@@ -1637,7 +1634,6 @@
     <div class="theme-overlay sunset-overlay"></div>
 
     <div class="container">
-        <!-- Header -->
         <header>
             <div class="logo" id="homeBtn">
                 <i class="fas fa-gamepad"></i>
@@ -1678,9 +1674,17 @@
             </div>
         </nav>
 
-        <!-- Home Page -->
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '1b1e6c92d5c5634c430acb666b693140',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/1b1e6c92d5c5634c430acb666b693140/invoke.js"></script>
         <div class="page active" id="homePage">
-            <!-- Hero Section -->
             <section class="hero">
                 <h1>Unblocked Gaming Experience</h1>
                 <p>Play your favorite games anywhere, anytime. Our portal provides seamless access to thousands of unblocked games with a modern, distraction-free interface.</p>
@@ -1694,7 +1698,6 @@
                 </div>
             </section>
 
-            <!-- Game Embed Section -->
             <section class="embed-container">
                 <div class="embed-header">
                     <h2 id="nowPlayingTitle"><i class="fas fa-play-circle"></i> Now Playing: Drive Mad</h2>
@@ -1715,16 +1718,13 @@
                 </div>
             </section>
 
-            <!-- Game Grid -->
             <section class="game-grid">
                 <h2><i class="fas fa-dice"></i> Popular Unblocked Games</h2>
                 <div class="games" id="homeGamesGrid">
-                    <!-- Games will be dynamically loaded here by JavaScript -->
-                </div>
+                    </div>
             </section>
         </div>
 
-        <!-- Browse Games Page -->
         <div class="page" id="browsePage">
             <div class="browse-header">
                 <h2><i class="fas fa-gamepad"></i> Browse All Games</h2>
@@ -1756,13 +1756,11 @@
             
             <section class="game-grid">
                 <div class="games" id="browseGamesGrid">
-                    <!-- Games will be dynamically loaded here by JavaScript -->
-                </div>
+                    </div>
                 <p id="noGamesFound" style="display: none; text-align: center; color: var(--subtext); margin-top: 50px;">No games found matching your criteria.</p>
             </section>
         </div>
 
-        <!-- Login Page -->
         <div class="page" id="loginPage">
             <div class="login-form">
                 <h2>Admin Login</h2>
@@ -1781,7 +1779,6 @@
             </div>
         </div>
 
-        <!-- Settings Page -->
         <div class="settings-page" id="settingsPage">
             <div class="settings-container">
                 <div class="settings-sidebar">
@@ -1803,7 +1800,6 @@
                     </div>
                 </div>
                 <div class="settings-content">
-                    <!-- General Section -->
                     <div class="settings-section active" id="generalSection">
                         <h2 class="section-title"><i class="fas fa-cogs"></i> General Settings</h2>
                         <div class="content-section">
@@ -1853,7 +1849,6 @@
                         </div>
                     </div>
 
-                    <!-- Appearance Section -->
                     <div class="settings-section" id="appearanceSection">
                         <h2 class="section-title"><i class="fas fa-palette"></i> Appearance Settings</h2>
                         <div class="content-section">
@@ -1958,7 +1953,6 @@
                         </div>
                     </div>
 
-                    <!-- Privacy Section -->
                     <div class="settings-section" id="privacySection">
                         <h2 class="section-title"><i class="fas fa-user-shield"></i> Privacy Settings</h2>
                         <div class="content-section">
@@ -2016,7 +2010,6 @@
                         </div>
                     </div>
                     
-                    <!-- Admin Dashboard Section (Initially hidden) -->
                     <div class="settings-section" id="adminSection">
                         <h2 class="section-title"><i class="fas fa-user-tie"></i> Admin Dashboard</h2>
                         <div class="content-section">
@@ -2035,7 +2028,6 @@
                         </div>
                     </div>
 
-                    <!-- About Section -->
                     <div class="settings-section" id="aboutSection">
                         <h2 class="section-title"><i class="fas fa-info-circle"></i> About GamePortal</h2>
                         <div class="content-section">
@@ -2057,12 +2049,10 @@
             </div>
         </div>
 
-        <!-- Add Game Floating Button -->
         <button class="add-game-btn" id="addGameFloatingBtn" title="Add New Game">
             <i class="fas fa-plus"></i>
         </button>
 
-        <!-- Add Game Modal -->
         <div id="addGameModal" class="modal">
             <div class="modal-content">
                 <button class="close-modal" id="closeAddGameModal"><i class="fas fa-times"></i></button>
@@ -2101,7 +2091,6 @@
             </div>
         </div>
 
-        <!-- Custom Confirmation/Alert Modal -->
         <div id="customAlertModal" class="modal">
             <div class="modal-content">
                 <button class="close-modal" id="closeCustomAlertModal"><i class="fas fa-times"></i></button>
@@ -2116,7 +2105,6 @@
         </div>
 
 
-        <!-- Footer -->
         <footer>
             <p>&copy; 2023 GamePortal | Unblocked Gaming Platform</p>
             <p id="currentUserIdDisplay">User ID: N/A (Initializing Firebase...)</p>
