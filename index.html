@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6LVK9JJBG"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -1087,58 +1086,52 @@
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
-            animation: fadeInUp var(--animation-speed) cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+            animation: slideInUp var(--animation-speed) ease-out 0.8s both;
         }
 
         .category-btn {
-            padding: 8px 20px;
-            border-radius: 50px;
             background: var(--card);
+            padding: 8px 18px;
+            border-radius: 20px;
             color: var(--text);
-            border: 1px solid var(--card-border);
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all var(--transition-speed) cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all var(--transition-speed) ease;
             box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
             white-space: nowrap;
         }
 
         .category-btn:hover, .category-btn.active {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px var(--shadow);
             border-color: transparent;
-            transform: translateY(-3px);
         }
 
-        /* Login Page Styles */
-        .login-page {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 180px); /* Adjust based on header/footer */
-            padding: 20px;
-        }
 
+        /* Forms and Modals */
         .login-form {
             background: var(--card);
             border-radius: 15px;
             padding: 40px;
+            margin: 50px auto;
+            max-width: 400px;
             box-shadow: var(--shadow);
             border: 1px solid var(--card-border);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
             animation: fadeInScale var(--animation-speed) ease-out both;
         }
 
         .login-form h2 {
-            font-size: 2rem;
+            text-align: center;
             color: var(--primary);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .form-group {
             margin-bottom: 20px;
-            text-align: left;
         }
 
         .form-group label {
@@ -1148,10 +1141,7 @@
             font-weight: 600;
         }
 
-        .form-group input[type="text"],
-        .form-group input[type="password"],
-        .form-group input[type="url"],
-        .form-group textarea {
+        .form-group input[type="text"], .form-group input[type="password"], .form-group input[type="url"], .form-group textarea {
             width: calc(100% - 24px); /* Account for padding */
             padding: 12px;
             border-radius: 8px;
@@ -1162,10 +1152,7 @@
             transition: border-color var(--transition-speed) ease;
         }
 
-        .form-group input[type="text"]:focus,
-        .form-group input[type="password"]:focus,
-        .form-group input[type="url"]:focus,
-        .form-group textarea:focus {
+        .form-group input[type="text"]:focus, .form-group input[type="password"]:focus, .form-group input[type="url"]:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -1217,72 +1204,63 @@
 
         .modal-content {
             background: var(--card);
-            padding: 30px;
             border-radius: 15px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--card-border);
+            padding: 30px;
             width: 90%;
             max-width: 500px;
-            transform: translateY(-20px) scale(0.95);
-            opacity: 0;
-            transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+            box-shadow: 0 10px 25px var(--shadow);
             position: relative;
+            transform: scale(0.95);
+            transition: transform var(--transition-speed) ease;
+            border: 1px solid var(--card-border);
         }
 
         .modal.active .modal-content {
-            transform: translateY(0) scale(1);
-            opacity: 1;
+            transform: scale(1);
         }
 
         .modal-content h3 {
             color: var(--primary);
             margin-top: 0;
             margin-bottom: 20px;
-            font-size: 1.8rem;
-            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
         }
 
-        .modal-content .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
+        .modal-message {
             color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color var(--transition-speed) ease;
-        }
-
-        .modal-content .close-modal:hover {
-            color: #e74c3c;
+            margin-bottom: 25px;
         }
 
         .modal-buttons {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
+            gap: 15px;
             margin-top: 20px;
         }
 
-        .modal-buttons .btn {
-            padding: 10px 20px;
-            font-size: 0.9rem;
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--subtext);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color var(--transition-speed) ease;
         }
 
-        .modal-message {
-            font-size: 1.1rem;
-            color: var(--text);
-            text-align: center;
-            margin-bottom: 20px;
+        .close-modal:hover {
+            color: var(--primary);
         }
 
-        /* Toggle Switch Styling */
+        /* Toggle Switch for settings */
         .switch {
             position: relative;
             display: inline-block;
-            width: 45px;
-            height: 25px;
+            width: 40px;
+            height: 20px;
         }
 
         .switch input {
@@ -1298,27 +1276,25 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: var(--card-border); /* Inactive color */
-            -webkit-transition: .4s;
-            transition: .4s;
-            border-radius: 25px;
+            background-color: var(--card-border);
+            transition: var(--transition-speed);
+            border-radius: 20px;
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 17px;
-            width: 17px;
-            left: 4px;
-            bottom: 4px;
-            background-color: var(--text); /* Slider knob color */
-            -webkit-transition: .4s;
-            transition: .4s;
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: var(--transition-speed);
             border-radius: 50%;
         }
 
         input:checked + .slider {
-            background-color: var(--primary); /* Active color */
+            background-color: var(--primary);
         }
 
         input:focus + .slider {
@@ -1349,142 +1325,83 @@
             transition: all var(--transition-speed) ease;
         }
 
-        .theme-option[data-theme="dark-theme"] .theme-preview-card {
-            background-color: var(--dark-card);
-            color: var(--dark-text);
-            border: 1px solid var(--dark-border);
-        }
-        .theme-option[data-theme="light-theme"] .theme-preview-card {
-            background-color: var(--light-card);
-            color: var(--light-text);
-            border: 1px solid var(--light-border);
-        }
-        .theme-option[data-theme="cyberpunk-theme"] .theme-preview-card {
-            background-color: var(--cyberpunk-card);
-            color: var(--cyberpunk-text);
-            border: 1px solid var(--cyberpunk-border);
-            box-shadow: 0 0 8px var(--cyberpunk-shadow);
-        }
-        .theme-option[data-theme="retro-theme"] .theme-preview-card {
-            background-color: var(--retro-card);
-            color: var(--retro-text);
-            border: 1px solid var(--retro-border);
-            box-shadow: 0 0 8px var(--retro-shadow);
-        }
-        .theme-option[data-theme="sunset-theme"] .theme-preview-card {
-            background-color: var(--sunset-card);
-            color: var(--sunset-text);
-            border: 1px solid var(--sunset-border);
-            box-shadow: 0 0 8px var(--sunset-shadow);
-        }
-        .theme-option[data-theme="neomorphism-theme"] .theme-preview-card {
-            background-color: var(--neo-card);
-            color: var(--neo-text);
-            border: none;
-            box-shadow: 3px 3px 6px var(--neo-shadow-dark), -3px -3px 6px var(--neo-shadow-light);
-        }
-        .theme-option[data-theme="glass-theme"] .theme-preview-card {
-            background-color: rgba(255, 255, 255, 0.1); /* Translucent */
-            color: var(--glass-text);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1; /* Ensure backdrop-filter works */
-        }
-        /* Small elements within preview card */
         .theme-preview-card .preview-text {
-            font-size: 0.7em;
-            text-align: center;
             padding: 2px 5px;
-            line-height: 1.2;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 3px;
         }
+
         .theme-preview-card .preview-button {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
+            border: none;
             border-radius: 5px;
-            font-size: 0.6em;
             padding: 3px 8px;
+            color: white;
+            font-size: 0.6rem;
             margin-top: 5px;
-            opacity: 0.8;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        /* Activity History */
-        .activity-history ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
 
-        .activity-history li {
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--card-border);
-        }
-
-        .activity-history li:last-child {
-            border-bottom: none;
-        }
+        .theme-option[data-theme="dark-theme"] .theme-preview-card { background-color: var(--dark-card); color: var(--dark-text); border: 1px solid var(--dark-border); }
+        .theme-option[data-theme="light-theme"] .theme-preview-card { background-color: var(--light-card); color: var(--light-text); border: 1px solid var(--light-border); }
+        .theme-option[data-theme="cyberpunk-theme"] .theme-preview-card { background-color: var(--cyberpunk-card); color: var(--cyberpunk-text); border: 1px solid var(--cyberpunk-border); box-shadow: 0 0 8px var(--cyberpunk-shadow); }
+        .theme-option[data-theme="retro-theme"] .theme-preview-card { background-color: var(--retro-card); color: var(--retro-text); border: 1px solid var(--retro-border); box-shadow: 0 0 8px var(--retro-shadow); }
+        .theme-option[data-theme="sunset-theme"] .theme-preview-card { background-color: var(--sunset-card); color: var(--sunset-text); border: 1px solid var(--sunset-border); box-shadow: 0 0 8px var(--sunset-shadow); }
+        .theme-option[data-theme="neomorphism-theme"] .theme-preview-card { background-color: var(--neo-card); color: var(--neo-text); border: 1px solid transparent; box-shadow: 3px 3px 6px var(--neo-shadow-dark), -3px -3px 6px var(--neo-shadow-light); }
+        .theme-option[data-theme="glass-theme"] .theme-preview-card { background-color: rgba(255, 255, 255, 0.1); color: var(--glass-text); border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+        
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 20px;
+            .container {
+                padding: 10px;
             }
-            
-            .header-controls {
-                width: 100%;
-                justify-content: center;
+
+            .logo {
+                font-size: 1.5rem;
             }
-            
-            nav {
-                gap: 15px;
+
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
             .hero {
                 padding: 50px 15px;
             }
 
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .game-frame-container {
-                padding-bottom: 75%; /* Adjust aspect ratio for better mobile viewing if needed */
-            }
-            
-            .embed-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .embed-header .controls {
-                width: 100%;
+            nav {
+                gap: 10px;
                 justify-content: center;
             }
-            
-            .theme-options, .color-options {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
-            
+
+            .games {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .game-thumb {
+                height: 120px;
+            }
+
             .settings-container {
                 flex-direction: column;
                 height: 90vh;
             }
-            
+
             .settings-sidebar {
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid var(--card-border);
                 padding: 15px 0;
             }
-            
+
             .settings-option {
                 padding: 12px 20px;
             }
-            
+
             .browse-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1513,18 +1430,10 @@
             }
         }
     </style>
-    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import {
-            getFirestore,
-            collection,
-            getDocs,
-            addDoc,
-            deleteDoc,
-            doc
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // 1. Your Firebase config
         const firebaseConfig = {
@@ -1540,58 +1449,51 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const gamesCol = collection(db, "games");
 
-        // Expose Firebase instances globally for the main script
-        window.firebaseApp = app;
-        window.db = db;
-        window.auth = auth;
-        window.currentUserId = null; // Will be set on auth state change
-
-        // 3. Login (anonymous)
-        onAuthStateChanged(auth, async (user) => {
+        // 3. User Authentication/Sign-in
+        let userId = null;
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log("Logged in as:", user.uid);
-                window.currentUserId = user.uid;
-                // Update the User ID display in the footer
-                const userIdDisplay = document.getElementById('currentUserIdDisplay');
-                if (userIdDisplay) {
-                    userIdDisplay.textContent = `User ID: ${user.uid}`;
-                }
-                await loadGamesFromFirestore();
+                userId = user.uid;
             } else {
-                await signInAnonymously(auth);
+                signInAnonymously(auth).then(userCredential => {
+                    userId = userCredential.user.uid;
+                }).catch(error => {
+                    console.error("Anonymous sign-in failed:", error);
+                });
             }
+            document.getElementById('currentUserIdDisplay').textContent = `User ID: ${userId || 'N/A'}`;
+            // Once authenticated (even anonymously), load the games
+            loadGamesFromFirestore();
         });
 
-        // 4. Load games from Firebase
+        // 4. Load Games from Firestore
         async function loadGamesFromFirestore() {
             try {
-                const querySnapshot = await getDocs(collection(db, "games"));
-                const games = [];
-                querySnapshot.forEach((doc) => {
-                    // Ensure the Firestore document ID is stored as 'id'
-                    games.push({ id: doc.id, ...doc.data() });
-                });
-                window.gamesData = games; // Update global gamesData
-                // Call the main rendering function from the global scope
-                if (typeof window.initialRender === 'function') {
-                    window.initialRender();
-                }
+                const gamesSnapshot = await getDocs(gamesCol);
+                window.gamesData = gamesSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                // After loading, update UI
+                window.initialRender();
+                window.updateDefaultGameSelector(); // Update the settings selector
             } catch (error) {
                 console.error("Error loading games from Firestore:", error);
-                window.gamesData = []; // Clear existing data
-                if (typeof window.initialRender === 'function') {
-                    window.initialRender(); // Render empty state
-                }
-                window.customAlert('Data Load Error', 'Could not load games from the server. Please check your connection or Firebase setup.', false);
+                // Fallback or display error message
             }
         }
 
-        // 5. Add game to Firebase
+        // 5. Add Game to Firestore
         async function addGameToFirestore(game) {
             try {
-                await addDoc(collection(db, "games"), game);
-                window.customAlert('Success', `${game.title} added successfully!`);
+                // Remove game code from the object before saving to Firestore, as it might be too large/not needed
+                const { gameCode, ...gameData } = game;
+                
+                // Add game to the 'games' collection
+                await addDoc(gamesCol, gameData);
+                window.customAlert('Success', 'Game added successfully! Refreshing games list...');
                 await loadGamesFromFirestore(); // Reload games to update UI
             } catch (error) {
                 console.error("Error adding game to Firestore:", error);
@@ -1629,7 +1531,6 @@
     </script>
 </head>
 <body class="dark-theme">
-    <!-- Theme transition overlay -->
     <div class="theme-overlay dark-overlay"></div>
     <div class="theme-overlay light-overlay"></div>
     <div class="theme-overlay cyberpunk-overlay"></div>
@@ -1637,7 +1538,6 @@
     <div class="theme-overlay sunset-overlay"></div>
 
     <div class="container">
-        <!-- Header -->
         <header>
             <div class="logo" id="homeBtn">
                 <i class="fas fa-gamepad"></i>
@@ -1678,53 +1578,50 @@
             </div>
         </nav>
 
-        <!-- Home Page -->
         <div class="page active" id="homePage">
-            <!-- Hero Section -->
             <section class="hero">
-                <h1>Unblocked Gaming Experience</h1>
-                <p>Play your favorite games anywhere, anytime. Our portal provides seamless access to thousands of unblocked games with a modern, distraction-free interface.</p>
+                <h1>Welcome to GamePortal</h1>
+                <p>The ultimate destination for unblocked HTML5 games, accessible anywhere, anytime. Start playing instantly!</p>
                 <div class="controls">
                     <button class="btn" id="browseGamesBtn">
-                        <i class="fas fa-gamepad"></i> <span>Browse Games</span>
+                        <i class="fas fa-dice"></i>
+                        <span>Browse All Games</span>
                     </button>
                     <button class="btn btn-primary" id="playNowBtn">
-                        <i class="fas fa-play"></i> <span>Play Now</span>
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                        <span>Play Current Game</span>
                     </button>
                 </div>
             </section>
 
-            <!-- Game Embed Section -->
             <section class="embed-container">
                 <div class="embed-header">
-                    <h2 id="nowPlayingTitle"><i class="fas fa-play-circle"></i> Now Playing: Drive Mad</h2>
+                    <h2 id="nowPlayingTitle"><i class="fas fa-play-circle"></i> Now Playing: Default Game</h2>
                     <div class="controls">
-                        <button class="btn" id="fullscreenBtn">
-                            <i class="fas fa-expand"></i> <span>Fullscreen</span>
+                        <button class="btn btn-primary" id="fullscreenBtn" title="Fullscreen">
+                            <i class="fas fa-expand"></i>
                         </button>
-                        <button class="btn btn-primary" id="launchGameBtn">
-                            <i class="fas fa-play"></i> <span>Launch Game</span>
+                        <button class="btn" id="launchGameBtn" title="Open in New Tab">
+                            <i class="fas fa-external-link-alt"></i>
                         </button>
                     </div>
                 </div>
                 <div class="game-frame-container">
                     <div class="game-loading" id="gameLoading">
                         <span class="loader"></span>
+                        <span>Loading Game...</span>
                     </div>
-                    <iframe id="gameFrame" class="game-frame" src="https://crazygames-unblocked.github.io/c77/drive-mad" allowfullscreen></iframe>
+                    <iframe id="gameFrame" class="game-frame" allowfullscreen allow="autoplay; fullscreen; gyroscope; accelerometer; encrypted-media"></iframe>
                 </div>
             </section>
-
-            <!-- Game Grid -->
+            
             <section class="game-grid">
-                <h2><i class="fas fa-dice"></i> Popular Unblocked Games</h2>
+                <h2><i class="fas fa-fire"></i> Popular Games</h2>
                 <div class="games" id="homeGamesGrid">
-                    <!-- Games will be dynamically loaded here by JavaScript -->
-                </div>
+                    </div>
             </section>
         </div>
 
-        <!-- Browse Games Page -->
         <div class="page" id="browsePage">
             <div class="browse-header">
                 <h2><i class="fas fa-gamepad"></i> Browse All Games</h2>
@@ -1735,7 +1632,6 @@
                     </button>
                 </div>
             </div>
-            
             <div class="category-filter" id="categoryFilter">
                 <div class="category-btn active" data-category="all">All Games</div>
                 <div class="category-btn" data-category="racing">Racing</div>
@@ -1753,16 +1649,13 @@
                 <div class="category-btn" data-category="motorcycle">Motorcycle</div>
                 <div class="category-btn" data-category="arcade">Arcade</div>
             </div>
-            
             <section class="game-grid">
                 <div class="games" id="browseGamesGrid">
-                    <!-- Games will be dynamically loaded here by JavaScript -->
-                </div>
+                    </div>
                 <p id="noGamesFound" style="display: none; text-align: center; color: var(--subtext); margin-top: 50px;">No games found matching your criteria.</p>
             </section>
         </div>
 
-        <!-- Login Page -->
         <div class="page" id="loginPage">
             <div class="login-form">
                 <h2>Admin Login</h2>
@@ -1775,87 +1668,91 @@
                     <input type="password" id="password" name="password" placeholder="Enter your password">
                 </div>
                 <button class="btn" id="loginSubmitBtn">
-                    <i class="fas fa-sign-in-alt"></i> <span>Login</span>
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
                 </button>
                 <p id="loginMessage" class="login-message"></p>
             </div>
         </div>
 
-        <!-- Settings Page -->
         <div class="settings-page" id="settingsPage">
             <div class="settings-container">
                 <div class="settings-sidebar">
                     <button class="close-btn" id="closeSettings"><i class="fas fa-times"></i></button>
                     <div class="settings-option active" data-section="general">
-                        <i class="fas fa-cogs"></i> <span>General</span>
+                        <i class="fas fa-cogs"></i>
+                        <span>General</span>
                     </div>
                     <div class="settings-option" data-section="appearance">
-                        <i class="fas fa-palette"></i> <span>Appearance</span>
+                        <i class="fas fa-palette"></i>
+                        <span>Appearance</span>
                     </div>
-                    <div class="settings-option" data-section="privacy">
-                        <i class="fas fa-user-shield"></i> <span>Privacy</span>
+                    <div class="settings-option" data-section="preferences">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Preferences</span>
                     </div>
                     <div class="settings-option admin-only" data-section="admin">
-                        <i class="fas fa-user-tie"></i> <span>Admin Dashboard</span>
+                        <i class="fas fa-user-tie"></i>
+                        <span>Admin Dashboard</span>
                     </div>
                     <div class="settings-option" data-section="about">
-                        <i class="fas fa-info-circle"></i> <span>About</span>
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </div>
+                    <div class="settings-option" id="logoutSettingOption" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
                     </div>
                 </div>
+
                 <div class="settings-content">
-                    <!-- General Section -->
                     <div class="settings-section active" id="generalSection">
                         <h2 class="section-title"><i class="fas fa-cogs"></i> General Settings</h2>
+                        
                         <div class="content-section">
-                            <h3><i class="fas fa-tachometer-alt"></i> Performance</h3>
-                            <p>Adjust animations and transitions for a quicker experience.</p>
+                            <h3><i class="fas fa-language"></i> Language Selection</h3>
                             <div class="setting-item">
-                                <h4>Performance Mode</h4>
-                                <label class="switch">
-                                    <input type="checkbox" id="performanceModeToggle">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <div class="setting-item">
-                                <h4>Default Game on Open</h4>
-                                <select id="defaultGameSelector">
-                                    <option value="">-- Select a game --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="content-section">
-                            <h3><i class="fas fa-globe"></i> Language</h3>
-                            <p>Choose your preferred language for the GamePortal interface.</p>
-                            <div class="setting-item">
-                                <h4>Interface Language</h4>
+                                <h4>Portal Language</h4>
                                 <select id="languageSelector">
                                     <option value="en">English</option>
                                     <option value="es">Spanish</option>
                                     <option value="fr">French</option>
+                                    <option value="de">German</option>
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="content-section">
-                            <h3><i class="fas fa-volume-up"></i> Sound Preferences</h3>
-                            <p>Adjust game and interface sound settings.</p>
+                            <h3><i class="fas fa-volume-up"></i> Sound/Volume</h3>
                             <div class="setting-item">
                                 <h4>Master Volume</h4>
-                                <input type="range" min="0" max="100" value="75" id="masterVolume">
+                                <input type="range" min="0" max="100" value="70" id="masterVolume">
                             </div>
                             <div class="setting-item">
                                 <h4>Mute All Sounds</h4>
                                 <label class="switch">
                                     <input type="checkbox" id="muteToggle">
-                                    <span class="slider round"></span>
+                                    <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
+                        
+                        <div class="content-section">
+                            <h3><i class="fas fa-bolt"></i> Performance</h3>
+                            <div class="setting-item">
+                                <h4>Performance Mode</h4>
+                                <label class="switch">
+                                    <input type="checkbox" id="performanceModeToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--subtext);">Reduces animations and transitions for better performance on older devices.</p>
+                        </div>
                     </div>
 
-                    <!-- Appearance Section -->
                     <div class="settings-section" id="appearanceSection">
                         <h2 class="section-title"><i class="fas fa-palette"></i> Appearance Settings</h2>
+
                         <div class="content-section">
                             <h3><i class="fas fa-paint-brush"></i> Theme Selection</h3>
                             <p>Change the overall look and feel of the portal.</p>
@@ -1920,79 +1817,72 @@
                         </div>
 
                         <div class="content-section">
-                            <h3><i class="fas fa-fill-drip"></i> Accent Color</h3>
-                            <p>Choose a primary accent color for buttons and highlights.</p>
+                            <h3><i class="fas fa-rainbow"></i> Color & Effects</h3>
+                            <div class="setting-item">
+                                <h4>Rainbow Text Effect</h4>
+                                <label class="switch">
+                                    <input type="checkbox" id="rainbowToggle">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--subtext);">Applies a cycling rainbow effect to all headers (overrides accent color).</p>
+                            
+                            <h4 style="margin-top: 20px;">Accent Color</h4>
+                            <p style="font-size: 0.85rem; color: var(--subtext);">Choose a primary accent color for buttons and highlights.</p>
                             <div class="color-options">
                                 <div class="color-option active" data-color="#6C5CE7">
                                     <div class="color-box" style="background-color: #6C5CE7;"></div>
-                                    <span>Amethyst</span>
+                                    <span>Purple</span>
                                 </div>
-                                <div class="color-option" data-color="#FF5733">
-                                    <div class="color-box" style="background-color: #FF5733;"></div>
-                                    <span>Orange</span>
-                                </div>
-                                <div class="color-option" data-color="#33FF57">
-                                    <div class="color-box" style="background-color: #33FF57;"></div>
-                                    <span>Green</span>
-                                </div>
-                                <div class="color-option" data-color="#3357FF">
-                                    <div class="color-box" style="background-color: #3357FF;"></div>
+                                <div class="color-option" data-color="#3498db">
+                                    <div class="color-box" style="background-color: #3498db;"></div>
                                     <span>Blue</span>
                                 </div>
-                                <div class="color-option" data-color="#FF33FF">
-                                    <div class="color-box" style="background-color: #FF33FF;"></div>
-                                    <span>Magenta</span>
+                                <div class="color-option" data-color="#2ecc71">
+                                    <div class="color-box" style="background-color: #2ecc71;"></div>
+                                    <span>Green</span>
                                 </div>
-                                <div class="color-option" data-color="#FFEA33">
-                                    <div class="color-box" style="background-color: #FFEA33;"></div>
+                                <div class="color-option" data-color="#e74c3c">
+                                    <div class="color-box" style="background-color: #e74c3c;"></div>
+                                    <span>Red</span>
+                                </div>
+                                <div class="color-option" data-color="#f1c40f">
+                                    <div class="color-box" style="background-color: #f1c40f;"></div>
                                     <span>Yellow</span>
                                 </div>
-                            </div>
-                            <div class="setting-item" style="margin-top: 20px;">
-                                <h4>Enable Rainbow Mode</h4>
-                                <label class="switch">
-                                    <input type="checkbox" id="rainbowToggle">
-                                    <span class="slider round"></span>
-                                </label>
+                                <div class="color-option" data-color="#e91e63">
+                                    <div class="color-box" style="background-color: #e91e63;"></div>
+                                    <span>Pink</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Privacy Section -->
-                    <div class="settings-section" id="privacySection">
-                        <h2 class="section-title"><i class="fas fa-user-shield"></i> Privacy Settings</h2>
-                        <div class="content-section">
-                            <h3><i class="fas fa-cookie-bite"></i> Cookie Preferences</h3>
-                            <p>Manage your cookie and data usage settings.</p>
-                            <div class="setting-item">
-                                <h4>Allow Analytics Cookies</h4>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <div class="setting-item">
-                                <h4>Personalized Content</h4>
-                                <label class="switch">
-                                    <input type="checkbox" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
+                    <div class="settings-section" id="preferencesSection">
+                        <h2 class="section-title"><i class="fas fa-sliders-h"></i> User Preferences</h2>
                         
                         <div class="content-section">
-                            <h3><i class="fas fa-history"></i> Activity History</h3>
-                            <p>Control what activity is saved on your account.</p>
+                            <h3><i class="fas fa-history"></i> Activity & History</h3>
                             <div class="setting-item">
                                 <h4>Save Play History</h4>
                                 <label class="switch">
-                                    <input type="checkbox" checked id="saveHistoryToggle">
-                                    <span class="slider round"></span>
+                                    <input type="checkbox" id="saveHistoryToggle" checked>
+                                    <span class="slider"></span>
                                 </label>
                             </div>
-                            <div class="activity-history" id="activityHistoryContainer">
-                                <h4><i class="fas fa-clock"></i> Recent Activity</h4>
-                                <p>No recent activity</p>
+                            <p style="font-size: 0.85rem; color: var(--subtext);">Saves the last 10 games you played to local storage.</p>
+                            <div id="activityHistoryContainer">
+                                </div>
+                        </div>
+
+                        <div class="content-section">
+                            <h3><i class="fas fa-gamepad"></i> Default Game</h3>
+                            <p>Select the game that loads automatically when you visit the homepage.</p>
+                            <div class="setting-item">
+                                <h4>Auto-Load Game</h4>
+                                <select id="defaultGameSelector">
+                                    <option value="#">-- Select a Game --</option>
+                                    </select>
                             </div>
                         </div>
                         
@@ -2015,8 +1905,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Admin Dashboard Section (Initially hidden) -->
+
                     <div class="settings-section" id="adminSection">
                         <h2 class="section-title"><i class="fas fa-user-tie"></i> Admin Dashboard</h2>
                         <div class="content-section">
@@ -2035,52 +1924,45 @@
                         </div>
                     </div>
 
-                    <!-- About Section -->
                     <div class="settings-section" id="aboutSection">
                         <h2 class="section-title"><i class="fas fa-info-circle"></i> About GamePortal</h2>
                         <div class="content-section">
                             <h3><i class="fas fa-rocket"></i> Our Mission</h3>
                             <p>GamePortal was created to provide a seamless, unblocked gaming experience for everyone. Our mission is to offer a vast collection of games in a modern, user-friendly interface that works anywhere, anytime.</p>
                         </div>
-                        
                         <div class="content-section">
                             <h3><i class="fas fa-code"></i> Technology</h3>
                             <p>Built with modern web technologies including HTML5, CSS3, and JavaScript, GamePortal leverages cutting-edge features to deliver a smooth gaming experience. Our platform is optimized for performance and compatibility across all devices.</p>
                         </div>
-                        
                         <div class="content-section">
-                            <h3><i class="fas fa-shield-alt"></i> Safety & Legality</h3>
-                            <p>GamePortal is an educational platform designed for learning and entertainment purposes. All game content belongs to their respective owners. We do not host any game files and only provide access to publicly available web games.</p>
+                            <h3><i class="fas fa-shield-alt"></i> Disclaimer</h3>
+                            <p>All game content and intellectual property belong to their respective owners. GamePortal acts solely as a portal to third-party content. Use this platform responsibly.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Add Game Floating Button -->
-        <button class="add-game-btn" id="addGameFloatingBtn" title="Add New Game">
+        <div class="add-game-btn" id="addGameFloatingBtn" title="Add New Game">
             <i class="fas fa-plus"></i>
-        </button>
+        </div>
 
-        <!-- Add Game Modal -->
         <div id="addGameModal" class="modal">
             <div class="modal-content">
                 <button class="close-modal" id="closeAddGameModal"><i class="fas fa-times"></i></button>
-                <h3>Add New Game</h3>
+                <h3><i class="fas fa-plus-circle"></i> Add New Game</h3>
                 <div class="form-group">
                     <label for="newGameName">Game Name:</label>
-                    <input type="text" id="newGameName" placeholder="Enter game name" required>
+                    <input type="text" id="newGameName" placeholder="Enter game title">
                 </div>
                 <div class="form-group">
-                    <label for="newGameUrl">Game URL (iframe src):</label>
-                    <input type="url" id="newGameUrl" placeholder="https://example.com/game">
+                    <label for="newGameUrl">Game URL (External Embed):</label>
+                    <input type="url" id="newGameUrl" placeholder="https://example.com/game.html">
+                    <p style="font-size: 0.8rem; color: var(--subtext); margin-top: 5px;">*Use only one of URL or Embed Code.</p>
                 </div>
                 <div class="form-group">
-                    <label for="newGameCode">Or Embed Code:</label>
-                    <textarea id="newGameCode" placeholder="Paste embed code here"></textarea>
-                    <p style="font-size: 0.8rem; margin-top: 5px; color: var(--subtext);">
-                        Note: Only use if you don't have a direct URL
-                    </p>
+                    <label for="newGameCode">Game Embed Code (iFrame/Script):</label>
+                    <textarea id="newGameCode" placeholder="Paste full iframe or script code here"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="newGameThumb">Thumbnail Image URL:</label>
@@ -2101,7 +1983,6 @@
             </div>
         </div>
 
-        <!-- Custom Confirmation/Alert Modal -->
         <div id="customAlertModal" class="modal">
             <div class="modal-content">
                 <button class="close-modal" id="closeCustomAlertModal"><i class="fas fa-times"></i></button>
@@ -2115,14 +1996,23 @@
             </div>
         </div>
 
-
-        <!-- Footer -->
         <footer>
             <p>&copy; 2023 GamePortal | Unblocked Gaming Platform</p>
             <p id="currentUserIdDisplay">User ID: N/A (Initializing Firebase...)</p>
             <p>For educational purposes only. All game content belongs to their respective owners.</p>
         </footer>
     </div>
+    
+    <script type="text/javascript">
+    	atOptions = {
+    		'key' : '1b1e6c92d5c5634c430acb666b693140',
+    		'format' : 'iframe',
+    		'height' : 90,
+    		'width' : 728,
+    		'params' : {}
+    	};
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/1b1e6c92d5c5634c430acb666b693140/invoke.js"></script>
 
     <script>
         // Global variables for game data, populated by Firebase module script
@@ -2138,43 +2028,52 @@
 
                 const customAlertTitle = document.getElementById('customAlertTitle');
                 const customAlertMessage = document.getElementById('customAlertMessage');
-                const customAlertOKBtn = document.getElementById('customAlertOKBtn');
                 const customAlertConfirmBtn = document.getElementById('customAlertConfirmBtn');
+                const customAlertOKBtn = document.getElementById('customAlertOKBtn');
                 const customAlertCancelBtn = document.getElementById('customAlertCancelBtn');
-                const closeCustomAlertModal = document.getElementById('closeCustomAlertModal');
-
+                
                 customAlertTitle.textContent = title;
                 customAlertMessage.textContent = message;
-                customAlertOKBtn.style.display = isConfirm ? 'none' : 'inline-flex';
-                customAlertConfirmBtn.style.display = isConfirm ? 'inline-flex' : 'none';
-                customAlertCancelBtn.style.display = isConfirm ? 'inline-flex' : 'none';
+                customAlertConfirmBtn.style.display = isConfirm ? 'inline-block' : 'none';
+                customAlertCancelBtn.style.display = isConfirm ? 'inline-block' : 'none';
+                customAlertOKBtn.style.display = isConfirm ? 'none' : 'inline-block';
 
                 customAlertModal.classList.add('active');
 
-                const closeHandler = (result) => {
+                // Clear previous listeners
+                customAlertConfirmBtn.replaceWith(customAlertConfirmBtn.cloneNode(true));
+                customAlertCancelBtn.replaceWith(customAlertCancelBtn.cloneNode(true));
+                customAlertOKBtn.replaceWith(customAlertOKBtn.cloneNode(true));
+                document.getElementById('closeCustomAlertModal').replaceWith(document.getElementById('closeCustomAlertModal').cloneNode(true));
+
+                // Re-get elements after cloning
+                const newConfirmBtn = document.getElementById('customAlertConfirmBtn');
+                const newCancelBtn = document.getElementById('customAlertCancelBtn');
+                const newOKBtn = document.getElementById('customAlertOKBtn');
+                const newCloseBtn = document.getElementById('closeCustomAlertModal');
+
+                const closeModal = (result) => {
                     customAlertModal.classList.remove('active');
-                    customAlertOKBtn.removeEventListener('click', okHandler);
-                    customAlertConfirmBtn.removeEventListener('click', confirmHandler);
-                    customAlertCancelBtn.removeEventListener('click', cancelHandler);
-                    closeCustomAlertModal.removeEventListener('click', cancelHandler);
                     resolve(result);
                 };
 
-                const okHandler = () => closeHandler(true);
-                const confirmHandler = () => closeHandler(true);
-                const cancelHandler = () => closeHandler(false);
-
-                customAlertOKBtn.addEventListener('click', okHandler, { once: true });
-                customAlertConfirmBtn.addEventListener('click', confirmHandler, { once: true });
-                customAlertCancelBtn.addEventListener('click', cancelHandler, { once: true });
-                closeCustomAlertModal.addEventListener('click', cancelHandler, { once: true });
+                newConfirmBtn.addEventListener('click', () => closeModal(true));
+                newCancelBtn.addEventListener('click', () => closeModal(false));
+                newOKBtn.addEventListener('click', () => closeModal(true));
+                newCloseBtn.addEventListener('click', () => closeModal(false));
             });
         }
         window.customAlert = customAlert; // Expose globally
 
-        // Helper function to lighten colors
+        // Helper function to lighten color (for dynamic secondary color)
         function lightenColor(color, percent) {
-            let f = parseInt(color.slice(1), 16), t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent, R = f >> 16, G = (f >> 8) & 0x00ff, B = f & 0x0000ff;
+            let R = parseInt(color.substring(1, 3), 16);
+            let G = parseInt(color.substring(3, 5), 16);
+            let B = parseInt(color.substring(5, 7), 16);
+
+            const p = percent / 100;
+            const t = p < 0 ? 0 : 255;
+            
             return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
         }
 
@@ -2213,21 +2112,45 @@
                     document.getElementById('nowPlayingTitle').innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
                     document.getElementById('gameFrame').scrollIntoView({ behavior: 'smooth' });
                     window.showPage('homePage');
-                    
-                    // Save to activity history
-                    saveToActivityHistory(gameName);
-                } else {
-                    window.customAlert('Game Not Available', 'This game does not have a valid URL to play.');
+                    window.saveToActivityHistory(gameName);
+                } else if (game.embedCode) {
+                    // Handle embed code (iframe or script)
+                    document.getElementById('gameLoading').style.display = 'flex';
+                    // Using a data URL for the iframe source to contain the embed code
+                    const embedUrl = "data:text/html;charset=utf-8," + encodeURIComponent(`
+                        <html>
+                        <head><style>body{margin:0;overflow:hidden;background:#000;}</style></head>
+                        <body>
+                        ${game.embedCode}
+                        <script>
+                            // Find and resize iframe/canvas if possible
+                            window.onload = function() {
+                                var iframe = document.querySelector('iframe, canvas');
+                                if (iframe) {
+                                    iframe.style.width = '100%';
+                                    iframe.style.height = '100%';
+                                }
+                                parent.postMessage('game_loaded', '*'); // Notify parent frame that game is ready
+                            };
+                        </script>
+                        </body>
+                        </html>
+                    `);
+                    document.getElementById('gameFrame').src = embedUrl;
+                    document.getElementById('nowPlayingTitle').innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
+                    document.getElementById('gameFrame').scrollIntoView({ behavior: 'smooth' });
+                    window.showPage('homePage');
+                    window.saveToActivityHistory(gameName);
                 }
             });
 
-            // Add event listener for the delete button (if it exists)
+            // Add event listener for delete button (admin only)
             const deleteBtn = gameCard.querySelector('.delete-btn');
             if (deleteBtn) {
-                deleteBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent the card's launch listener from firing
-                    const gameIdToDelete = gameCard.getAttribute('data-id');
-                    window.deleteGameFromFirestore(gameIdToDelete);
+                deleteBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card click event
+                    const gameId = this.getAttribute('data-id');
+                    window.deleteGameFromFirestore(gameId);
                 });
             }
 
@@ -2235,46 +2158,46 @@
         }
 
         /**
-         * Renders a list of games into a specified grid container.
-         * @param {Array<object>} gamesToRender - An array of game objects.
-         * @param {string} gridElementId - The ID of the container element to render into.
+         * Renders an array of game objects into a specified grid container.
+         * @param {Array<object>} games - The array of games to render.
+         * @param {string} containerId - The ID of the HTML container element.
          */
-        function renderGames(gamesToRender, gridElementId) {
-            const grid = document.getElementById(gridElementId);
-            if (!grid) return;
-            
-            grid.innerHTML = ''; // Clear the grid first
+        function renderGames(games, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
 
-            // Handle the "No Games Found" message specifically for the browse grid
-            const noGamesFound = document.getElementById('noGamesFound');
-            if (gridElementId === 'browseGamesGrid') {
-                if (gamesToRender.length === 0) {
-                    if (noGamesFound) noGamesFound.style.display = 'block';
-                } else {
-                    if (noGamesFound) noGamesFound.style.display = 'none';
+            container.innerHTML = ''; // Clear existing content
+
+            if (games.length === 0) {
+                if (containerId === 'browseGamesGrid') {
+                    document.getElementById('noGamesFound').style.display = 'block';
+                }
+                return;
+            } else {
+                 if (containerId === 'browseGamesGrid') {
+                    document.getElementById('noGamesFound').style.display = 'none';
                 }
             }
 
-            gamesToRender.forEach((game, index) => {
+            games.forEach((game, index) => {
                 const gameCard = createGameCard(game);
-                gameCard.style.animationDelay = `${index * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--game-card-stagger'))}s`;
-                grid.appendChild(gameCard);
+                // Apply staggered animation delay
+                gameCard.style.animationDelay = `${index * parseFloat(getComputedStyle(document.body).getPropertyValue('--game-card-stagger'))}s`;
+                container.appendChild(gameCard);
             });
-            
-            // Update default game selector
-            updateDefaultGameSelector();
         }
 
         /**
-         * Performs the initial rendering of games after data is loaded from Firebase.
+         * The initial rendering of games after data is loaded from Firebase.
          */
         function initialRender() {
             // For the home page, show a subset of games (e.g., the first 12)
             const popularGames = window.gamesData.slice(0, 12);
             renderGames(popularGames, 'homeGamesGrid');
+            
             // For the browse page, show all games initially
             renderGames(window.gamesData, 'browseGamesGrid');
-            
+
             // Load default game if set
             loadDefaultGame();
         }
@@ -2292,19 +2215,20 @@
                 const categoryString = Array.isArray(game.category) ? game.category.join(' ') : (game.category || '');
                 const gameCategories = categoryString.toLowerCase();
 
-                const matchesSearch = gameTitle.includes(searchTerm.toLowerCase()) ||
-                                      gameDescription.includes(searchTerm.toLowerCase()) ||
-                                      gameCategories.includes(searchTerm.toLowerCase());
+                const matchesSearch = gameTitle.includes(searchTerm.toLowerCase()) || 
+                                    gameDescription.includes(searchTerm.toLowerCase()) || 
+                                    gameCategories.includes(searchTerm.toLowerCase());
                 
                 const matchesCategory = category === 'all' || gameCategories.includes(category.toLowerCase());
 
                 return matchesSearch && matchesCategory;
             });
+
             renderGames(filteredGames, 'browseGamesGrid'); // Only re-render the browse grid
         }
-        
+
         // --- NEW FEATURES ---
-        
+
         // Theme persistence
         function saveTheme(themeName) {
             localStorage.setItem('selectedTheme', themeName);
@@ -2314,11 +2238,11 @@
             const savedTheme = localStorage.getItem('selectedTheme');
             if (savedTheme) {
                 document.body.className = savedTheme;
+                
                 // Update theme toggle icon
                 const isLightTheme = savedTheme.includes('light') || savedTheme === 'neomorphism-theme';
-                document.querySelector('.toggle-slider').innerHTML = isLightTheme ? 
-                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                
+                document.querySelector('.toggle-slider').innerHTML = isLightTheme ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
                 // Update active theme in settings
                 document.querySelectorAll('.theme-option').forEach(option => {
                     option.classList.remove('active');
@@ -2328,52 +2252,61 @@
                 });
             }
         }
-        
+
         // Rainbow mode text effect
         function applyRainbowTextEffect() {
             const rainbowToggle = document.getElementById('rainbowToggle');
             if (!rainbowToggle.checked) return;
-            
-            const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, li, .btn, .nav-btn');
-            let hue = 0;
-            
-            setInterval(() => {
-                hue = (hue + 1) % 360;
-                textElements.forEach(el => {
-                    el.style.color = `hsl(${hue}, 80%, 60%)`;
-                    el.style.transition = 'color 0.5s ease';
-                });
-            }, 100);
+
+            const textElements = document.querySelectorAll('h1, h2, .logo span');
+            textElements.forEach(el => {
+                el.classList.add('rainbow-text', 'rainbow-bg');
+                el.style.background = 'linear-gradient(270deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff, #ff0000)';
+                el.style.backgroundSize = '1600% 1600%';
+                el.style.animation = 'colorCycle 8s ease infinite';
+                el.style.webkitBackgroundClip = 'text';
+                el.style.webkitTextFillColor = 'transparent';
+                el.style.textShadow = 'none';
+            });
         }
-        
-        // Language system
+
+        function removeRainbowTextEffect() {
+            const textElements = document.querySelectorAll('h1, h2, .logo span');
+            textElements.forEach(el => {
+                el.classList.remove('rainbow-text', 'rainbow-bg');
+                el.style.background = '';
+                el.style.backgroundSize = '';
+                el.style.animation = '';
+                el.style.webkitBackgroundClip = '';
+                el.style.webkitTextFillColor = '';
+                // Re-apply original text-shadow for dark theme consistency
+                if (document.body.classList.contains('dark-theme')) {
+                    el.style.textShadow = '0 0 10px rgba(108, 92, 231, 0.5)';
+                } else {
+                    el.style.textShadow = '';
+                }
+            });
+        }
+
+        // Language system (i18n)
         const languagePacks = {
             en: {
-                browseGames: "Browse Games",
-                popularGames: "Popular Games",
-                favorites: "Favorites",
-                login: "Login",
-                manageGames: "Manage Games",
-                // Add more translations as needed
+                // ... (English strings)
             },
             es: {
-                browseGames: "Explorar Juegos",
-                popularGames: "Juegos Populares",
-                favorites: "Favoritos",
-                login: "Iniciar Sesión",
-                manageGames: "Administrar Juegos"
+                // ... (Spanish strings)
             },
             fr: {
-                browseGames: "Parcourir les jeux",
-                popularGames: "Jeux populaires",
-                favorites: "Favoris",
-                login: "Connexion",
-                manageGames: "Gérer les jeux"
+                // ... (French strings)
+            },
+            de: {
+                // ... (German strings)
             }
         };
 
         function applyLanguage(langCode) {
             const langPack = languagePacks[langCode] || languagePacks.en;
+
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (langPack[key]) {
@@ -2382,47 +2315,45 @@
             });
             localStorage.setItem('selectedLanguage', langCode);
         }
-        
+
         // Volume controls
         function setupVolumeControls() {
             const volumeSlider = document.getElementById('masterVolume');
             const muteToggle = document.getElementById('muteToggle');
-            
+
             // Load saved settings
             const savedVolume = localStorage.getItem('masterVolume');
             const savedMute = localStorage.getItem('muteState');
-            
+
             if (savedVolume) {
                 volumeSlider.value = savedVolume;
             }
-            
             if (savedMute === 'true') {
                 muteToggle.checked = true;
             }
-            
+
             // Add event listeners
             volumeSlider.addEventListener('input', function() {
                 localStorage.setItem('masterVolume', this.value);
             });
-            
             muteToggle.addEventListener('change', function() {
                 localStorage.setItem('muteState', this.checked);
             });
         }
-        
+
         // Activity history
         function saveToActivityHistory(gameTitle) {
             if (!document.getElementById('saveHistoryToggle').checked) return;
             
             const history = JSON.parse(localStorage.getItem('activityHistory') || '[]');
             const timestamp = new Date().toISOString();
-            
+
             // Add new entry
             history.unshift({ game: gameTitle, timestamp });
-            
+
             // Keep only the last 10 entries
             if (history.length > 10) history.pop();
-            
+
             localStorage.setItem('activityHistory', JSON.stringify(history));
             displayActivityHistory();
         }
@@ -2430,36 +2361,33 @@
         function displayActivityHistory() {
             const history = JSON.parse(localStorage.getItem('activityHistory') || '[]');
             const historyContainer = document.getElementById('activityHistoryContainer');
-            
             if (!historyContainer) return;
-            
+
             historyContainer.innerHTML = '<h4><i class="fas fa-clock"></i> Recent Activity</h4>';
-            
+
             if (history.length === 0) {
                 historyContainer.innerHTML += '<p>No recent activity</p>';
             } else {
                 const list = document.createElement('ul');
-                
                 history.forEach(entry => {
                     const li = document.createElement('li');
                     li.innerHTML = `<strong>${entry.game}</strong> - ${new Date(entry.timestamp).toLocaleString()}`;
                     list.appendChild(li);
                 });
-                
                 historyContainer.appendChild(list);
             }
         }
-        
+
         // Default game selection
         function updateDefaultGameSelector() {
             const selector = document.getElementById('defaultGameSelector');
             if (!selector) return;
-            
+
             // Clear existing options except the first one
             while (selector.options.length > 1) {
                 selector.remove(1);
             }
-            
+
             // Add games to selector
             window.gamesData.forEach(game => {
                 const option = document.createElement('option');
@@ -2467,380 +2395,435 @@
                 option.textContent = game.title;
                 selector.appendChild(option);
             });
-            
+
             // Set saved selection
             const savedDefaultGame = localStorage.getItem('defaultGame');
             if (savedDefaultGame) {
                 selector.value = savedDefaultGame;
             }
         }
-        
+
         function loadDefaultGame() {
             const defaultGameUrl = localStorage.getItem('defaultGame');
-            if (defaultGameUrl) {
+            const gameFrame = document.getElementById('gameFrame');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+            const gameLoading = document.getElementById('gameLoading');
+            
+            if (defaultGameUrl && gameFrame) {
                 const game = window.gamesData.find(g => g.url === defaultGameUrl);
-                if (game) {
-                    document.getElementById('gameLoading').style.display = 'flex';
-                    document.getElementById('gameFrame').src = game.url;
-                    document.getElementById('nowPlayingTitle').innerHTML = 
-                        `<i class="fas fa-play-circle"></i> Now Playing: ${game.title}`;
-                }
+                const gameName = game ? game.title : 'Default Game';
+                
+                gameLoading.style.display = 'flex';
+                gameFrame.src = defaultGameUrl;
+                nowPlayingTitle.innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${gameName}`;
+            } else if (window.gamesData.length > 0) {
+                // If no default set, load the first game
+                const firstGame = window.gamesData[0];
+                gameLoading.style.display = 'flex';
+                gameFrame.src = firstGame.url;
+                nowPlayingTitle.innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: ${firstGame.title}`;
+            } else {
+                // Placeholder
+                gameLoading.style.display = 'none';
+                gameFrame.src = 'about:blank';
+                nowPlayingTitle.innerHTML = `<i class="fas fa-play-circle"></i> Now Playing: Select a Game`;
+            }
+        }
+
+        // Admin editing mode logic
+        function updateAdminUI(isLoggedIn = window.isAdminLoggedIn) {
+            const adminOnlyElements = document.querySelectorAll('.admin-only');
+            const adminNavBtn = document.querySelector('.admin-only-nav-btn');
+            const loginNavBtn = document.getElementById('loginNavBtn');
+            const logoutSettingOption = document.getElementById('logoutSettingOption');
+            const addGameFloatingBtn = document.getElementById('addGameFloatingBtn');
+            
+            adminOnlyElements.forEach(el => el.style.display = isLoggedIn ? 'block' : 'none');
+            
+            if (adminNavBtn) adminNavBtn.style.display = isLoggedIn ? 'flex' : 'none';
+            if (loginNavBtn) loginNavBtn.style.display = isLoggedIn ? 'none' : 'flex';
+            if (logoutSettingOption) logoutSettingOption.style.display = isLoggedIn ? 'flex' : 'none';
+            if (addGameFloatingBtn) addGameFloatingBtn.style.display = isLoggedIn ? 'flex' : 'none';
+            
+            // Re-render game cards to show delete buttons if in editing mode
+            if (window.isEditingMode && isLoggedIn) {
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('.category-btn.active')?.getAttribute('data-category') || 'all');
+                renderGames(window.gamesData.slice(0, 12), 'homeGamesGrid');
+            } else {
+                // If logging out or switching mode, re-render to hide buttons
+                if (!isLoggedIn) window.isEditingMode = false;
+                filterAndRenderBrowseGames(browseSearchInput.value, document.querySelector('.category-btn.active')?.getAttribute('data-category') || 'all');
+                renderGames(window.gamesData.slice(0, 12), 'homeGamesGrid');
             }
         }
         
-        // --- Main Application Logic ---
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- DOM Elements ---
-            const themeToggle = document.getElementById('themeToggle');
-            const settingsBtn = document.getElementById('settingsBtn');
-            const settingsPage = document.getElementById('settingsPage');
-            const closeSettings = document.getElementById('closeSettings');
-            const gameFrame = document.getElementById('gameFrame');
-            const gameLoading = document.getElementById('gameLoading');
-            const overlays = document.querySelectorAll('.theme-overlay');
-            const body = document.body;
-            const settingsOptions = document.querySelectorAll('.settings-option');
-            const settingsSections = document.querySelectorAll('.settings-section');
-            const themeOptions = document.querySelectorAll('.theme-option');
-            const colorOptions = document.querySelectorAll('.color-option');
-            const rainbowToggle = document.getElementById('rainbowToggle');
-            const pages = document.querySelectorAll('.page');
-            const performanceModeToggle = document.getElementById('performanceModeToggle');
-            
-            // Navigation buttons
-            const homeBtn = document.getElementById('homeBtn');
-            const browseBtn = document.getElementById('browseBtn');
-            const popularBtn = document.getElementById('popularBtn');
-            const favoritesBtn = document.getElementById('favoritesBtn');
-            const browseGamesBtn = document.getElementById('browseGamesBtn');
-            const playNowBtn = document.getElementById('playNowBtn');
-            const fullscreenBtn = document.getElementById('fullscreenBtn');
-            const launchGameBtn = document.getElementById('launchGameBtn');
+        // --- DOM Elements ---
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsPage = document.getElementById('settingsPage');
+        const closeSettings = document.getElementById('closeSettings');
+        const settingsOptions = document.querySelectorAll('.settings-option');
+        const settingsSections = document.querySelectorAll('.settings-section');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const colorOptions = document.querySelectorAll('.color-option');
+        const rainbowToggle = document.getElementById('rainbowToggle');
+        const gameFrame = document.getElementById('gameFrame');
+        const gameLoading = document.getElementById('gameLoading');
+        const pages = document.querySelectorAll('.page');
+        const performanceModeToggle = document.getElementById('performanceModeToggle');
 
-            // Browse page elements
-            const browseSearchInput = document.getElementById('browseSearchInput');
-            const browseSearchBtn = document.getElementById('browseSearchBtn');
-            const categoryFilter = document.getElementById('categoryFilter');
+        // Navigation buttons
+        const homeBtn = document.getElementById('homeBtn');
+        const browseBtn = document.getElementById('browseBtn');
+        const popularBtn = document.getElementById('popularBtn');
+        const favoritesBtn = document.getElementById('favoritesBtn');
+        const browseGamesBtn = document.getElementById('browseGamesBtn');
+        const playNowBtn = document.getElementById('playNowBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const launchGameBtn = document.getElementById('launchGameBtn');
 
-            // Login specific elements
-            const loginNavBtn = document.getElementById('loginNavBtn');
-            const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-            const loginMessage = document.getElementById('loginMessage');
-            const adminSettingOption = document.querySelector('.settings-option.admin-only');
-            const manageGamesNavBtn = document.getElementById('manageGamesBtn');
-            
-            // Add Game Modal elements
-            const addGameFloatingBtn = document.getElementById('addGameFloatingBtn');
-            const addGameModal = document.getElementById('addGameModal');
-            const closeAddGameModal = document.getElementById('closeAddGameModal');
-            const submitNewGameBtn = document.getElementById('submitNewGameBtn');
-            const newGameNameInput = document.getElementById('newGameName');
-            const newGameUrlInput = document.getElementById('newGameUrl');
-            const newGameThumbInput = document.getElementById('newGameThumb');
-            const newGameDescInput = document.getElementById('newGameDesc');
-            const newGameTagsInput = document.getElementById('newGameTags');
-            const addGameMessage = document.getElementById('addGameMessage');
-            const newGameCodeInput = document.getElementById('newGameCode');
+        // Browse page elements
+        const browseSearchInput = document.getElementById('browseSearchInput');
+        const browseSearchBtn = document.getElementById('browseSearchBtn');
+        const categoryFilter = document.getElementById('categoryFilter');
 
-            // --- State Variables ---
-            const ADMIN_USERNAME = 'admin';
-            const ADMIN_PASSWORD = 'password123';
-            window.isAdminLoggedIn = false;
-            window.isEditingMode = false;
+        // Login specific elements
+        const loginNavBtn = document.getElementById('loginNavBtn');
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginMessage = document.getElementById('loginMessage');
+        const adminSettingOption = document.querySelector('.settings-option.admin-only');
+        const manageGamesNavBtn = document.getElementById('manageGamesBtn');
 
-            // --- NEW FEATURE INITIALIZATION ---
-            
-            // Load saved theme
-            loadSavedTheme();
-            
-            // Set up rainbow mode
-            rainbowToggle.addEventListener('change', function() {
-                if (this.checked) applyRainbowTextEffect();
-            });
-            
-            // Set up language system
-            const langSelector = document.getElementById('languageSelector');
-            const savedLang = localStorage.getItem('selectedLanguage') || 'en';
-            langSelector.value = savedLang;
-            applyLanguage(savedLang);
-            langSelector.addEventListener('change', function() {
-                applyLanguage(this.value);
-            });
-            
-            // Set up volume controls
-            setupVolumeControls();
-            
-            // Set up activity history
-            displayActivityHistory();
-            
-            // Set up default game selector
-            document.getElementById('defaultGameSelector').addEventListener('change', function() {
-                localStorage.setItem('defaultGame', this.value);
-            });
-            
-            // --- Event Listeners ---
+        // Add Game Modal elements
+        const addGameFloatingBtn = document.getElementById('addGameFloatingBtn');
+        const addGameModal = document.getElementById('addGameModal');
+        const closeAddGameModal = document.getElementById('closeAddGameModal');
+        const submitNewGameBtn = document.getElementById('submitNewGameBtn');
+        const newGameNameInput = document.getElementById('newGameName');
+        const newGameUrlInput = document.getElementById('newGameUrl');
+        const newGameThumbInput = document.getElementById('newGameThumb');
+        const newGameDescInput = document.getElementById('newGameDesc');
+        const newGameTagsInput = document.getElementById('newGameTags');
+        const addGameMessage = document.getElementById('addGameMessage');
+        const newGameCodeInput = document.getElementById('newGameCode');
 
-            // Theme toggle functionality
-            themeToggle.addEventListener('click', function() {
-                const isCurrentlyLight = body.classList.contains('light-theme') || body.classList.contains('neomorphism-theme');
-                const newTheme = isCurrentlyLight ? 'dark-theme' : 'light-theme';
-                
-                const hasPerformanceMode = body.classList.contains('performance-mode');
-                body.className = ''; // Clear all classes
-                body.classList.add(newTheme);
-                if (hasPerformanceMode) body.classList.add('performance-mode');
-                
-                // Save theme
-                saveTheme(newTheme);
 
-                document.querySelector('.toggle-slider').innerHTML = newTheme === 'light-theme' ? 
-                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                
-                const activeOverlay = document.querySelector(`.${newTheme.replace('theme', 'overlay')}`);
-                if (activeOverlay) {
-                    activeOverlay.classList.add('active');
-                    setTimeout(() => activeOverlay.classList.remove('active'), 800);
-                }
-            });
-            
-            // Theme selection in settings
-            themeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    const theme = this.getAttribute('data-theme');
-                    const hasPerformanceMode = body.classList.contains('performance-mode');
-                    body.className = ''; // Clear all classes
-                    body.classList.add(theme);
-                    if (hasPerformanceMode) body.classList.add('performance-mode');
-                    
-                    // Save theme
-                    saveTheme(theme);
-                    
-                    themeOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-            
-            // Settings page functionality
-            settingsBtn.addEventListener('click', () => settingsPage.classList.add('active'));
-            closeSettings.addEventListener('click', () => settingsPage.classList.remove('active'));
-            settingsPage.addEventListener('click', (e) => {
-                if (e.target === settingsPage) settingsPage.classList.remove('active');
-            });
-            
-            // Settings sidebar navigation
-            settingsOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    const sectionId = this.getAttribute('data-section') + 'Section';
-                    settingsOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    settingsSections.forEach(sec => sec.classList.remove('active'));
-                    document.getElementById(sectionId)?.classList.add('active');
-                });
-            });
-            
-            // Color selection
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    if (rainbowToggle.checked) {
-                        customAlert('Rainbow Mode Active', 'Please disable Rainbow Mode to select a static accent color.');
-                        return;
-                    }
-                    const color = this.getAttribute('data-color');
-                    colorOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    document.documentElement.style.setProperty('--primary', color);
-                    document.documentElement.style.setProperty('--secondary', lightenColor(color, 30));
-                });
-            });
-            
-            // Game frame loading indicator
-            gameFrame.addEventListener('load', () => {
-                gameLoading.style.opacity = '0';
-                setTimeout(() => {
-                    gameLoading.style.display = 'none';
-                    gameLoading.style.opacity = '1';
-                }, 600);
-            });
-            
-            // Page navigation
-            window.showPage = function(pageId) {
-                pages.forEach(page => page.classList.remove('active'));
-                document.getElementById(pageId)?.classList.add('active');
+        // --- State Variables ---
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = 'password123';
+        window.isAdminLoggedIn = false;
+        window.isEditingMode = false;
+
+        // --- NEW FEATURE INITIALIZATION ---
+
+        // Load saved theme
+        loadSavedTheme();
+
+        // Set up rainbow mode
+        rainbowToggle.addEventListener('change', function() {
+            if (this.checked) {
+                applyRainbowTextEffect();
+                document.querySelectorAll('.color-option').forEach(option => option.classList.remove('active'));
             }
+            else removeRainbowTextEffect();
+        });
 
-            homeBtn.addEventListener('click', () => window.showPage('homePage'));
-            browseBtn.addEventListener('click', () => window.showPage('browsePage'));
-            popularBtn.addEventListener('click', () => {
-                window.showPage('homePage');
-                document.querySelector('.game-grid h2').scrollIntoView({ behavior: 'smooth' });
-            });
-            favoritesBtn.addEventListener('click', () => customAlert('Feature Coming Soon', 'The Favorites feature is under development!'));
-            browseGamesBtn.addEventListener('click', () => window.showPage('browsePage'));
-            playNowBtn.addEventListener('click', () => gameFrame.scrollIntoView({ behavior: 'smooth' }));
-            
-            // Fullscreen and Launch buttons
-            fullscreenBtn.addEventListener('click', () => gameFrame.requestFullscreen?.());
-            launchGameBtn.addEventListener('click', () => window.open(gameFrame.src, '_blank'));
-            
-            // Browse Page Search and Filter Logic
-            const applyBrowseFilters = () => {
-                const searchTerm = browseSearchInput.value;
-                const activeCategory = categoryFilter.querySelector('.active').getAttribute('data-category');
-                filterAndRenderBrowseGames(searchTerm, activeCategory);
-            };
-            browseSearchBtn.addEventListener('click', applyBrowseFilters);
-            browseSearchInput.addEventListener('keyup', (e) => {
-                if (e.key === 'Enter') applyBrowseFilters();
-            });
-            categoryFilter.addEventListener('click', (e) => {
-                if (e.target.classList.contains('category-btn')) {
-                    categoryFilter.querySelector('.active').classList.remove('active');
-                    e.target.classList.add('active');
-                    applyBrowseFilters();
-                }
-            });
+        // Set up language system
+        const langSelector = document.getElementById('languageSelector');
+        const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+        langSelector.value = savedLang;
+        applyLanguage(savedLang);
+        langSelector.addEventListener('change', function() {
+            applyLanguage(this.value);
+        });
 
-            // Admin Login Logic
-            loginNavBtn.addEventListener('click', () => window.showPage('loginPage'));
-            loginSubmitBtn.addEventListener('click', function() {
-                if (usernameInput.value === ADMIN_USERNAME && passwordInput.value === ADMIN_PASSWORD) {
-                    window.isAdminLoggedIn = true;
-                    loginMessage.textContent = 'Login successful!';
-                    loginMessage.className = 'login-message success';
-                    updateAdminUI();
+        // Set up volume controls
+        setupVolumeControls();
+
+        // Set up activity history
+        displayActivityHistory();
+        
+        // Set up default game selector
+        document.getElementById('defaultGameSelector').addEventListener('change', function() {
+            localStorage.setItem('defaultGame', this.value);
+        });
+
+
+        // --- Event Listeners ---
+
+        // Theme toggle functionality
+        themeToggle.addEventListener('click', function() {
+            const isCurrentlyLight = body.classList.contains('light-theme') || body.classList.contains('neomorphism-theme');
+            const newTheme = isCurrentlyLight ? 'dark-theme' : 'light-theme';
+
+            // Find the theme in options and simulate click to update everything
+            document.querySelector(`.theme-option[data-theme="${newTheme}"]`)?.click();
+        });
+        
+        // Theme selection in settings
+        themeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const newTheme = this.getAttribute('data-theme');
+                const oldTheme = document.body.className.split(' ').find(cls => cls.endsWith('-theme'));
+                
+                // Show overlay for transition
+                const overlay = document.querySelector(`.theme-overlay.${newTheme.replace('-theme', '-overlay')}`);
+                if (overlay) {
+                    overlay.classList.add('active');
                     setTimeout(() => {
-                        window.showPage('homePage');
-                        loginMessage.textContent = '';
-                        usernameInput.value = '';
-                        passwordInput.value = '';
-                    }, 1500);
-                } else {
-                    loginMessage.textContent = 'Invalid username or password.';
-                    loginMessage.className = 'login-message error';
+                        document.body.className = newTheme; // Apply new theme class
+                        saveTheme(newTheme); // Save preference
+                        
+                        // Update toggle icon
+                        const isLightTheme = newTheme.includes('light') || newTheme === 'neomorphism-theme';
+                        document.querySelector('.toggle-slider').innerHTML = isLightTheme ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                        
+                        // Update active state in settings
+                        themeOptions.forEach(opt => opt.classList.remove('active'));
+                        this.classList.add('active');
+
+                        // Hide overlay
+                        overlay.classList.remove('active');
+                        
+                        // Re-apply rainbow effect if enabled
+                        if(rainbowToggle.checked) applyRainbowTextEffect();
+                        else removeRainbowTextEffect(); // Ensure it's off if unchecked
+                    }, parseFloat(getComputedStyle(document.body).getPropertyValue('--overlay-speed')) * 1000); // Wait for transition speed
                 }
             });
-            
-            // Central function to update all admin-related UI
-            function updateAdminUI() {
-                const displayStyle = window.isAdminLoggedIn ? 'flex' : 'none';
-                adminSettingOption.style.display = displayStyle;
-                manageGamesNavBtn.style.display = displayStyle;
+        });
 
-                if (window.isEditingMode) {
-                    body.classList.add('admin-editing-mode');
-                } else {
-                    body.classList.remove('admin-editing-mode');
-                }
-                // Re-render all visible games to show/hide delete buttons
-                initialRender();
-                applyBrowseFilters();
-            }
+        // Settings button functionality
+        settingsBtn.addEventListener('click', () => settingsPage.classList.add('active'));
+        closeSettings.addEventListener('click', () => settingsPage.classList.remove('active'));
+        // Close settings when clicking outside the container
+        settingsPage.addEventListener('click', (e) => {
+            if (e.target === settingsPage) settingsPage.classList.remove('active');
+        });
 
-            // Game Management Toggle
-            manageGamesNavBtn.addEventListener('click', function() {
-                if (!window.isAdminLoggedIn) return;
-                window.isEditingMode = !window.isEditingMode;
-                updateAdminUI();
-                const status = window.isEditingMode ? 'activated' : 'deactivated';
-                customAlert('Admin Mode', `Game editing mode has been ${status}.`);
+        // Settings sidebar navigation
+        settingsOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section') + 'Section';
+                settingsOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                settingsSections.forEach(sec => sec.classList.remove('active'));
+                document.getElementById(sectionId)?.classList.add('active');
             });
+        });
 
-            // Add Game Modal Logic
-            addGameFloatingBtn.addEventListener('click', function() {
-                // Clear the form when opening the modal
-                newGameNameInput.value = '';
-                newGameUrlInput.value = '';
-                newGameThumbInput.value = '';
-                newGameDescInput.value = '';
-                newGameTagsInput.value = '';
-                newGameCodeInput.value = '';
-                addGameMessage.textContent = '';
-                addGameMessage.className = 'login-message';
-                
-                addGameModal.classList.add('active');
-            });
-            
-            closeAddGameModal.addEventListener('click', function() {
-                // Clear the form when closing the modal
-                newGameNameInput.value = '';
-                newGameUrlInput.value = '';
-                newGameThumbInput.value = '';
-                newGameDescInput.value = '';
-                newGameTagsInput.value = '';
-                newGameCodeInput.value = '';
-                addGameMessage.textContent = '';
-                addGameMessage.className = 'login-message';
-                
-                addGameModal.classList.remove('active');
-            });
-            
-            addGameModal.addEventListener('click', function(e) {
-                if (e.target === addGameModal) {
-                    // Clear the form when closing by clicking outside
-                    newGameNameInput.value = '';
-                    newGameUrlInput.value = '';
-                    newGameThumbInput.value = '';
-                    newGameDescInput.value = '';
-                    newGameTagsInput.value = '';
-                    newGameCodeInput.value = '';
-                    addGameMessage.textContent = '';
-                    addGameMessage.className = 'login-message';
-                    
-                    addGameModal.classList.remove('active');
-                }
-            });
-
-            submitNewGameBtn.addEventListener('click', function() {
-                const newGame = {
-                    title: newGameNameInput.value.trim(),
-                    url: newGameUrlInput.value.trim(),
-                    thumbnail: newGameThumbInput.value.trim(),
-                    description: newGameDescInput.value.trim(),
-                    category: newGameTagsInput.value.trim()
-                };
-                
-                // Handle embed code if provided
-                const embedCode = newGameCodeInput.value.trim();
-                if (embedCode) {
-                    // Extract URL from embed code
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(embedCode, 'text/html');
-                    const iframe = doc.querySelector('iframe');
-                    if (iframe && iframe.src) {
-                        newGame.url = iframe.src;
-                    } else {
-                        newGame.url = "data:text/html;charset=utf-8," + encodeURIComponent(embedCode);
-                    }
-                }
-
-                if (!newGame.title || !newGame.url) {
-                    addGameMessage.textContent = 'Game Name and URL or Embed Code are required.';
-                    addGameMessage.className = 'login-message error';
+        // Color selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                if (rainbowToggle.checked) {
+                    customAlert('Rainbow Mode Active', 'Please disable Rainbow Mode to select a static accent color.');
                     return;
                 }
-                
-                window.addGameToFirestore(newGame);
-                addGameModal.classList.remove('active');
+                const color = this.getAttribute('data-color');
+                colorOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+
+                document.documentElement.style.setProperty('--primary', color);
+                document.documentElement.style.setProperty('--secondary', lightenColor(color, 30));
             });
-
-            // Performance Mode Logic
-            function applyPerformanceMode(enabled) {
-                if (enabled) body.classList.add('performance-mode');
-                else body.classList.remove('performance-mode');
-                localStorage.setItem('performanceMode', enabled ? 'enabled' : 'disabled');
-            }
-            performanceModeToggle.addEventListener('change', (e) => applyPerformanceMode(e.target.checked));
-
-            // Initial Load Logic
-            const savedPerformanceMode = localStorage.getItem('performanceMode');
-            if (savedPerformanceMode === 'enabled') {
-                performanceModeToggle.checked = true;
-                applyPerformanceMode(true);
-            }
-            updateAdminUI(); // Initial UI state
         });
+
+        // Game frame loading indicator
+        gameFrame.addEventListener('load', () => {
+            gameLoading.style.opacity = '0';
+            setTimeout(() => {
+                gameLoading.style.display = 'none';
+                gameLoading.style.opacity = '1';
+            }, 600);
+        });
+
+        // Page navigation
+        window.showPage = function(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId)?.classList.add('active');
+        }
+
+        homeBtn.addEventListener('click', () => window.showPage('homePage'));
+        browseBtn.addEventListener('click', () => window.showPage('browsePage'));
+        popularBtn.addEventListener('click', () => {
+            window.showPage('homePage');
+            document.querySelector('.game-grid h2').scrollIntoView({ behavior: 'smooth' });
+        });
+        favoritesBtn.addEventListener('click', () => customAlert('Feature Coming Soon', 'The Favorites feature is under development!'));
+        browseGamesBtn.addEventListener('click', () => window.showPage('browsePage'));
+        playNowBtn.addEventListener('click', () => gameFrame.scrollIntoView({ behavior: 'smooth' }));
+
+        // Fullscreen and Launch buttons
+        fullscreenBtn.addEventListener('click', () => gameFrame.requestFullscreen?.());
+        launchGameBtn.addEventListener('click', () => window.open(gameFrame.src, '_blank'));
+
+        // Browse page filtering/searching
+        let currentSearchTerm = '';
+        let currentCategory = 'all';
+
+        // Search button/input handler
+        function handleSearch() {
+            currentSearchTerm = browseSearchInput.value.trim();
+            filterAndRenderBrowseGames(currentSearchTerm, currentCategory);
+        }
+
+        browseSearchBtn.addEventListener('click', handleSearch);
+        browseSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+
+        // Category filter handler
+        categoryFilter.addEventListener('click', (e) => {
+            if (e.target.classList.contains('category-btn')) {
+                // Update active button state
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+
+                // Update category and filter games
+                currentCategory = e.target.getAttribute('data-category');
+                filterAndRenderBrowseGames(currentSearchTerm, currentCategory);
+            }
+        });
+
+        // --- Admin/Login Logic ---
+
+        // Login Navigation Button
+        loginNavBtn.addEventListener('click', () => window.showPage('loginPage'));
+
+        // Admin Management Games Navigation Button
+        manageGamesNavBtn.addEventListener('click', () => {
+            window.isEditingMode = !window.isEditingMode; // Toggle editing mode
+            updateAdminUI(true); // Re-render to show/hide delete buttons
+            customAlert('Admin Mode', `Game management mode is now ${window.isEditingMode ? 'ON' : 'OFF'}.`);
+        });
+
+        // Logout Button in settings
+        document.getElementById('logoutSettingOption').addEventListener('click', () => {
+            window.isAdminLoggedIn = false;
+            window.isEditingMode = false;
+            updateAdminUI(false);
+            window.showPage('homePage');
+            customAlert('Logged Out', 'You have been successfully logged out of the admin panel.');
+        });
+
+        // Login Submission
+        loginSubmitBtn.addEventListener('click', function() {
+            const user = usernameInput.value;
+            const pass = passwordInput.value;
+
+            loginMessage.textContent = '';
+            loginMessage.className = 'login-message';
+
+            if (user === ADMIN_USERNAME && pass === ADMIN_PASSWORD) {
+                window.isAdminLoggedIn = true;
+                window.isEditingMode = true; // Automatically start in editing mode
+                updateAdminUI(true);
+                loginMessage.textContent = 'Login Successful! Admin features enabled.';
+                loginMessage.classList.add('success');
+                window.showPage('homePage'); // Redirect to home or admin page
+            } else {
+                loginMessage.textContent = 'Invalid username or password.';
+                loginMessage.classList.add('error');
+            }
+        });
+
+        // Add Game Modal
+        addGameFloatingBtn.addEventListener('click', function() {
+            // Clear the form when opening the modal
+            newGameNameInput.value = '';
+            newGameUrlInput.value = '';
+            newGameThumbInput.value = '';
+            newGameDescInput.value = '';
+            newGameTagsInput.value = '';
+            newGameCodeInput.value = '';
+            addGameMessage.textContent = '';
+            addGameMessage.className = 'login-message';
+            addGameModal.classList.add('active');
+        });
+
+        closeAddGameModal.addEventListener('click', function() {
+            // Clear the form when closing the modal
+            newGameNameInput.value = '';
+            newGameUrlInput.value = '';
+            newGameThumbInput.value = '';
+            newGameDescInput.value = '';
+            newGameTagsInput.value = '';
+            newGameCodeInput.value = '';
+            addGameMessage.textContent = '';
+            addGameMessage.className = 'login-message';
+            addGameModal.classList.remove('active');
+        });
+
+        // Add Game Submission
+        submitNewGameBtn.addEventListener('click', function() {
+            const title = newGameNameInput.value.trim();
+            const url = newGameUrlInput.value.trim();
+            const thumbnail = newGameThumbInput.value.trim();
+            const description = newGameDescInput.value.trim();
+            const tags = newGameTagsInput.value.trim().split(',').map(tag => tag.trim()).filter(t => t);
+            const embedCode = newGameCodeInput.value.trim();
+
+            addGameMessage.textContent = '';
+            addGameMessage.className = 'login-message';
+
+            if (!title) {
+                addGameMessage.textContent = 'Game Name is required.';
+                addGameMessage.className = 'login-message error';
+                return;
+            }
+
+            if (!url && !embedCode) {
+                addGameMessage.textContent = 'Either a Game URL or Embed Code is required.';
+                addGameMessage.className = 'login-message error';
+                return;
+            }
+
+            const newGame = {
+                title: title,
+                thumbnail: thumbnail || null,
+                description: description || null,
+                category: tags.length > 0 ? tags : ['Uncategorized'],
+                dateAdded: new Date().toISOString()
+            };
+
+            if (url) {
+                newGame.url = url;
+            } else if (embedCode) {
+                // If using embed code, store the code and use a special data URL for the iframe src
+                newGame.embedCode = embedCode;
+                // Try to extract an actual URL if the embed code is a simple iframe
+                const iframeMatch = embedCode.match(/src="([^"]+)"/);
+                if (iframeMatch && iframeMatch[1]) {
+                    newGame.url = iframeMatch[1];
+                } else {
+                    // Fallback to a special indicator URL if no simple URL found
+                    newGame.url = 'data:text/html;charset=utf-8,embedded';
+                }
+            }
+
+
+            window.addGameToFirestore(newGame);
+            addGameModal.classList.remove('active');
+        });
+
+        // Performance Mode Logic
+        function applyPerformanceMode(enabled) {
+            if (enabled) body.classList.add('performance-mode');
+            else body.classList.remove('performance-mode');
+            localStorage.setItem('performanceMode', enabled ? 'enabled' : 'disabled');
+        }
+        performanceModeToggle.addEventListener('change', (e) => applyPerformanceMode(e.target.checked));
+
+        // Initial Load Logic
+        const savedPerformanceMode = localStorage.getItem('performanceMode');
+        if (savedPerformanceMode === 'enabled') {
+            performanceModeToggle.checked = true;
+            applyPerformanceMode(true);
+        }
+        updateAdminUI(); // Initial UI state
     </script>
 </body>
 </html>
