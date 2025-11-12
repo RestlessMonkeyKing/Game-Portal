@@ -1635,28 +1635,29 @@
 
 <div class="container">
 
-    <!-- Adsterra Banner Below Header -->
-    <div id="leaderboard-ad" style="width:100%; text-align:center; margin: 15px 0;">
-        <div style="display:inline-block; width:468px; height:60px; background:#111; border-radius:8px; padding:6px;">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': 'c41e401567e7c51eb83d037702939e33',
-                    'format': 'iframe',
-                    'height': 60,
-                    'width': 468,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/c41e401567e7c51eb83d037702939e33/invoke.js"></script>
-        </div>
-    </div>
-
-    <header>
-        <div class="logo" id="homeBtn">
+    <header style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div class="logo" id="homeBtn" style="display: flex; align-items: center; gap: 8px;">
             <i class="fas fa-gamepad"></i>
             <span>GamePortal</span>
         </div>
-        <div class="header-controls">
+
+        <!-- Adsterra Banner Inline with Header -->
+        <div id="header-ad" style="text-align:center;">
+            <div style="width:468px; height:60px;">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': 'c41e401567e7c51eb83d037702939e33',
+                        'format': 'iframe',
+                        'height': 60,
+                        'width': 468,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c41e401567e7c51eb83d037702939e33/invoke.js"></script>
+            </div>
+        </div>
+
+        <div class="header-controls" style="display: flex; align-items: center; gap: 10px;">
             <div class="theme-toggle" id="themeToggle">
                 <div class="toggle-slider">
                     <i class="fas fa-moon"></i>
@@ -1667,6 +1668,7 @@
             </div>
         </div>
     </header>
+
 
 
         <nav>
